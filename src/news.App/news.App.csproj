@@ -12,4 +12,16 @@
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <ProjectReference Include="..\Data\news.Data.Common\news.Data.Common.csproj" />
+    <ProjectReference Include="..\Data\news.Data.Models\news.Data.Models.csproj" />
+    <ProjectReference Include="..\Data\news.Data\news.Data.csproj" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="Data\" />
+  </ItemGroup>
+
 </Project>
