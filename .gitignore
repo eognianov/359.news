@@ -329,3 +329,8 @@ ASALocalRun/
 # MFractors (Xamarin productivity tool) working folder 
 .mfractor/
 /WebCrawlers
+FrontEnd/assets/sass/*
+FrontEnd/elements/*
+.vscode/
+appsettings.json
+package-lock.json
