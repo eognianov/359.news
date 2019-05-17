@@ -141,7 +141,7 @@
 					<ul class="main-carousel">
 						<li class="carousel-cell">
 							<div class="top_news blue-hover">
-								<img src="./img/cup.gif">
+								<img  class="lozad" data-src="./img/cup.gif">
 								<div class="top_news_content">
 									<p class="mb-0 small font-weight-medium text-uppercase mb-1 text-muted lts-2px">
 										Travel
@@ -167,7 +167,7 @@
 						</li>
 						<li class="carousel-cell">
 							<div class="top_news blue-hover">
-								<img src="./images/pic01.jpg">
+								<img class="lozad" data-src="./images/pic01.jpg">
 								<div class="top_news_content">
 									<p class="mb-0 small font-weight-medium text-uppercase mb-1 text-muted lts-2px">
 										Travel
@@ -194,7 +194,7 @@
 						</li>
 						<li class="carousel-cell size-large">
 							<div class="top_news blue-hover">
-								<img src="./images/pic01.jpg">
+								<img class="lozad" data-src="./images/pic01.jpg">
 								<div class="top_news_content">
 									<p class="mb-0 small font-weight-medium text-uppercase mb-1 text-muted lts-2px">
 										Travel
@@ -221,7 +221,7 @@
 						</li>
 						<li class="carousel-cell">
 							<div class="top_news blue-hover">
-								<img src="./images/pic03.jpg">
+								<img class="lozad" data-src="./images/pic03.jpg">
 								<div class="top_news_content">
 									<p class="mb-0 small font-weight-medium text-uppercase mb-1 text-muted lts-2px">
 										Travel
@@ -265,7 +265,7 @@
 								alt="" /></a>
 					</div>
 				</header>
-				<a href="single.html" class="image featured"><img src="images/pic01.jpg" alt="" /></a>
+				<a href="single.html" class="image featured"><img class="lozad" data-src="images/pic01.jpg" alt="" /></a>
 				<p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod
 					placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non
 					congue ullam corper. Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta
@@ -325,7 +325,7 @@
 								alt="" /></a>
 					</div>
 				</header>
-				<a href="single.html" class="image featured"><img src="images/pic01.jpg" alt="" /></a>
+				<a href="single.html" class="image featured"><img class="lozad" data-src="images/pic01.jpg" alt="" /></a>
 				<p>Mauris neque quam, fermentum ut nisl vitae, convallis maximus nisl. Sed mattis nunc id lorem euismod
 					placerat. Vivamus porttitor magna enim, ac accumsan tortor cursus at. Phasellus sed ultricies mi non
 					congue ullam corper. Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta
@@ -366,7 +366,7 @@
 							<time class="published" datetime="2015-10-20">October 20, 2015</time>
 							<a href="#" class="author"><img src="images/avatar.jpg" alt="" /></a>
 						</header>
-						<a href="single.html" class="image"><img src="images/pic04.jpg" alt="" /></a>
+						<a href="single.html" class="image"><img class="lozad" data-src="images/pic04.jpg" alt="" /></a>
 					</article>
 
 					<!-- Mini Post -->
@@ -481,6 +481,8 @@
 	</div>
 
 	<!-- Scripts -->
+	<script src="/node_modules/intersection-observer/intersection-observer.js"></script>
+	<script src="/node_modules/lozad/dist/lozad.js"></script> -->
 	<script src="./assets/js/jquery.min.js"></script>
 	<script src="./assets/js/browser.min.js"></script>
 	<script src="./assets/js/breakpoints.min.js"></script>
@@ -496,6 +498,14 @@
 			cellAlign: 'left',
 			contain: true
 		});</script>
+		<script>
+				const observer = lozad('.lozad',{
+					load: function (el) {
+						el.src = el.dataset.src;
+					}
+				});
+				observer.observe();
+			</script>
 </body>
 
 </html>
