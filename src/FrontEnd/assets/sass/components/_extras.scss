@@ -58,6 +58,7 @@
 		border: 1px solid _palette(border);
 		border-top: 2px solid _palette(accent);
 		border-bottom: 1px solid _palette(bg);
+		background-color: _palett(bg);
 
 		&::before {
 			color: _palette(accent);
@@ -76,6 +77,22 @@
 		border-left: none;
 	}
 
+
+
+	@include breakpoint('<=large'){
+		& iframe{
+			width: 1072px;
+			height: 603px;
+		}
+	}
+
+	@include breakpoint('<=medium'){
+		& iframe{
+			width: 880px;
+			height: 495px;
+		}
+	}
+
 	@include breakpoint('<=small'){
 		& label {
 			font-size: 0;
@@ -87,8 +104,8 @@
 		}
 
 		& iframe {
-			width: 432px;
-			height: 243px;
+			width: 640px;
+			height: 480px;
 		}
 	}
 
