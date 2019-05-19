@@ -1,0 +1,82 @@
+$font-color: #A2A2A2;
+$primary-color: #63B7E6;
+#sec {
+  font-family: 'Raleway', sans-serif;
+  padding: 50px 0;
+  background: #fff;
+  text-align: center;
+  word-wrap:break-word;
+
+  h2 {
+    font-weight: 200;
+    font-size: 30px;
+    color: $primary-color;
+  }
+
+  ul {
+    margin: 0;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    list-style: none;
+    li {
+      padding: 40px;
+      width: 300px;
+      transition: box-shadow .3s;
+
+      &:hover {
+        box-shadow: 0 12px 15px 0 rgba(0, 0, 0, 0.24), 0 17px 50px 0 rgba(0, 0, 0, 0.19);
+      }
+
+      &:hover span {
+        color: $primary-color;
+      }
+      &:hover p {
+        color: #555;
+      }
+      &:hover h3 {
+        color: $primary-color;
+      }
+      &:hover h3:after{
+        width: 25px;
+      }
+      span {
+        font-size: 2.6em;
+        display: block;
+        transition: color .3s;
+        color: $font-color;
+        &:before, &:after {
+          position: static;
+        }
+      }
+
+      h3 {
+        color: darken($font-color, 20%);
+        display: inline-block;
+        font-size: 24px;
+        font-weight: 100;
+        transition: color .3s;
+        &:after {
+          content: '';
+          position: relative;
+          left: 50%;
+          top: 20px;
+          transform: translateX(-50%);
+          display: block;
+          width: 40px;
+          height: 1px;
+          background: darken($font-color, 20%);
+          transition: width .3s;
+        }
+      }
+      p {
+        color: $font-color;
+        text-align: left;
+        text-indent: 1em;
+        font-size: 16px;
+        line-height: 26px;
+        transition: color .3s;
+      }
+    }
+  }
+}

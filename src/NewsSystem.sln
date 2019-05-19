@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "news.Data.Common", "Data\ne
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{7AC5E3A8-5601-4247-9EE6-7A84CE33DB36}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "news.Common", "Common\news.Common\news.Common.csproj", "{77E6E0D9-8317-472D-B5AC-B31BE5095ED2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "news.Common", "Common\news.Common\news.Common.csproj", "{77E6E0D9-8317-472D-B5AC-B31BE5095ED2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

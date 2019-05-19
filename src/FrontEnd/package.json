@@ -1,25 +1,26 @@
 {
   "name": "frontend",
   "version": "1.0.0",
-  "description": "",
+  "description": "Front End Thema for 0722.news",
   "main": "gulpfile.js",
-  "dependencies": {},
-  "devDependencies": {
+  "dependencies": {
+    "jquery": "^3.4.1",
     "bootstrap": "^4.3.1",
+    "popper.js": "^1.15.0",
+    "jquery-lazy": "^1.7.10",
+    "lozad": "^1.9.0",
+    "webpack": "^4.31.0"
+  },
+  "devDependencies": {
     "gulp": "^4.0.2",
     "gulp-less": "^4.0.1",
     "gulp-pug": "^4.0.1",
     "gulp-sass": "^4.0.2",
-    "intersection-observer": "^0.7.0",
-    "jquery": "^3.4.1",
-    "jquery-lazy": "^1.7.10",
-    "lozad": "^1.9.0",
-    "popper.js": "^1.15.0",
-    "webpack": "^4.31.0"
+    "intersection-observer": "^0.7.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+  "author": "Emilian Ognianov",
   "license": "ISC"
 }
