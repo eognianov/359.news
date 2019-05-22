@@ -5,6 +5,7 @@
   "main": "gulpfile.js",
   "dependencies": {
     "bootstrap": "^4.3.1",
+    "gulp-plumber": "^1.2.1",
     "jquery": "^3.4.1",
     "jquery-lazy": "^1.7.10",
     "lozad": "^1.9.0",
