@@ -2586,7 +2586,8 @@ ul.main-carousel {
   z-index: 1;
   background-color: #ffffff;
   font-size: 14px;
-  line-height: 14px; }
+  line-height: 14px;
+  border: 1px solid rgba(160, 160, 160, 0.3); }
 
 .breadcrumb a {
   position: relative;
@@ -2603,7 +2604,8 @@ ul.main-carousel {
   height: 100%;
   padding-left: 38px;
   padding-right: 0;
-  color: #646464; }
+  color: #646464;
+  border-bottom: none; }
 
 .breadcrumb a:first-child {
   padding-left: 15.2px; }
