@@ -228,8 +228,8 @@
 		transition: transform 0.3s ease-out;
 	}
 
-	[data-loaded]::before {
-		content: "";
-		display: none;
-	}
+	// [data-loaded]::before {
+	// 	content: "";
+	// 	display: none;
+	// }
 }

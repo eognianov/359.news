@@ -4,3 +4,7 @@
         content: url('/img/loader.gif');
     }
 }
+
+.loaded::before{
+    display: none;
+}

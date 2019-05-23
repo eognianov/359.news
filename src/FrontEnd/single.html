@@ -244,7 +244,7 @@
 
 					<input id="tab4" type="radio" name="tabs">
 					<label for="tab4">Хаштаг</label>
-					<section id="content1" class="lozad">
+					<section id="content1" class="loaded">
 						<h3>Коементар:</h3>
 						<form method="post" action="#">
 							<div class="row gtr-uniform">
@@ -271,7 +271,7 @@
 						</form>
 					</section>
 
-					<section id="content2" class="lozad">
+					<section id="content2">
 						<div class="box alt">
 							<div class="row gtr-uniform">
 								<div class="col-4"><span class="image fit"><img class="lozad" data-src="images/pic04.jpg" alt=""></span>
@@ -295,14 +295,14 @@
 							</div>
 						</div>
 					</section>
-					<section id="content3" class="lozad" style="align-content: center">
+					<section id="content3" style="align-content: center">
 						<iframe class="lozad" width="1136" height="639"
 							data-src="https://www.youtube.com/embed/hirV_klo4fw" frameborder="0"
 							allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
 							allowfullscreen></iframe>
 					</section>
 
-					<section id="content4" class="lozad">
+					<section id="content4">
 						<div class="social">
 							<a href="#" class="card education">
 								<div class="overlay"></div>
@@ -350,6 +350,13 @@
 		const observer = lozad('.lozad',{
 			load: function (el) {
 				el.src = el.dataset.src;
+				el.dataset.loaded = true;
+				$section = $('[id^=content]').filter(':visible');
+				$sectionElements = $section.find(".lozad").length;
+				$loadedElements = $section.find("[data-loaded=true]").length;
+				if ($sectionElements == 0 || $sectionElements == $loadedElements) {
+					$section.addClass("loaded");
+				}
 			}
 		});
 		observer.observe();

@@ -2414,9 +2414,6 @@ ul.main-carousel {
     left: 50px;
     z-index: 0;
     transition: transform 0.3s ease-out; }
-  #extras [data-loaded]::before {
-    content: "";
-    display: none; }
 
 /* Last News */
 .last-news {
@@ -2554,6 +2551,9 @@ ul.main-carousel {
 /* loading */
 .loading::before {
   content: url("/img/loader.gif"); }
+
+.loaded::before {
+  display: none; }
 
 .container {
   display: -moz-flex;
