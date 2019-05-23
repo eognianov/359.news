@@ -1,7 +1,6 @@
 #extras {
 	width: 100%;
 	//border: 1px solid _palette(border);
-
 	& p:not(:last-child) {
 		margin: 0 0 20px;
 	}
@@ -69,6 +68,10 @@
 	& #tab2:checked ~ #content2,
 	& #tab3:checked ~ #content3,
 	& #tab4:checked ~ #content4 {
+		&::before {
+			content: url('/img/loader.gif');
+		}
+
 		display: block;
 		text-align: center;
 	}
@@ -77,23 +80,21 @@
 		border-left: none;
 	}
 
-
-
-	@include breakpoint('<=large'){
-		& iframe{
+	@include breakpoint('<=large') {
+		& iframe {
 			width: 1072px;
 			height: 603px;
 		}
 	}
 
-	@include breakpoint('<=medium'){
-		& iframe{
+	@include breakpoint('<=medium') {
+		& iframe {
 			width: 880px;
 			height: 495px;
 		}
 	}
 
-	@include breakpoint('<=small'){
+	@include breakpoint('<=small') {
 		& label {
 			font-size: 0;
 			padding: 15px;
@@ -225,5 +226,10 @@
 		left: 50px;
 		z-index: 0;
 		transition: transform 0.3s ease-out;
+	}
+
+	[data-loaded]::before {
+		content: "";
+		display: none;
 	}
 }

@@ -14,4 +14,5 @@
         // }
         $notification.addClass("hidden");
     };
-})(jQuery);
+}    
+)(jQuery);

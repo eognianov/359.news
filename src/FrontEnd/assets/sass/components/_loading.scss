@@ -1,0 +1,6 @@
+/* loading */
+.loading{
+    &::before{
+        content: url('/img/loader.gif');
+    }
+}
