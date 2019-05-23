@@ -13,6 +13,6 @@
         //     $('#toast__container').hide();
         // }
         $notification.addClass("hidden");
-    };
+    }
 }    
 )(jQuery);
