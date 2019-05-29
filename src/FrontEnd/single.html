@@ -273,7 +273,7 @@
 						</form>
 					</section>
 
-					<section id="content2">
+					<section id="content2" class="lozad">
 						<a id="pictures"></a>
 						<div class="box alt">
 							<div class="row gtr-uniform">
@@ -298,7 +298,7 @@
 							</div>
 						</div>
 					</section>
-					<section id="content3" style="align-content: center">
+					<section id="content3" class="lozad" style="align-content: center">
 						<iframe class="lozad" width="1136" height="639"
 							data-src="https://www.youtube.com/embed/hirV_klo4fw" frameborder="0"
 							allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
@@ -412,8 +412,10 @@
 	</div>
 
 	<!-- Scripts -->
-	<script src="/node_modules/intersection-observer/intersection-observer.js"></script>
-	<script src="/node_modules/lozad/dist/lozad.js"></script>
+	<!-- <script src="/node_modules/intersection-observer/intersection-observer.js"></script>
+	<script src="/node_modules/lozad/dist/lozad.js"></script> -->
+	<script src="https://cdn.jsdelivr.net/npm/intersection-observer@0.5.1/intersection-observer.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@12.0.0/dist/lazyload.min.js"></script>
 	<script src="assets/js/jquery.min.js"></script>
 	<script src="assets/js/browser.min.js"></script>
 	<script src="assets/js/breakpoints.min.js"></script>
@@ -427,8 +429,11 @@
 
 	<script src="assets/js/site.js"></script>
 	<script type="text/javascript" src="./assets/js/ssg.js"></script>
-	<script>
+	<!-- <script>
+		$(() => {
 		const observer = lozad('.lozad',{
+			rootMargin: '10px 0px', // syntax similar to that of CSS Margin
+			threshold: 0.1,
 			load: function (el) {
 				el.src = el.dataset.src;
 				el.dataset.loaded = true;
@@ -440,8 +445,8 @@
 				}
 			}
 		});
-		observer.observe();
-	</script>
+		observer.observe();})
+	</script> -->
 </body>
 
 </html>

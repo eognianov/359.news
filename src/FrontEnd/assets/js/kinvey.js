@@ -44,10 +44,23 @@ const kinvey = (() => {
         return $.ajax(makeRequest('DELETE', collection, endpoint, auth));
     }
 
+    function testGet() {
+        return $.ajax({
+            type: "Get",
+            url: "/MainNews.Cutt.json",
+            dataType: "json",
+            success: (data) => {
+                return data;
+                
+            }
+        });
+    }
+
     return {
         get,
         post,
         update,
-        remove
+        remove,
+        testGet
     };
 })();

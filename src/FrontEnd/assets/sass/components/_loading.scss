@@ -1,11 +1,11 @@
 /* loading */
-.loading{
+secetion.loading{
     &::before{
         content: url('/img/loader.gif');
     }
 }
 
-.loaded::before{
+section.loaded::before{
     display: none;
 }
 
@@ -17,4 +17,10 @@
     &:disabled {
         cursor: wait;
     }
+}
+
+img.lozad {
+    background-image: url('/img/image-placeholder');
+    background-repeat: no-repeat;
+    background-position: center;
 }

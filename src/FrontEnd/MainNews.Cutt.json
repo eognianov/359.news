@@ -1,0 +1,67 @@
+﻿{
+    "mainNews": [
+        {
+            "Id": 1,
+            "CreatedOn": "2019-05-05T11:23:04.8846423",
+            "IsDeleted": false,
+            "Title": "Двама загинаха в катастрофа на пътя Асеновград – Пловдив",
+            "ImageUrl": "https:\/\/img.bg.sof.cmestatic.com\/media\/images\/704x396\/Jul2018\/2111665575.jpg",
+            "OriginalUrl": "https:\/\/btvnovinite.bg\/bulgaria\/dvama-zaginaha-v-katastrofa-na-patja-asenovgrad-plovdiv.html",
+            "Name": "bTV"
+        },
+        {
+            "Id": 11,
+            "CreatedOn": "2019-05-15T23:25:15.6574900",
+            "IsDeleted": false,
+            "Title": "Около 40 са задържаните преди и по време на мача \"Ботев\" - \"Локомотив” Пловдив",
+            "ImageUrl": "https:\/\/img.bg.sof.cmestatic.com\/media\/images\/704x396\/May2019\/2111886040.jpg",
+            "OriginalUrl": "https:\/\/btvnovinite.bg\/sport\/okolo-40-sa-zadarzhanite-predi-i-po-vreche-na-macha-botev-i-lokomotiv-plovdiv.html",
+            "Name": "bTV"
+        },
+        {
+            "Id": 21,
+            "CreatedOn": "2019-05-16T18:03:38.8705544",
+            "IsDeleted": false,
+            "Title": "Показно убийство на българин в Полша",
+            "ImageUrl": "https:\/\/img.bg.sof.cmestatic.com\/media\/images\/704x396\/May2019\/2111886822.jpg",
+            "OriginalUrl": "https:\/\/btvnovinite.bg\/svetut\/pokazno-ubijstvo-na-balgarin-v-polsha.html",
+            "Name": "bTV"
+        },
+        {
+            "Id": 31,
+            "CreatedOn": "2019-05-16T18:11:53.4118481",
+            "IsDeleted": false,
+            "Title": "Европол разби кибер банда, откраднала над 100 млн. долара",
+            "ImageUrl": "https:\/\/img.bg.sof.cmestatic.com\/media\/images\/704x396\/May2019\/2111886751.jpg",
+            "OriginalUrl": "https:\/\/btvnovinite.bg\/svetut\/evropol-razbi-kiber-banda-otkradnala-nad-100-mln-dolara.html",
+            "Name": "bTV"
+        },
+        {
+            "Id": 35,
+            "CreatedOn": "2019-05-16T18:54:06.5088586",
+            "IsDeleted": false,
+            "Title": "Гл. комисар Иванов: Ще си тръгнем от Костенец само когато случаят приключи",
+            "ImageUrl": "https:\/\/img.bg.sof.cmestatic.com\/media\/images\/704x396\/May2019\/2111886070.jpg",
+            "OriginalUrl": "https:\/\/btvnovinite.bg\/bulgaria\/gl-komisar-ivanov-shte-si-tragnem-ot-kostenec-samo-kogato-sluchajat-prikljuchi.html",
+            "Name": "bTV"
+        },
+        {
+            "Id": 37,
+            "CreatedOn": "2019-05-16T19:32:18.8589297",
+            "IsDeleted": false,
+            "Title": "Две катастрофи блокираха движението по международния път  Е-79 (СНИМКИ)",
+            "ImageUrl": "https:\/\/imgbg.sof.cmestatic.com\/media\/images\/704x396\/May2019\/2111886823.jpg",
+            "OriginalUrl": "https:\/\/btvnovinite.bg\/bulgaria\/dve-katastrofi-blokiraha-dvizhenieto-po-mezhdunarodnija-pat.html",
+            "Name": "bTV"
+        },
+        {
+            "Id": 41,
+            "CreatedOn": "2019-05-16T20:45:26.4403062",
+            "IsDeleted": false,
+            "Title": "60% от измамите с евросредства в България - прекратени или отхвърлени",
+            "ImageUrl": "https:\/\/img.bg.sof.cmestatic.com\/media\/images\/704x396\/May2019\/2111875099.jpg",
+            "OriginalUrl": "https:\/\/btvnovinite.bg\/bulgaria\/60-ot-proverenite-sluchai-na-samnenija-za-izmami-s-evrosredstva-sa-othvarleni.html",
+            "Name": "bTV"
+        }
+    ]
+}

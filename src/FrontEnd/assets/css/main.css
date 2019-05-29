@@ -2549,10 +2549,10 @@ ul.main-carousel {
         width: 100%; } }
 
 /* loading */
-.loading::before {
+secetion.loading::before {
   content: url("/img/loader.gif"); }
 
-.loaded::before {
+section.loaded::before {
   display: none; }
 
 .btnLoading {
@@ -2561,6 +2561,11 @@ ul.main-carousel {
   background-position: center; }
   .btnLoading:disabled {
     cursor: wait; }
+
+img.lozad {
+  background-image: url("/img/image-placeholder");
+  background-repeat: no-repeat;
+  background-position: center; }
 
 .container {
   display: -moz-flex;
