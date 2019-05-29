@@ -19,14 +19,6 @@ $(() => {
 
     moreNewsBtn.on('click', loadMainNews);
 
-    function Loading(btn) {
-       return btn.attr("disabled").then(btn.addClass("btnLoading"));
-    }
-
-    function Loaded(btn) {
-        return btn.removeAttr("disabled").then(btn.removeClass("btnLoading"));
-    }
-
     function addNews(element) {
                     let newNews = $('<li><article><header><h3></h3><time></time></header><a class="image"><img src="/images/pic08.jpg"></a></article></li>');
                     newNews.find('h3').html(element.Title);
@@ -38,9 +30,9 @@ $(() => {
 			
     function loadMainNews() {
         let loadedNews = $('#mainNewsPosts > ul.posts li').length;
-        moreNewsBtn.addClass("btnLoading", {
+        moreNewsBtn.attr("disabled", true).addClass("btnLoading", {
             complete: mainNewsService.gatLastMainNews(5, loadedNews).then((mainNews) => {
-                mainNews.map((element) => addNews(element), moreNewsBtn.removeClass('btnLoading'));
+                mainNews.map((element) => addNews(element), moreNewsBtn.removeAttr("disabled").removeClass('btnLoading'));
             }).catch(function (err) {
                 console.log(err);
             })
@@ -49,7 +41,5 @@ $(() => {
 
     return {
         moreNewsBtn,
-        Loading,
-        Loaded
     };
 });
