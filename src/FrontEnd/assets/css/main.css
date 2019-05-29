@@ -2558,8 +2558,9 @@ ul.main-carousel {
 .btnLoading {
   background-image: url("/img/buttonLoading.gif");
   background-repeat: no-repeat;
-  background-position: center;
-  cursor: wait; }
+  background-position: center; }
+  .btnLoading:disabled {
+    cursor: wait; }
 
 .container {
   display: -moz-flex;
