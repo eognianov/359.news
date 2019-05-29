@@ -2555,6 +2555,12 @@ ul.main-carousel {
 .loaded::before {
   display: none; }
 
+.btnLoading {
+  background-image: url("/img/buttonLoading.gif");
+  background-repeat: no-repeat;
+  background-position: center;
+  cursor: wait; }
+
 .container {
   display: -moz-flex;
   display: -webkit-flex;

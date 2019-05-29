@@ -8,3 +8,10 @@
 .loaded::before{
     display: none;
 }
+
+.btnLoading{
+    background-image: url('/img/buttonLoading.gif');
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: wait;
+}
