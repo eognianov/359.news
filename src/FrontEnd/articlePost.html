@@ -31,6 +31,9 @@
 
 <body>
 
+    <input name="file" type="file" class="cloudinary-fileupload" data-cloudinary-field="image_id"
+        data-form-data="[upload-preset-and-other-upload-options-as-html-escaped-JSON-data]"></input>
+
     <!-- Scripts -->
     <!-- <script src="/node_modules/intersection-observer/intersection-observer.js"></script>
 	<script src="/node_modules/lozad/dist/lozad.js"></script> -->
@@ -49,6 +52,21 @@
     <script src="./assets/js/breakpoints.min.js"></script>
     <script src="./assets/js/util.js"></script>
     <script src="./assets/js/main.js"></script>
+
+<script src="/node_modules/blueimp-file-upload/js/vendor/jquery.ui.widget.js" type="text/javascript"></script>
+    <script src="/node_modules/blueimp-file-upload/js/jquery.iframe-transport.js" type="text/javascript"></script>
+    <script src="/node_modules/blueimp-file-upload/js/jquery.fileupload.js"></script>
+    <script src="/node_modules/cloudinary-jquery-file-upload/cloudinary-jquery-file-upload.js"></script>
+
+
+
+    <script>
+        $.cloudinary.config({ cloud_name: 'news0722', secure: true, api_key: "791228753937375", api_secret: "uK1KSeRDXZitVebMQc5Yjvlq1W8" });
+        $(document).ready(function () {
+                $("input.cloudinary-fileupload[type=file]").cloudinary_fileupload();
+            });
+
+    </script>
 
     <script src="./assets/js/kinvey.js"></script>
     <script src="./assets/js/mainNews.js"></script>

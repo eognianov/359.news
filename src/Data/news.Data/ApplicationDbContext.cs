@@ -30,6 +30,19 @@ namespace news.Data
 
         public DbSet<Setting> Settings { get; set; }
 
+        public DbSet<Source> Sources { get; set; }
+
+        public DbSet<News> News { get; set; }
+
+        public DbSet<Tag> Tags { get; set; }
+
+        public DbSet<NewsTag> NewsTags { get; set; }
+
+        public DbSet<MainNewsSource> MainNewsSources { get; set; }
+
+        public DbSet<MainNews> MainNews { get; set; }
+
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)

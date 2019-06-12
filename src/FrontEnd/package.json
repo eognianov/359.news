@@ -4,7 +4,9 @@
   "description": "Front End Thema for 0722.news",
   "main": "gulpfile.js",
   "dependencies": {
+    "blueimp-file-upload": "^9.31.0",
     "bootstrap": "^4.3.1",
+    "cloudinary-jquery-file-upload": "^2.6.3",
     "gulp-plumber": "^1.2.1",
     "jquery": "^3.4.1",
     "jquery-lazy": "^1.7.10",

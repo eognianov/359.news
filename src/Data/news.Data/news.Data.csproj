@@ -1,10 +1,14 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
    <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
+
+   <ItemGroup>
+     <Compile Remove="Migrations\20190612004029_newsModels.cs" />
+   </ItemGroup>
   
   <ItemGroup>
     <Content Include="appsettings.json">
