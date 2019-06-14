@@ -8,9 +8,9 @@
       "destination": "wwwroot/lib/intersection-observer/"
     },
     {
-      "provider": "cdnjs",
-      "library": "lozad.js@1.9.0",
-      "destination": "wwwroot/lib/lozad.js/"
+      "provider": "filesystem",
+      "library": "F:\\OneDrive\\Projects\\ASP.Net Core\\359.news\\src\\FrontEnd\\assets\\js\\lazyLoad.js",
+      "destination": "wwwroot/lib/lazyLoad/"
     },
     {
       "provider": "cdnjs",
@@ -80,8 +80,34 @@
     },
     {
       "provider": "filesystem",
-      "library": "F:\\OneDrive\\Projects\\ASP.Net Core\\359.news\\src\\FrontEnd\\assets\\js\\flickity.js",
-      "destination": "wwwroot/lib/flickity/"
+      "library": "F:\\OneDrive\\Projects\\ASP.Net Core\\359.news\\src\\FrontEnd\\assets\\js\\main.js",
+      "destination": "wwwroot/lib/main/"
+    },
+    {
+      "provider": "filesystem",
+      "library": "F:\\OneDrive\\Projects\\ASP.Net Core\\359.news\\src\\FrontEnd\\assets\\js\\mainNews.js",
+      "destination": "wwwroot/lib/mainNews/"
+    },
+    {
+      "provider": "filesystem",
+      "library": "F:\\OneDrive\\Projects\\ASP.Net Core\\359.news\\src\\FrontEnd\\assets\\js\\mainNewsLoad.js",
+      "destination": "wwwroot/lib/mainNewsLoad/"
+    },
+    {
+      "provider": "filesystem",
+      "library": "F:\\OneDrive\\Projects\\ASP.Net Core\\359.news\\src\\FrontEnd\\assets\\js\\kinvey.js",
+      "destination": "wwwroot/lib/kinvey/"
+    },
+    {
+      "provider": "cdnjs",
+      "library": "toastr.js@2.1.4",
+      "destination": "wwwroot/lib/toastr.js/",
+      "files": [
+        "toastr.min.js",
+        "toastr.min.css",
+        "toastr.css",
+        "toastr.js.map"
+      ]
     }
   ]
 }
