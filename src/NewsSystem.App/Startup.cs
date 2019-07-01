@@ -141,8 +141,9 @@ namespace NewsSystem.App
 
             services.AddTransient<INewsService, NewsService>();
             services.AddTransient<ISlugGenerator, SlugGenerator>();
+            services.AddTransient<IImagesServices, ImagesServices>();
 
-           
+
 
         }
 

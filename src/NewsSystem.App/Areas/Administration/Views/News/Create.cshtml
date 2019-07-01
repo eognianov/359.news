@@ -31,6 +31,7 @@
                         </div>
                         <div class="form-group">
                             <label asp-for="Content" class="control-label"></label>@Html.Display("Съдаржание:")
+                            <input asp-for="Content" type="hidden" id="newsContent"/>
                             <div id="contentEditor"></div>
                             <span asp-validation-for="Content" class="text-danger"></span>
                         </div>

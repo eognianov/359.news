@@ -22,14 +22,17 @@ namespace NewsSystem.App.Areas.Administration.Controllers
     {
         private readonly INewsService newsService;
         private readonly IDeletableEntityRepository<News> newsRepository;
+        private readonly IImagesServices imagesServices;
 
         public IDeletableEntityRepository<TopNews> TopNewsRepository { get; }
 
-        public NewsController(INewsService newsService, IDeletableEntityRepository<News> newsRepository,IDeletableEntityRepository<TopNews> topNewsRepository)
+        public NewsController(INewsService newsService, IDeletableEntityRepository<News> newsRepository,IDeletableEntityRepository<TopNews> topNewsRepository, IImagesServices imagesServices)
         {
             this.newsService = newsService;
             this.newsRepository = newsRepository;
+            //TODO:topNews
             TopNewsRepository = topNewsRepository;
+            this.imagesServices = imagesServices;
         }
 
         public IActionResult Create()
@@ -43,24 +46,45 @@ namespace NewsSystem.App.Areas.Administration.Controllers
             if (ModelState.IsValid)
             {
                 model.AuthorId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-                await this.newsService.AddAsync(model);
-                return this.RedirectToAction("Index", "Home");
+                var result =await this.newsService.AddAsync(model);
+                return Redirect(newsService.GetUrlById(result));
             }
 
+            var errors = ModelState.Values.ToList();
 
             return View(model);
         }
 
         public async Task<IActionResult> Udpate(int id)
         {
-            //TODO: get news by id with specific method
-            var news =newsRepository.All().FirstOrDefault(x => x.Id == id);
-            var model = new NewsInputModel()
+            var news = await newsRepository.GetByIdWithDeletedAsync(id);
+            var model = new NewsUpdataInputModel()
             {
+                Id = news.Id,
                 Content = news.Content,
-                Title = news.Title
+                Title = news.Title,
+                Signature = news.Signature,
+                ImageUrl = news.ImageUrl
             };
-            return this.View("Update",model);
+            return this.View("Update", model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(NewsUpdataInputModel input)
+        {
+            if (!ModelState.IsValid)
+            {
+                return this.View("Update", input);
+            }
+
+            var originalNews =await newsRepository.GetByIdWithDeletedAsync(input.Id);
+            if (originalNews==null)
+            {
+                return NotFound($"Unable to load user with ID '{input.Id}'.");
+            }
+            
+            await newsService.UpdateAsync(input);
+             return Redirect(newsService.GetUrlById(input.Id));
         }
 
         public async Task<IActionResult> TopNews(int id)

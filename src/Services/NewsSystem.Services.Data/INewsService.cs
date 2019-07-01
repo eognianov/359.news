@@ -8,12 +8,16 @@ namespace NewsSystem.Services.Data
     {
         Task<bool> AddAsync(RemoteNews remoteNews, int sourceId);
 
-        Task<bool> AddAsync(NewsInputModel input);
+        Task<int> AddAsync(NewsInputModel input);
 
         Task UpdateAsync(int id, RemoteNews remoteNews);
+
+        Task<int> UpdateAsync(NewsUpdataInputModel input);
 
         int Count();
 
         string GetSearchText(News news);
+
+        string GetUrlById(int id);
     }
 }

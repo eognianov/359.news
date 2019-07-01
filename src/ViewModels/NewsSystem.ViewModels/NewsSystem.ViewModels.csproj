@@ -6,7 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="AngleSharp" Version="0.12.1" />
-    <PackageReference Include="HtmlSanitizer"  Version="5.0.215-beta" />
+    <PackageReference Include="HtmlSanitizer" Version="5.0.215-beta" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="2.2.0" />
   </ItemGroup>
 

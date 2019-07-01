@@ -1,90 +1,174 @@
-﻿@model NewsSystem.ViewModels.NewsInputModel
+﻿@using NewsSystem.Common
+@model NewsSystem.ViewModels.NewsUpdataInputModel
 
 @{
     ViewData["Title"] = "Update";
 }
 
 <body class="single">
-<div id="wrapper">
-    <h1>Create</h1>
-    <section id="main">
-        <div class="row">
-            <div class="col-md-4">
-                <form method="post" enctype="multipart/form-data" asp-area="Administration" asp-controller="News" asp-action="Udpate">
-                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                    <div class="form-group">
-                        <label asp-for="Title" class="control-label"></label>@Html.Display("Заглавие")
-                        <input asp-for="Title" class="form-control" />
-                        <span asp-validation-for="Title" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <label>snimka</label>
-                        <input type="file" name="Image">
-                    </div>
-                    <div class="form-group">
-                        <input asp-for="Content" class="form-control" type="hidden" value="" id="newsContent" />
-                        <div id="editorToolbar"></div>
-                        <div id="contentEditor">
-                            <p>A robot who has developed sentience, and is the only robot of his kind shown to be still functioning on Earth.</p>
+    <div id="wrapper">
+        <h1>Create</h1>
+        <section id="main">
+            <div class="row">
+                <div class="col-md-4">
+                    <form method="post" enctype="multipart/form-data" asp-area="Administration" asp-controller="News" asp-action="Update">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="Title" class="control-label"></label>@Html.Display("Заглавие:")
+                            <input asp-for="Title" class="form-control" />
+                            <span asp-validation-for="Title" class="text-danger"></span>
                         </div>
-                        <span asp-validation-for="Content" class="text-danger"></span>
-                    </div>
-                    <div class="form-group">
-                        <input type="submit" value="Create" class="btn btn-primary" />
-                    </div>
-                </form>
+                        <div class="form-group">
+                            <label class="control-label">Снимка:</label>
+                            <div id="targetOuter">
+                                <div id="targetLayer">@if(this.Model.ImageUrl!=null){<img src="@this.Model.ImageUrl" class="upload-preview" />}</div>
+                                <img src="~/img/photo.png" class="icon-choose-image">
+                                <div class="icon-choose-image">
+                                    <input name="Image" id="userImage" type="file" class="inputFile" onchange="showPreview(this);">
+                                    <span asp-validation-for="Image" class="text-danger"></span>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Content" class="control-label"></label>@Html.Display("Съдаржание:")
+                            <input asp-for="Content" type="hidden" id="newsContent"/>
+                            <input asp-for="Id" type="hidden"/>
+                            <input asp-for="ImageUrl" type="hidden"/>
+                            <div id="contentEditor"></div>
+                            <span asp-validation-for="Content" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Signature" class="control-label"></label>@Html.Display("Подпис:")
+                            <select asp-for="Signature" asp-items="Html.GetEnumSelectList<NewsSignature>()"></select>
+
+                        </div>
+                        <div class="form-group">
+
+                            <input type="submit" value="Update" class="btn btn-primary" />
+                        </div>
+                    </form>
+                </div>
             </div>
-        </div>
-    </section>
-</div>
+        </section>
+    </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
 
-@section Scripts{
-    <script>
+    @section Scripts{
+        <environment include="Development">
+            <script src="~/lib/Trumbowyg/trumbowyg.js"></script>
+            <script src="~/lib/Trumbowyg/langs/bg.js"></script>
+            <script src="~/lib/Trumbowyg/plugins/base64/trumbowyg.base64.js"></script>
+            <script src="~/lib/Trumbowyg/plugins/colors/trumbowyg.colors.js"></script>
+            <script src="~/lib/Trumbowyg/plugins/fontfamily/trumbowyg.fontfamily.js"></script>
+            <script src="~/lib/Trumbowyg/plugins/fontsize/trumbowyg.fontsize.js"></script>
+            <script src="~/lib/Trumbowyg/plugins/history/trumbowyg.history.js"></script>
+            <script src="~/lib/Trumbowyg/plugins/pasteimage/trumbowyg.pasteimage.js"></script>
+            <script src="~/lib/Trumbowyg/plugins/resizimg/trumbowyg.resizimg.js"></script>
+            <script src="~/lib/Trumbowyg/plugins/upload/trumbowyg.upload.js"></script>
+        </environment>
+        <environment exclude="Development">
+            <script src="~/lib/Trumbowyg/trumbowyg.min.js"></script>
+            <script src="~/lib/Trumbowyg/langs/bg.min.js"></script>
+            <script src="~/lib/Trumbowyg/plugins/base64/trumbowyg.base64.min.js"></script>
+            <script src="~/lib/Trumbowyg/plugins/colors/trumbowyg.colors.min.js"></script>
+            <script src="~/lib/Trumbowyg/plugins/fontfamily/trumbowyg.fontfamily.min.js"></script>
+            <script src="~/lib/Trumbowyg/plugins/fontsize/trumbowyg.fontsize.min.js"></script>
+            <script src="~/lib/Trumbowyg/plugins/history/trumbowyg.history.min.js"></script>
+            <script src="~/lib/Trumbowyg/plugins/pasteimage/trumbowyg.pasteimage.min.js"></script>
+            <script src="~/lib/Trumbowyg/plugins/resizimg/trumbowyg.resizimg.min.js"></script>
+            <script src="~/lib/Trumbowyg/plugins/upload/trumbowyg.upload.min.js"></script>
+        </environment>
 
-        var toolbarOptions = [
-            ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-            ['blockquote'],
+        <script>
 
-            [{ 'header': 1 }, { 'header': 2 }, { 'header': 2 }],               // custom button values
-            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-            [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
-            [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
 
-            [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
-            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-
-            [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
-            [{ 'align': [] }],
-
-            ['link', 'image'],
-
-            ['clean']              
-        ];
-
-        let editor = new Quill('#contentEditor', {
-            modules: {
-                // Equivalent to { toolbar: { container: '#toolbar' }}
-                toolbar: toolbarOptions,
-                imageResize: {
-                    displaySize: true
+            function showPreview(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        $("#targetLayer").html('<img src="' + e.target.result + '" class="upload-preview" />');
+                        $("#targetLayer").css('opacity', '0.7');
+                        $(".icon-choose-image").css('opacity', '0.5');
+                    }
+                    reader.readAsDataURL(input.files[0]);
                 }
-            },
-            theme: 'snow'
-        });
+            }
 
-        editor.setText('@this.Model.Content');
+            let editor = $('#contentEditor').trumbowyg({
+                lang: 'bg',
+                btnsDef: {
+                    // Create a new dropdown
+                    image: {
+                        dropdown: ['insertImage', 'base64', 'upload'],
+                        ico: 'insertImage'
+                    }
+                },
+                btns: [
+                    ['viewHTML'],
+                    ['undo', 'redo'],
+                    ['formatting'],
+                    ['foreColor', 'backColor'],
+                    ['fontfamily'],
+                    ['fontsize'],
+                    ['strong', 'em'],
+                    ['link'],
+                    ['image'],
+                    ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
+                    ['unorderedList', 'orderedList'],
+                    ['horizontalRule'],
+                    ['removeformat'],
+                    ['fullscreen']
+                ],
+                plugins: {
+                    fontfamily: {
+                        fontList: [
+                            { name: 'Source Sans Pro', family: '"Source Sans Pro", Helvetica, sans-serif' },
+                            { name: 'IBM Plex Mono', family: '"IBM Plex Mono", monospace' }
+                        ],
+                        displayAsList: true
+                    },
+                    fontsize: {
+                        sizeList: [
+                            '12px',
+                            '14px',
+                            '16px'
+                        ],
+                        displayAsList: true
+                    },
+                    colors: {
+                        foreColorList: [
+                            '3c3b3b', '646464', '2ebaae'
+                        ],
+                        backColorList: [
+                            '000', '333', '555', 'aaaaaa', 'f4f4f4'
+                        ],
+                    },
+                    upload: {
+                        // Some upload plugin options, see details below
+                    
+                    },
+                    resizimg: {
+                        minSize: 64,
+                        step: 16,
+                    }
+                }
+            });
 
-        editor.on('text-change', function() {
-            let justHtml = editor.root.innerHTML;
-            let contentElement = document.getElementById("newsContent");
 
-            contentElement.value=justHtml;
-        });
+            $('#contentEditor').trumbowyg('html', `@Html.Raw(this.Model.Content)`);
 
-    </script>
-}
+            editor.on('tbwchange',
+                function() {
+                    let contentElement = document.getElementById("newsContent");
+                    contentElement.value = $('#contentEditor').trumbowyg('html');
+                });
+            editor.onkeypress =
+                function(e) { console.log(e.keyCode); }
+        </script>
+
+    }
 </body>

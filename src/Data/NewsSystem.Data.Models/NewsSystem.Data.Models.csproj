@@ -11,6 +11,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Common\NewsSystem.Common\NewsSystem.Common.csproj" />
+    <ProjectReference Include="..\..\Services\NewsSystem.Mappings\NewsSystem.Mappings.csproj" />
     <ProjectReference Include="..\NewsSystem.Data.Common\NewsSystem.Data.Common.csproj" />
   </ItemGroup>
 

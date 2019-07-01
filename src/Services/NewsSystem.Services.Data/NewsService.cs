@@ -15,12 +15,13 @@ namespace NewsSystem.Services.Data
     public class NewsService : INewsService
     {
         private readonly IDeletableEntityRepository<News> newsRepository;
+        private readonly IImagesServices imagesServices;
         private readonly IHostingEnvironment environment;
 
-        public NewsService(IDeletableEntityRepository<News> newsRepository, IHostingEnvironment environment)
+        public NewsService(IDeletableEntityRepository<News> newsRepository, IImagesServices imagesServices)
         {
             this.newsRepository = newsRepository;
-            this.environment = environment;
+            this.imagesServices = imagesServices;
         }
 
         public async Task<bool> AddAsync(RemoteNews remoteNews, int sourceId)
@@ -49,13 +50,13 @@ namespace NewsSystem.Services.Data
             return true;
         }
 
-        public async Task<bool> AddAsync(NewsInputModel input)
+        public async Task<int> AddAsync(NewsInputModel input)
         {
             
             var news = new News
             {
                 Title = input.Title?.Trim(),
-                ImageUrl = await  SaveImage(input.Image),
+                ImageUrl = await  imagesServices.SaveImage(input.Image),
                 Content = input.Content?.Trim(),
                 CreatedOn = DateTime.UtcNow,
                 AuthorId = input.AuthorId,
@@ -66,12 +67,12 @@ namespace NewsSystem.Services.Data
 
             await this.newsRepository.AddAsync(news);
             await this.newsRepository.SaveChangesAsync();
-            return true;
+            return news.Id;
         }
 
         public async Task UpdateAsync(int id, RemoteNews remoteNews)
         {
-            var news = this.newsRepository.AllWithDeleted().FirstOrDefault(x => x.Id == id);
+            var news =await this.newsRepository.GetByIdWithDeletedAsync(id);
             if (news == null)
             {
                 return;
@@ -91,6 +92,39 @@ namespace NewsSystem.Services.Data
             //// We should not update the PostDate here
 
             await this.newsRepository.SaveChangesAsync();
+        }
+
+        public async Task<int> UpdateAsync(NewsUpdataInputModel input)
+        {
+            var originalNews =await this.newsRepository.GetByIdWithDeletedAsync(input.Id);
+            if (originalNews == null)
+            {
+                return 0;
+            }
+
+            if (input.Title != originalNews.Title)
+            {
+                originalNews.Title = input.Title;
+            }
+
+            if (input.Image != null)
+            {
+                originalNews.ImageUrl = await imagesServices.SaveImage(input.Image);
+            }
+
+            if (input.Content!=originalNews.Content)
+            {
+                originalNews.Content = input.Content;
+            }
+
+            if (input.Signature!=originalNews.Signature)
+            {
+                originalNews.Signature = input.Signature;
+            }
+
+            await this.newsRepository.SaveChangesAsync();
+
+            return originalNews.Id;
         }
 
 
@@ -117,33 +151,11 @@ namespace NewsSystem.Services.Data
             return string.Join(" ", words);
         }
 
-        public async Task<string> SaveImage(IFormFile file)
+        public string GetUrlById(int id)
         {
+            var title = newsRepository.GetByIdWithDeletedAsync(id).GetAwaiter().GetResult().Title;
 
-
-            var uploadDir = "//media//photos//news//uploads//";
-
-            var uploadPath = environment.WebRootPath + uploadDir;
-
-            
-                try
-                {
-                    if (!Directory.Exists(uploadPath))
-                    {
-                        Directory.CreateDirectory(uploadPath);
-                    }
-                    using (FileStream filestream = System.IO.File.Create(uploadPath+file.FileName))
-                    {
-                        await file.CopyToAsync(filestream);
-                        filestream.Flush();
-                        return uploadDir + file.FileName;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    return ex.ToString();
-                }
-        }        
-
+            return $"/News/{id}/{new SlugGenerator().GenerateSlug(title)}";
+        }
     }
 }
