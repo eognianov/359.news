@@ -338,3 +338,8 @@ gulpfile.js
 FrontEnd/assets/css/__temp.css
 FrontEnd/img/cup.gif
 SamokovNewsCrawler/
+appsettings.Development.json
+is-cache
+appsettings.json
+/src/NewsSystem.App/wwwroot/lib/kinvey/kinvey.js
+/src/NewsSystem.App/wwwroot/FrontEnd/assets/js/kinvey.js

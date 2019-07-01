@@ -1,0 +1,98 @@
+﻿@using NewsSystem.Common
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <title>@(this.ViewData["Title"] ?? GlobalConstants.SystemSlogan) - @GlobalConstants.SystemName</title>
+    <meta name="description" content="@(this.ViewData[" Description"] ?? "Най-новите прессъобщения и новини от над 40 източника." )">
+
+    <environment include="Development">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+              integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+        <link rel="stylesheet" href="~/css/main.css" />
+        @* <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet"> *@
+        <link href="~/lib/Trumbowyg/ui/trumbowyg.min.css" rel="stylesheet"/>
+        <link href="~/lib/Trumbowyg/plugins/colors/ui/trumbowyg.colors.min.css" rel="stylesheet"/>
+        <link href="~/lib/jqueryui/jquery-ui.min.css" rel="stylesheet"/>
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="~/css/main.min.css" />
+    </environment>
+
+    <partial name="_favicon" />
+
+
+    <meta name="theme-color" content="#ffffff">
+</head>
+<body>
+
+    <div id="wrapper">
+        <partial name="_Header" />
+
+        <div id="main">
+            @RenderBody()
+        </div>
+
+    </div>
+
+    <environment include="Development">
+        <script src="~/lib/intersection-observer/intersection-observer.js"></script>
+        <script src="~/lib/lazyLoad/lazyLoad.js"></script>
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/jqueryui/jquery-ui.js"></script>
+        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
+        <script src="~/lib/breakpoints/breakpoints.min.js"></script>
+        <script src="~/lib/util/util.js"></script>
+        <script src="~/lib/main/main.js"></script>
+        <script src="~/lib/toastr.js/toastr.min.js"></script>
+        <script src="~/lib/kinvey/kinvey.js"></script>
+        <script src="~/lib/mainNews/mainNews.js"></script>
+        <script src="~/lib/mainNewsLoad/mainNewsLoad.js"></script>
+        <script src="~/lib/flickity/flickity.js"></script>
+
+
+        <script>
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": false,
+                "positionClass": "toast-top-full-width",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": 0,
+                "extendedTimeOut": 0,
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut",
+                "tapToDismiss": false
+            };
+
+            //            toastr.info("test");
+            //            toastr.warning("jega");
+            //            toastr.success("opa");
+
+        </script>
+        <script>
+            $('.main-carousel').flickity({
+                // options
+                setGallerySize: false,
+                cellAlign: 'left',
+                contain: true
+            });
+        </script>
+    </environment>
+
+
+    <environment exclude="Development">
+
+    </environment>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

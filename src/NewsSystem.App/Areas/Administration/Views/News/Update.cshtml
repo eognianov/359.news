@@ -1,0 +1,90 @@
+﻿@model NewsSystem.ViewModels.NewsInputModel
+
+@{
+    ViewData["Title"] = "Update";
+}
+
+<body class="single">
+<div id="wrapper">
+    <h1>Create</h1>
+    <section id="main">
+        <div class="row">
+            <div class="col-md-4">
+                <form method="post" enctype="multipart/form-data" asp-area="Administration" asp-controller="News" asp-action="Udpate">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="Title" class="control-label"></label>@Html.Display("Заглавие")
+                        <input asp-for="Title" class="form-control" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label>snimka</label>
+                        <input type="file" name="Image">
+                    </div>
+                    <div class="form-group">
+                        <input asp-for="Content" class="form-control" type="hidden" value="" id="newsContent" />
+                        <div id="editorToolbar"></div>
+                        <div id="contentEditor">
+                            <p>A robot who has developed sentience, and is the only robot of his kind shown to be still functioning on Earth.</p>
+                        </div>
+                        <span asp-validation-for="Content" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Create" class="btn btn-primary" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts{
+    <script>
+
+        var toolbarOptions = [
+            ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+            ['blockquote'],
+
+            [{ 'header': 1 }, { 'header': 2 }, { 'header': 2 }],               // custom button values
+            [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+            [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+            [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+
+            [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+            [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+            [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+            [{ 'align': [] }],
+
+            ['link', 'image'],
+
+            ['clean']              
+        ];
+
+        let editor = new Quill('#contentEditor', {
+            modules: {
+                // Equivalent to { toolbar: { container: '#toolbar' }}
+                toolbar: toolbarOptions,
+                imageResize: {
+                    displaySize: true
+                }
+            },
+            theme: 'snow'
+        });
+
+        editor.setText('@this.Model.Content');
+
+        editor.on('text-change', function() {
+            let justHtml = editor.root.innerHTML;
+            let contentElement = document.getElementById("newsContent");
+
+            contentElement.value=justHtml;
+        });
+
+    </script>
+}
+</body>

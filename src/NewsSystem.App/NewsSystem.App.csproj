@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <UserSecretsId>aspnet-NewsSystem.App-55C34212-00BA-4315-81EB-A2757DD5C914</UserSecretsId>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+    <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
+    <LangVersion>7.1</LangVersion>
+    <TypeScriptToolsVersion>3.1</TypeScriptToolsVersion>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.4.10" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <ProjectReference Include="..\Data\NewsSystem.Data.Common\NewsSystem.Data.Common.csproj" />
+    <ProjectReference Include="..\Data\NewsSystem.Data.Models\NewsSystem.Data.Models.csproj" />
+    <ProjectReference Include="..\Data\NewsSystem.Data\NewsSystem.Data.csproj" />
+    <ProjectReference Include="..\Services\NewsSystem.Mappings\NewsSystem.Mappings.csproj" />
+    <ProjectReference Include="..\Services\NewsSystem.Services.Data\NewsSystem.Services.Data.csproj" />
+    <ProjectReference Include="..\Services\NewsSystem.Services.Images\NewsSystem.Services.Images.csproj" />
+    <ProjectReference Include="..\Services\NewsSystem.Services\NewsSystem.Services.csproj" />
+    <ProjectReference Include="..\ViewModels\NewsSystem.ViewModels.Common\NewsSystem.ViewModels.Common.csproj" />
+    <ProjectReference Include="..\ViewModels\NewsSystem.ViewModels\NewsSystem.ViewModels.csproj" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="Areas\Administration\Data\" />
+    <Folder Include="wwwroot\media\photos\news\uploads\" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <None Include="wwwroot\js\site.js" />
+  </ItemGroup>
+
+</Project>

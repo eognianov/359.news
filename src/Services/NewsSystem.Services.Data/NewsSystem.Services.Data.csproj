@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AngleSharp" Version="0.12.1" />
+    <PackageReference Include="HtmlSanitizer" Version="5.0.215-beta" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data\NewsSystem.Data.Models\NewsSystem.Data.Models.csproj" />
+    <ProjectReference Include="..\..\ViewModels\NewsSystem.ViewModels\NewsSystem.ViewModels.csproj" />
+    <ProjectReference Include="..\NewsSystem.Services\NewsSystem.Services.csproj" />
+  </ItemGroup>
+
+</Project>

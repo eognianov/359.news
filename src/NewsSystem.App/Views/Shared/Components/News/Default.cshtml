@@ -1,0 +1,46 @@
+﻿@model NewsSystem.ViewModels.NewsListViewModel
+
+<section id="last-news-list">
+    @foreach (var news in this.Model.News)
+    {
+        <article class="last-news">
+            <header>
+                <div class="title">
+                    <h3><a href="@news.Url">@news.Title</a></h3>
+
+                </div>
+                <div class="meta">
+                    <time class="published" datetime="@news.CreatedOn.ToString("O")">@news.CreatedOn.ToString("dd/MM/yyyy HH:mm")</time>
+                    <a href="@news.Url" class="author">
+                        <span class="name">
+                            @{
+                                if (news.Author != null)
+                                {
+                                    @news.GetSign();
+                                }
+                                else
+                                {
+                                    @news.SourceShortName
+                                }
+                        }
+                    </span>
+                </a>
+            </div>
+        </header>
+        <a href="@news.Url" class="image"><img class="lozad" data-src="@news.ImageUrl" alt="@news.Title" /></a>
+        <p> @news.ShortContent</p>
+        <footer>
+            <ul class="actions">
+                <li><a href="@news.Url" class="button medium">Прочети още</a></li>
+            </ul>
+            <ul class="stats">
+                @* <li><a href="#">име категория</a></li> *@
+                <li><a href="#" class="icon fa-heart">28</a></li>
+                <li><a href="#" class="icon fa-comment">128</a></li>
+                <li><a href="#" class="icon fa-image">9</a></li>
+                <li><a href="#" class="icon fa-video">2</a></li>
+            </ul>
+        </footer>
+    </article>
+}
+</section>

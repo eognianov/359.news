@@ -1,0 +1,17 @@
+﻿@model NewsSystem.ViewModels.MainNewsComponentViewModel
+
+<section>
+    <h2>Новини:</h2>
+    <div class="mini-posts">
+    @foreach (var news in this.Model.MainNews)
+    {
+        <article class="mini-post">
+            <header>
+                <h3><a href="@news.OriginalUrl" target="_blank">@news.Title</a></h3>
+                <time class="published" datetime="@news.CreatedOn.ToString("O")">@news.CreatedOn.ToString("dd/MM/yyyy HH:mm")</time>
+            </header>
+            <a href="@news.OriginalUrl" target="_parent" class="image"><img class="lozad" data-src="@news.ImageUrlOrDefault" alt="@news.Title" /></a>
+        </article>
+    }
+    </div>
+</section>

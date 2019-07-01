@@ -1,4 +1,4 @@
-﻿namespace newsSystem.Services.Contracts
+﻿namespace NewsSystem.Services.Contracts
 {
     public interface ISlugGenerator
     {

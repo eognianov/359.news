@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Globalization;
 using System.Text.RegularExpressions;
-using newsSystem.Services.Contracts;
+using NewsSystem.Services.Contracts;
 
-namespace newsSystem.Services
+namespace NewsSystem.Services
 {
     public class SlugGenerator : ISlugGenerator
     {

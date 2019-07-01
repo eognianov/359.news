@@ -1,0 +1,159 @@
+{
+  "defaultProvider": "cdnjs",
+  "libraries": [
+    {
+      "provider": "filesystem",
+      "library": "wwwroot\\FrontEnd\\node_modules\\intersection-observer\\intersection-observer.js",
+      "destination": "wwwroot/lib/intersection-observer/"
+    },
+    {
+      "provider": "filesystem",
+      "library": "wwwroot\\FrontEnd\\assets\\js\\lazyLoad.js",
+      "destination": "wwwroot/lib/lazyLoad/"
+    },
+    {
+      "provider": "filesystem",
+      "library": "wwwroot\\FrontEnd\\assets\\js\\flickity.js",
+      "destination": "wwwroot/lib/flickity/"
+    },
+    {
+      "provider": "cdnjs",
+      "library": "jquery@3.4.1",
+      "destination": "wwwroot/lib/jquery/",
+      "files": [
+        "jquery.min.js",
+        "jquery.js"
+      ]
+    },
+    {
+      "destination": "wwwroot/lib/bootstrap/",
+      "files": [
+        "dist/css/bootstrap.css",
+        "dist/css/bootstrap.min.css",
+        "dist/js/bootstrap.js",
+        "dist/js/bootstrap.min.js"
+      ],
+      "library": "bootstrap@4.3.1",
+      "provider": "unpkg"
+    },
+    {
+      "provider": "unpkg",
+      "library": "jquery-validation@1.19.0",
+      "destination": "wwwroot/lib/jquery-validation/",
+      "files": [
+        "dist/jquery.validate.js",
+        "dist/jquery.validate.min.js"
+      ]
+    },
+    {
+      "provider": "unpkg",
+      "library": "jquery-validation-unobtrusive@3.2.11",
+      "destination": "wwwroot/lib/jquery-validation-unobtrusive/",
+      "files": [
+        "dist/jquery.validate.unobtrusive.js",
+        "dist/jquery.validate.unobtrusive.min.js"
+      ]
+    },
+    {
+      "provider": "unpkg",
+      "library": "moment@2.24.0",
+      "destination": "wwwroot/lib/moment/",
+      "files": [
+        "min/moment-with-locales.min.js"
+      ]
+    },
+    {
+      "provider": "filesystem",
+      "library": "wwwroot\\FrontEnd\\assets\\js\\browser.min.js",
+      "destination": "wwwroot/lib/browser/"
+    },
+    {
+      "provider": "filesystem",
+      "library": "wwwroot\\FrontEnd\\assets\\js\\breakpoints.min.js",
+      "destination": "wwwroot/lib/breakpoints/"
+    },
+    {
+      "provider": "filesystem",
+      "library": "wwwroot\\FrontEnd\\assets\\js\\util.js",
+      "destination": "wwwroot/lib/util/"
+    },
+    {
+      "provider": "filesystem",
+      "library": "wwwroot\\FrontEnd\\assets\\js\\site.js",
+      "destination": "wwwroot/lib/site/"
+    },
+    {
+      "provider": "filesystem",
+      "library": "wwwroot\\FrontEnd\\assets\\js\\main.js",
+      "destination": "wwwroot/lib/main/"
+    },
+    {
+      "provider": "filesystem",
+      "library": "wwwroot\\FrontEnd\\assets\\js\\mainNews.js",
+      "destination": "wwwroot/lib/mainNews/"
+    },
+    {
+      "provider": "filesystem",
+      "library": "wwwroot\\FrontEnd\\assets\\js\\mainNewsLoad.js",
+      "destination": "wwwroot/lib/mainNewsLoad/"
+    },
+    {
+      "provider": "filesystem",
+      "library": "wwwroot\\FrontEnd\\assets\\js\\kinvey.js",
+      "destination": "wwwroot/lib/kinvey/"
+    },
+    {
+      "provider": "cdnjs",
+      "library": "toastr.js@2.1.4",
+      "destination": "wwwroot/lib/toastr.js/",
+      "files": [
+        "toastr.min.js",
+        "toastr.min.css",
+        "toastr.css",
+        "toastr.js.map"
+      ]
+    },
+    {
+      "library": "jqueryui@1.12.1",
+      "destination": "wwwroot/lib/jqueryui/"
+    },
+    {
+      "provider": "cdnjs",
+      "library": "Trumbowyg@2.18.0",
+      "destination": "wwwroot/lib/Trumbowyg/",
+      "files": [
+        "trumbowyg.min.js",
+        "langs/bg.js",
+        "langs/bg.min.js",
+        "plugins/base64/trumbowyg.base64.js",
+        "plugins/base64/trumbowyg.base64.min.js",
+        "plugins/colors/ui/trumbowyg.colors.css",
+        "plugins/colors/ui/trumbowyg.colors.min.css",
+        "plugins/colors/trumbowyg.colors.js",
+        "plugins/colors/trumbowyg.colors.min.js",
+        "plugins/fontfamily/trumbowyg.fontfamily.js",
+        "plugins/fontfamily/trumbowyg.fontfamily.min.js",
+        "plugins/fontsize/trumbowyg.fontsize.js",
+        "plugins/fontsize/trumbowyg.fontsize.min.js",
+        "plugins/highlight/ui/trumbowyg.highlight.min.css",
+        "plugins/highlight/ui/trumbowyg.highlight.css",
+        "plugins/lineheight/trumbowyg.lineheight.min.js",
+        "plugins/lineheight/trumbowyg.lineheight.js",
+        "plugins/history/trumbowyg.history.js",
+        "plugins/history/trumbowyg.history.min.js",
+        "plugins/highlight/trumbowyg.highlight.js",
+        "plugins/highlight/trumbowyg.highlight.min.js",
+        "plugins/pasteimage/trumbowyg.pasteimage.js",
+        "plugins/pasteimage/trumbowyg.pasteimage.min.js",
+        "plugins/resizimg/trumbowyg.resizimg.js",
+        "plugins/resizimg/trumbowyg.resizimg.min.js",
+        "plugins/upload/trumbowyg.upload.js",
+        "plugins/upload/trumbowyg.upload.min.js",
+        "ui/icons.svg",
+        "ui/trumbowyg.css",
+        "ui/trumbowyg.min.css"
+      ]
+    }
+  ],
+  "version": "1.0"
+}

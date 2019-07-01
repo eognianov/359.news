@@ -1,0 +1,291 @@
+﻿@using NewsSystem.Common
+@model NewsSystem.ViewModels.NewsViewModel
+
+@{
+    Layout = "_SingleLayout";
+}
+@if (this.User.IsInRole(GlobalConstants.ReporterRoleName) || this.User.IsInRole(GlobalConstants.EditorRoleName))
+{
+    <a asp-area="Administration" asp-controller="News" asp-action="TopNews" asp-route-id="@this.Model.Id">Top</a>
+    <a asp-area="Administration" asp-controller="News" asp-action="Udpate" asp-route-id="@this.Model.Id" class="btn btn-secondary">Update</a>
+    <a asp-area="Administration" asp-controller="News" asp-action="SoftDelete" asp-route-id="@this.Model.Id" class="btn btn-danger">Soft delete</a>
+    <a asp-area="Administration" asp-controller="News" asp-action="HardDelete" asp-route-id="@this.Model.Id" class="btn btn-danger">Hard delete</a>
+
+}
+
+<article class="post">
+    <header>
+        <div class="title">
+            <h2><a href="#">@this.Model.Title</a></h2>
+        </div>
+        <div class="meta">
+            <time class="published" datetime="@this.Model.CreatedOn.ToString("o")">@this.Model.CreatedOn.ToString("dd/MM/yyyy HH:mm")</time>
+            <a href="#" class="author">
+                <span class="name">
+                    @{
+                        if (this.Model.Author != null)
+                        {
+                            @this.Model.GetSign();
+                        }
+                        else
+                        {
+                            @this.Model.SourceShortName
+                        }
+                    }
+                </span>
+            </a>
+        </div>
+    </header>
+    <span class="image featured"><img src="@this.Model.ImageUrl" alt="" /></span>
+    @this.Html.Raw(this.Model.SanitizedContent)
+
+    <footer>
+        <ul class="stats">
+            <li><a href="#">име категория</a></li>
+            <li><a href="#" class="icon fa-heart">28</a></li>
+            <li><a href="#" class="icon fa-comment">128</a></li>
+            <li><a href="#pictures" class="icon fa-image">9</a></li>
+            <li><a href="#" class="icon fa-video">2</a></li>
+        </ul>
+    </footer>
+    <section id="extras" data-toggle-class="active">
+        <input id="tab1" type="radio" name="tabs" checked>
+        <label for="tab1">Коментари</label>
+
+        <input id="tab2" type="radio" name="tabs">
+        <label for="tab2">Снимки</label>
+
+        <input id="tab3" type="radio" name="tabs">
+        <label for="tab3">Видео</label>
+
+        <input id="tab4" type="radio" name="tabs">
+        <label for="tab4">Хаштаг</label>
+        <section id="content1" class="loaded">
+            <div id="comments">
+                <!-- Comments List-->
+                <div class="comments-container">
+                    <ul id="comments-list" class="comments-list">
+                        <li>
+                            <div class="comment-main-level">
+                                <!-- Avatar -->
+                                <div class="comment-avatar">
+                                    <img src="http://i9.photobucket.com/albums/a88/creaticode/avatar_1_zps8e1c80cd.jpg"
+                                         alt="">
+                                </div>
+                                <!-- Contenedor del Comentario -->
+                                <div class="comment-box">
+                                    <div class="comment-head">
+                                        <h6 class="comment-name">
+                                            <a href="http://creaticode.com/blog">
+                                                Agustin
+                                                Ortiz
+                                            </a>
+                                        </h6>
+                                        <span>hace 20 minutos</span>
+                                        <i class="fa fa-reply"></i>
+
+                                    </div>
+                                    <div class="comment-content">
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit
+                                        omnis
+                                        animi et iure laudantium vitae,
+                                        praesentium optio, sapiente distinctio illo?
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Respuestas de los comentarios -->
+                            <ul class="comments-list reply-list">
+                                <li>
+                                    <!-- Avatar -->
+                                    <div class="comment-avatar">
+                                        <img src="http://i9.photobucket.com/albums/a88/creaticode/avatar_2_zps7de12f8b.jpg"
+                                             alt="">
+                                    </div>
+                                    <!-- Contenedor del Comentario -->
+                                    <div class="comment-box">
+                                        <div class="comment-head">
+                                            <h6 class="comment-name">
+                                                <a href="http://creaticode.com/blog">
+                                                    Lorena
+                                                    Rojero
+                                                </a>
+                                            </h6>
+                                            <span>hace 10 minutos</span>
+                                            <i class="fa fa-reply"></i>
+
+                                        </div>
+                                        <div class="comment-content">
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit
+                                            omnis animi et iure laudantium
+                                            vitae, praesentium optio, sapiente distinctio illo?
+                                        </div>
+                                    </div>
+                                </li>
+
+                                <li>
+                                    <!-- Avatar -->
+                                    <div class="comment-avatar">
+                                        <img src="http://i9.photobucket.com/albums/a88/creaticode/avatar_1_zps8e1c80cd.jpg"
+                                             alt="">
+                                    </div>
+                                    <!-- Contenedor del Comentario -->
+                                    <div class="comment-box">
+                                        <div class="comment-head">
+                                            <h6 class="comment-name">
+                                                <a href="http://creaticode.com/blog">Agustin Ortiz</a>
+                                            </h6>
+                                            <span>hace 10 minutos</span>
+                                            <i class="fa fa-reply"></i>
+                                        </div>
+                                        <div class="comment-content">
+                                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit
+                                            omnis animi et iure laudantium
+                                            vitae, praesentium optio, sapiente distinctio illo?
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <div class="comment-main-level">
+                                <!-- Avatar -->
+                                <div class="comment-avatar">
+                                    <img src="http://i9.photobucket.com/albums/a88/creaticode/avatar_2_zps7de12f8b.jpg"
+                                         alt="">
+                                </div>
+                                <!-- Contenedor del Comentario -->
+                                <div class="comment-box">
+                                    <div class="comment-head">
+                                        <h6 class="comment-name">
+                                            <a href="http://creaticode.com/blog">
+                                                Lorena
+                                                Rojero
+                                            </a>
+                                        </h6>
+                                        <span>hace 10 minutos</span>
+                                        <i class="fa fa-reply"></i>
+                                    </div>
+                                    <div class="comment-content">
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit
+                                        omnis
+                                        animi et iure laudantium vitae,
+                                        praesentium optio, sapiente distinctio illo?
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                    </ul>
+                    <ul class="actions">
+                        <li><button id="commentsLoad" href="" class="button">Още(3)</button></li>
+                    </ul>
+                </div>
+
+                <!-- Add Comment -->
+                <div class="comments-add">
+                    <form method="post" action="#">
+                        <div class="row gtr-uniform">
+                            <div class="col-12">
+                                <input type="text" name="demo-name" id="demo-name" value=""
+                                       placeholder="Име">
+                            </div>
+
+                            <div class="col-12">
+                                <textarea name="demo-message" id="demo-message" placeholder="Коментар..."
+                                          rows="6"></textarea>
+                            </div>
+                            <div class="col-12">
+                                <ul class="actions">
+                                    <li><input type="submit" value="Изпрати"></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section id="content2" class="lozad">
+            <a id="pictures"></a>
+            <div class="box alt">
+                <div class="row gtr-uniform">
+                    <div class="col-4">
+                        <span class="image fit">
+                            <img class="lozad"
+                                 data-src="images/pic04.jpg" alt="">
+                        </span>
+                    </div>
+                    <div class="col-4">
+                        <span class="image fit">
+                            <img class="lozad"
+                                 data-src="images/pic05.jpg" alt="">
+                        </span>
+                    </div>
+                    <div class="col-4">
+                        <span class="image fit">
+                            <img class="lozad"
+                                 data-src="images/pic06.jpg" alt="">
+                        </span>
+                    </div>
+                    <div class="col-4">
+                        <span class="image fit">
+                            <img class="lozad"
+                                 data-src="images/pic06.jpg" alt="">
+                        </span>
+                    </div>
+                    <div class="col-4">
+                        <span class="image fit">
+                            <img class="lozad"
+                                 data-src="images/pic04.jpg" alt="">
+                        </span>
+                    </div>
+                    <div class="col-4">
+                        <span class="image fit">
+                            <img class="lozad"
+                                 data-src="images/pic05.jpg" alt="">
+                        </span>
+                    </div>
+                    <div class="col-4">
+                        <span class="image fit">
+                            <img class="lozad"
+                                 data-src="images/pic05.jpg" alt="">
+                        </span>
+                    </div>
+                    <div class="col-4">
+                        <span class="image fit">
+                            <img class="lozad"
+                                 data-src="images/pic06.jpg" alt="">
+                        </span>
+                    </div>
+                    <div class="col-4">
+                        <span class="image fit">
+                            <img class="lozad"
+                                 data-src="images/pic04.jpg" alt="">
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section id="content3" class="lozad" style="align-content: center">
+            <iframe class="lozad" width="1136" height="639"
+                    data-src="https://www.youtube.com/embed/hirV_klo4fw" frameborder="0"
+                    allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen></iframe>
+        </section>
+
+        <section id="content4">
+            <div class="social">
+                <a href="#" class="card education">
+                    <div class="overlay"></div>
+                    <div class="circle">
+
+
+                        A
+                    </div>
+                    <p>Education</p>
+                </a>
+            </div>
+        </section>
+    </section>
+</article>

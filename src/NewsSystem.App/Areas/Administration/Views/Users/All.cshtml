@@ -1,0 +1,60 @@
+﻿@model ICollection<NewsSystem.Data.Models.ApplicationUser>
+@using Microsoft.AspNetCore.Identity
+@using NewsSystem.Common
+@using NewsSystem.Data.Models
+@using NewsSystem.ViewModels
+@inject UserManager<ApplicationUser> userManager
+
+
+@{
+    ViewData["Title"] = "View";
+}
+
+<h1>users</h1>
+
+<p>@Model.Count</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>user</th>
+            <th>Reporter </th>
+            <th>Editor</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+        <tr>
+            <td>@user.UserName</td>
+            <td>
+
+                @if (!userManager.IsInRoleAsync(user, GlobalConstants.ReporterRoleName).GetAwaiter().GetResult())
+                {
+                    <a asp-area="Administration" asp-controller="Users" asp-action="Promote" asp-route-email="@user.Email" asp-route-roleName="@GlobalConstants.ReporterRoleName">+Reporter</a>
+                }
+                @if (userManager.IsInRoleAsync(user, GlobalConstants.ReporterRoleName).GetAwaiter().GetResult())
+                {
+                    <a asp-area="Administration" asp-controller="Users" asp-action="Demote" asp-route-email="@user.Email" asp-route-roleName="@GlobalConstants.ReporterRoleName">-Reporter</a>
+                }
+
+            </td>
+            <td>
+
+                @if (!userManager.IsInRoleAsync(user, GlobalConstants.EditorRoleName).GetAwaiter().GetResult())
+                {
+                    <a asp-area="Administration" asp-controller="Users" asp-action="Promote" asp-route-email="@user.Email" asp-route-roleName="@GlobalConstants.EditorRoleName">+Editor</a>
+                }
+                @if (userManager.IsInRoleAsync(user, GlobalConstants.EditorRoleName).GetAwaiter().GetResult())
+                {
+                    <a asp-area="Administration" asp-controller="Users" asp-action="Demote" asp-route-email="@user.Email" asp-route-roleName="@GlobalConstants.EditorRoleName">-Editor</a>
+                }
+
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+<a asp-area="Administration" asp-controller="Users" asp-action="Create">dasdsa</a>
+
