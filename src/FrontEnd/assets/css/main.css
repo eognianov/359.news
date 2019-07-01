@@ -216,6 +216,9 @@ hr {
 .align-right {
   text-align: right; }
 
+.text-danger {
+  color: #dc3545 !important; }
+
 /* Row */
 .row {
   display: flex;
@@ -3059,6 +3062,43 @@ img.lozad {
   padding: 3em 0 0 0;
   width: 100%;
   overflow-x: hidden; }
+
+#targetOuter {
+  position: relative;
+  text-align: center;
+  background-color: #F0E8E0;
+  margin: 20px auto;
+  width: 200px;
+  height: 200px;
+  border-radius: 4px; }
+
+.icon-choose-image {
+  position: absolute;
+  opacity: 0.1;
+  top: 50%;
+  left: 50%;
+  margin-top: -24px;
+  margin-left: -24px;
+  width: 48px;
+  height: 48px; }
+
+img.icon-choose-image {
+  max-width: 100%;
+  vertical-align: middle; }
+
+.inputFile {
+  padding: 5px 0px;
+  margin-top: 8px;
+  background-color: #FFFFFF;
+  width: 48px;
+  overflow: hidden;
+  opacity: 0;
+  cursor: pointer; }
+
+.upload-preview {
+  border-radius: 4px;
+  width: 200px;
+  height: 200px; }
 
 /* Header */
 body {
