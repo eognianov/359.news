@@ -117,7 +117,7 @@
 		<!-- Main -->
 		<div id="main">
 			<!-- Bredcrum -->
-			<div class="container">
+			<!-- <div class="container">
 				<div class="breadcrumb">
 					<a href="#">
 						<span class="breadcrumb__inner">
@@ -149,7 +149,13 @@
 							<span class="breadcrumb__title">Image View - No Multiline</span>
 						</span>
 					</a>
-				</div>
+				</div> -->
+
+								
+
+			</div>
+			<div class="toast-fixed">
+				info
 			</div>
 			<!-- Post -->
 			<article class="post">
@@ -627,7 +633,34 @@
 	<script src="./assets/js/kinvey.js"></script>
 	<script src="./assets/js/mainNews.js"></script>
 	<script src="./assets/js/mainNewsLoad.js"></script>
+	<script src="/assets/js/toasts.js"></script>
+<script>
+	toastr.options = {
+		"closeButton": false,
+		"debug": false,
+		"newestOnTop": false,
+		"progressBar": false,
+		"positionClass": "toast-top-full-width",
+		"preventDuplicates": false,
+		"onclick": null,
+		"showDuration": "300",
+		"hideDuration": "1000",
+		"timeOut": 0,
+		"extendedTimeOut": 0,
+		"showEasing": "swing",
+		"hideEasing": "linear",
+		"showMethod": "fadeIn",
+		"hideMethod": "fadeOut",
+		"tapToDismiss": false
+	};
 
+	// toastr["warning"]('Clear itself?<br /><br /><button type="button" class="button icon fas fa-eye-slash" onclick="publish()">Yes</button>');
+	function publish() {
+		console.log('publish');
+		toastr.remove();
+	}
+	</script>
+	<script src="assets/js/jquery.toolbar.js"></script>
 
 	<script src="assets/js/site.js"></script>
 	<script type="text/javascript" src="./assets/js/ssg.js"></script>
