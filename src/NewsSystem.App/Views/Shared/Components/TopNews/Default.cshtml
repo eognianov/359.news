@@ -12,17 +12,18 @@
                     @*     Travel *@
                     @* </p> *@
 
-                    <h1 class="ff-serif text-black card-heading mt-0 mb-1" style="line-height: 1.25;">
+                    <h3 class="mt-0 mb-1" style="line-height: 1.25;">
                         @news.Title
-                    </h1>
+                    </h3>
 
                     <p class="mb-1 ti-1">
                         @news.ShortContent
                     </p>
-                    <a href="@news.Url"
-                       class="text-uppercase d-inline-block font-weight-medium lts-2px ml-2 mb-2 text-center styled-link">
-                        Read More
-                    </a>
+                    <div class="readMore">
+                        <a href="@news.Url" class="text-uppercase d-inline-block font-weight-medium lts-2px ml-2 mb-2 text-center styled-link">
+                            Read More
+                        </a>
+                    </div>
                 </div>
             </div>
         </li>

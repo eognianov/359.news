@@ -59,7 +59,17 @@ namespace NewsSystem.ViewModels
             }
         }
 
-        public string ShortContent => this.GetShortContent(235);
+        public string ShortContent
+        {
+            get
+            {
+                if (this.ContentLenght!=0)
+                {
+                    return this.GetShortContent(this.ContentLenght);
+                }
+                return this.GetShortContent(235);
+            }
+        }
 
         public string ImageUrl { get; set; }
 
@@ -76,6 +86,8 @@ namespace NewsSystem.ViewModels
         public AuthorViewModel Author { get; set; }
 
         public NewsSignature Signature { get; set; }
+
+        public int ContentLenght { get; set; }
 
         public IEnumerable<string> Tags { get; set; }
 

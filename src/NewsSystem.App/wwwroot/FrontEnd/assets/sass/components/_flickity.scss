@@ -153,13 +153,13 @@ ul.main-carousel {
 }
 
 .carousel-cell {
-    width: 45%;
+    width: 60%;
     height: 100%;
 	margin-right: .8rem;
 	padding-left: 0;
 	opacity: .8;
 	@include breakpoint('<=large') {
-		width: 60%;
+		width: 65%;
 		margin-right: .6rem;
 	}
 	@include breakpoint('<=small') {

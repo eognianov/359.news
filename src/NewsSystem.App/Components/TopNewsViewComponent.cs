@@ -26,7 +26,8 @@ namespace NewsSystem.App.Components
                 Id = tp.News.Id,
                 ImageUrl = tp.News.ImageUrl,
                 Title = tp.News.Title,
-                Content = tp.News.Content
+                Content = tp.News.Content,
+                ContentLenght = 485
             });
 
             var model = new NewsListViewModel
