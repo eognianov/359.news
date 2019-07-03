@@ -21,20 +21,14 @@
 	font-size: 20px;
 	font-weight: bold;
 	color: #ffffff;
-	-webkit-text-shadow: 0 1px 0 #ffffff;
-	text-shadow: 0 1px 0 #ffffff;
-	opacity: 0.8;
-	-ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
-	filter: alpha(opacity=80);
+	box-shadow: none;
+
 }
 .toast-close-button:hover,
 .toast-close-button:focus {
 	color: #000000;
 	text-decoration: none;
 	cursor: pointer;
-	opacity: 0.4;
-	-ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=40);
-	filter: alpha(opacity=40);
 }
 /*Additional properties for button version
  iOS requires the button element instead of an anchor tag.
@@ -172,38 +166,30 @@ button.toast-close-button {
 }
 
 /*Responsive Design*/
-@media all and (max-width: 240px) {
-	#toast-container > div {
-		padding: 8px 8px 8px 50px;
-		width: 11em;
-	}
-	#toast-container .toast-close-button {
-		right: -0.2em;
-		top: -0.2em;
-	}
-}
-@media all and (min-width: 241px) and (max-width: 480px) {
-	#toast-container > div {
-		padding: 8px 8px 8px 50px;
-		width: 18em;
-	}
-	#toast-container .toast-close-button {
-		right: -0.2em;
-		top: -0.2em;
-	}
-}
-@media all and (min-width: 481px) and (max-width: 768px) {
+@include breakpoint('<=small') {
 	#toast-container > div {
 		padding: 15px 15px 15px 50px;
 		width: 25em;
 	}
+
+	@include breakpoint('<=xsmall') {
+		#toast-container > div {
+			padding: 8px 8px 8px 50px;
+			width: 18em;
+		}
+		#toast-container .toast-close-button {
+			right: -0.2em;
+			top: -0.2em;
+		}
+	}
 }
 
+//if news is visible
 .toast-fixed {
 	overflow: hidden;
 	margin: auto;
-  text-align: left;
-  font-family: 'Montserrat';
+	text-align: left;
+	font-family: 'Montserrat';
 	width: 100%;
 	// max-width: 1200px;
 	z-index: 1;
@@ -212,8 +198,8 @@ button.toast-close-button {
 	padding-top: 0.5em;
 	padding-bottom: 0.5em;
 	padding-left: 0.5em;
-  padding-right: 0.5em;
-  margin-bottom: 1em;
+	padding-right: 0.5em;
+	margin-bottom: 1em;
 
 	&::before {
 		content: '\f070';

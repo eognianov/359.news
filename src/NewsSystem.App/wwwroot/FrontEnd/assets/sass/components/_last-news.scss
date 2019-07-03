@@ -9,7 +9,7 @@
 		.image {
 			overflow: hidden;
 			width: 100%;
-
+			height: 40%;
 			img {
 				@include vendor('transition', 'transform #{_duration(transition)} ease-out');
 				width: 100%;
@@ -130,7 +130,8 @@
 
         > * {
             margin: _size(element-margin) _size(element-margin) 0 0;
-            width: calc(50% - #{_size(element-margin)});
+			width: calc(50% - #{_size(element-margin)});
+			height: 40em;
         }
 
         > :nth-child(-n + 2) {
