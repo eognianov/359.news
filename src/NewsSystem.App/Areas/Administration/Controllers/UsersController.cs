@@ -3,17 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using NewsSystem.App.Areas.Identity.Pages.Account;
+using NewsSystem.Common;
 using NewsSystem.Data.Models;
 using NewsSystem.ViewModels;
 
 namespace NewsSystem.App.Areas.Administration.Controllers
 {
-    
+    [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
     public class UsersController : AdministrationController
     {
         private readonly UserManager<ApplicationUser> userManager;

@@ -1,4 +1,9 @@
-﻿@model NewsSystem.ViewModels.NewsListViewModel
+﻿@using NewsSystem.Common
+@using NewsSystem.Data.Models
+@using Microsoft.AspNetCore.Identity
+@model NewsSystem.ViewModels.NewsListViewModel
+@inject SignInManager<ApplicationUser> SignInManager
+
 
 <section id="last-news-list">
     @foreach (var news in this.Model.News)
@@ -6,7 +11,7 @@
         <article class="last-news">
             <header>
                 <div class="title">
-                    <h3><a href="@news.Url">@news.Title</a></h3>
+                    <h4><a href="@news.Url">@news.Title</a></h4>
 
                 </div>
                 <div class="meta">
@@ -22,25 +27,35 @@
                                 {
                                     @news.SourceShortName
                                 }
-                        }
-                    </span>
-                </a>
-            </div>
-        </header>
-        <a href="@news.Url" class="image"><img class="lozad" data-src="@news.ImageUrl" alt="@news.Title" /></a>
-        <p> @news.ShortContent</p>
-        <footer>
-            <ul class="actions">
-                <li><a href="@news.Url" class="button medium">Прочети още</a></li>
-            </ul>
-            <ul class="stats">
-                @* <li><a href="#">име категория</a></li> *@
-                <li><a href="#" class="icon fa-heart">28</a></li>
-                <li><a href="#" class="icon fa-comment">128</a></li>
-                <li><a href="#" class="icon fa-image">9</a></li>
-                <li><a href="#" class="icon fa-video">2</a></li>
-            </ul>
-        </footer>
-    </article>
-}
+                            }
+                        </span>
+                    </a>
+                </div>
+            </header>
+            <a href="@news.Url" class="image"><img class="lozad" data-src="@news.ImageUrl" alt="@news.Title" /></a>
+            <p> @news.ShortContent</p>
+            <footer>
+                <ul class="actions">
+                    <li><a href="@news.Url" class="button medium">Прочети още</a></li>
+                    @* //TODO: IF NOT USER IS LOGGED EXCEPTION *@
+                    @if (SignInManager.IsSignedIn(User) &&
+                        (this.User.IsInRole(GlobalConstants.EditorRoleName) || this.User.Identity.Name == (news.Author != null ? news.Author.UserName : null))
+                       )
+                    {
+
+                        <li><a asp-area="Administration" asp-controller="News" asp-action="Udpate" asp-route-id="@news.Id" class="tools"><i class="fa fa-edit"></i></a></li>
+
+                    }
+                    
+                </ul>
+                <ul class="stats">
+                    @* <li><a href="#">име категория</a></li> *@
+                    <li><a href="#" class="icon fa-heart">28</a></li>
+                    <li><a href="#" class="icon fa-comment">128</a></li>
+                    <li><a href="#" class="icon fa-image">9</a></li>
+                    <li><a href="#" class="icon fa-video">2</a></li>
+                </ul>
+            </footer>
+        </article>
+    }
 </section>

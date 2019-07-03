@@ -103,6 +103,11 @@
       "destination": "wwwroot/lib/kinvey/"
     },
     {
+      "provider": "filesystem",
+      "library": "wwwroot/FrontEnd/assets/js/jquery.toolbar.min.js",
+      "destination": "wwwroot/js/"
+    },
+    {
       "provider": "cdnjs",
       "library": "toastr.js@2.1.4",
       "destination": "wwwroot/lib/toastr.js/",

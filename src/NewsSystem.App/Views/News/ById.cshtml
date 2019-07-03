@@ -2,8 +2,10 @@
 @model NewsSystem.ViewModels.NewsViewModel
 
 @{
-    Layout = "_SingleLayout";
+    Layout = "_MainLayout";
+    this.ViewData["bodyClass"] = "single";
 }
+@* //TODO:IF IS AUTHOR *@
 @if (this.User.IsInRole(GlobalConstants.ReporterRoleName) || this.User.IsInRole(GlobalConstants.EditorRoleName))
 {
     <a asp-area="Administration" asp-controller="News" asp-action="TopNews" asp-route-id="@this.Model.Id">Top</a>

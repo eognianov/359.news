@@ -18,6 +18,7 @@
     <thead>
         <tr>
             <th>user</th>
+            <th>admin</th>
             <th>Reporter </th>
             <th>Editor</th>
         </tr>
@@ -27,8 +28,20 @@
         {
         <tr>
             <td>@user.UserName</td>
+
             <td>
 
+                @if (!userManager.IsInRoleAsync(user, GlobalConstants.AdministratorRoleName).GetAwaiter().GetResult())
+                {
+                    <a asp-area="Administration" asp-controller="Users" asp-action="Promote" asp-route-email="@user.Email" asp-route-roleName="@GlobalConstants.AdministratorRoleName">+administrator</a>
+                }
+                @if (userManager.IsInRoleAsync(user, GlobalConstants.AdministratorRoleName).GetAwaiter().GetResult())
+                {
+                    <a asp-area="Administration" asp-controller="Users" asp-action="Demote" asp-route-email="@user.Email" asp-route-roleName="@GlobalConstants.AdministratorRoleName">-administrator</a>
+                }
+
+            </td>
+            <td>
                 @if (!userManager.IsInRoleAsync(user, GlobalConstants.ReporterRoleName).GetAwaiter().GetResult())
                 {
                     <a asp-area="Administration" asp-controller="Users" asp-action="Promote" asp-route-email="@user.Email" asp-route-roleName="@GlobalConstants.ReporterRoleName">+Reporter</a>

@@ -21,9 +21,19 @@ namespace NewsSystem.App.Components
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var news = this.topNewsRepository.All();
- 
-            return  this.View();
+            var news = this.topNewsRepository.All().Select(tp=>new NewsViewModel
+            {
+                Id = tp.News.Id,
+                ImageUrl = tp.News.ImageUrl,
+                Title = tp.News.Title,
+                Content = tp.News.Content
+            });
+
+            var model = new NewsListViewModel
+            {
+                News = news
+            };
+            return  this.View(model);
         }
     }
 }

@@ -16,8 +16,7 @@ using NewsSystem.Common;
 
 namespace NewsSystem.App.Areas.Administration.Controllers
 {    
-    [Authorize(Roles = GlobalConstants.EditorRoleName)]
-    [Authorize(Roles = GlobalConstants.ReporterRoleName)]
+    [Authorize(Roles = "Administrator,Editor,Reporter")]
     public class NewsController :AdministrationController
     {
         private readonly INewsService newsService;

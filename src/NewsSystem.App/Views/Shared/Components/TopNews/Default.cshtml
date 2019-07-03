@@ -8,9 +8,9 @@
             <div class="top_news blue-hover">
                 <img class="lozad" data-src="@news.ImageUrl">
                 <div class="top_news_content">
-                    <p class="mb-0 small font-weight-medium text-uppercase mb-1 text-muted lts-2px">
-                        Travel
-                    </p>
+                    @* <p class="mb-0 small font-weight-medium text-uppercase mb-1 text-muted lts-2px"> *@
+                    @*     Travel *@
+                    @* </p> *@
 
                     <h1 class="ff-serif text-black card-heading mt-0 mb-1" style="line-height: 1.25;">
                         @news.Title
@@ -19,7 +19,7 @@
                     <p class="mb-1 ti-1">
                         @news.ShortContent
                     </p>
-                    <a href="#0"
+                    <a href="@news.Url"
                        class="text-uppercase d-inline-block font-weight-medium lts-2px ml-2 mb-2 text-center styled-link">
                         Read More
                     </a>

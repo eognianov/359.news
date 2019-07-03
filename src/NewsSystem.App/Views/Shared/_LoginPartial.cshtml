@@ -1,27 +1,48 @@
 @using Microsoft.AspNetCore.Identity
+@using NewsSystem.Common
 @using NewsSystem.Data.Models
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
 
-<ul class="navbar-nav">
+
+
 @if (SignInManager.IsSignedIn(User))
 {
-    <li class="nav-item">
-        <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity.Name!</a>
-    </li>
-    <li class="nav-item">
-        <form  class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-            <button  type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-        </form>
-    </li>
+    <li><a href="#" class="tools" id="userTools"><i class="fa fa-user-circle"></i></a></li>
+    {
+        if (this.User.IsInRole(GlobalConstants.ReporterRoleName) || this.User.IsInRole(GlobalConstants.EditorRoleName))
+        {
+            <li><a asp-area="Administration" asp-controller="News" asp-action="Create" class="tools" id="userTools"><i class="fa fa-file"></i></a></li>
+
+        }
+    }
+    
+    {
+        var user = UserManager.Users.FirstOrDefault(u => u.UserName == this.User.Identity.Name);
+        {<li>@user.UserName.ToCharArray()[0]</li>}
+        var roles = await UserManager.GetRolesAsync(user);
+        foreach (var role in roles)
+        {
+            <li>@role</li>
+        }
+    }
+    <form  style="display: inline-block" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+        <button  type="submit" class="">Logout</button>
+    </form>
 }
 else
 {
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a>
-    </li>
+    @*     <li class="nav-item"> *@
+    @*         <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a> *@
+    @*     </li> *@
+    @*     <li class="nav-item"> *@
+    @*         <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a> *@
+    @*     </li> *@
 }
-</ul>
+<div id="user-options" class="hidden">
+    <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><i class="fa fa-user-edit"></i></a>
+    <a href="#"><i class="fa fa-edit"></i></a>
+    <a href="#"><i class="fa fa-folder-open"></i></a>
+    <a href="#"><i class="fa fa-archive"></i></a>
+    <a asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })"><i class="fa fa-logout"></i></a>
+</div>
