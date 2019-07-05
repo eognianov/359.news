@@ -2437,7 +2437,9 @@ ul.main-carousel {
     #extras #tab2:checked ~ #content2::before,
     #extras #tab3:checked ~ #content3::before,
     #extras #tab4:checked ~ #content4::before {
-      content: url("/img/loader.gif"); }
+      /* content: url("/img/loader.gif");  */
+      content: none;
+    }
   #extras #tab1:checked + label {
     border-left: none; }
   @media screen and (max-width: 1280px) {

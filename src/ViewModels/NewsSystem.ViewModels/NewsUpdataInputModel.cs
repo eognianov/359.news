@@ -27,5 +27,6 @@ namespace NewsSystem.ViewModels
         
         public string ImageUrl { get; set; }
 
+        public bool Published { get; set; }
     }
 }

@@ -11,6 +11,67 @@
 
 	<link rel="stylesheet" href="assets/css/main.css" />
 
+	<style>
+	#image-container img {
+  max-height: 140px;
+}
+
+li.container {
+  height: 140px;
+  min-width: 100px;
+  display: block;
+  float: left;
+  list-style: none;
+  margin: 0 5px 5px 0;
+  background-color: black;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+li.container img.container,
+#status {
+  -webkit-transition: opacity 0.4s;
+     -moz-transition: opacity 0.4s;
+      -ms-transition: opacity 0.4s;
+          transition: opacity 0.4s;
+}
+
+li.is-loading {
+  background-color: black;
+  background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/loading.gif');
+}
+
+li.is-broken {
+  background-image: url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/broken.png');
+  background-color: #be3730;
+  width: 120px;
+}
+
+li.is-loading img.container,
+li.is-broken img .container{
+  opacity: 0;
+}
+
+.buttons { margin-bottom: 1.0em; }
+
+button.container {
+  font-size: 18px;
+  padding: 0.4em 0.8em;
+  font-family: sans-serif;
+}
+
+#status {
+  opacity: 0;
+  position: fixed;
+  right: 20px;
+  top: 20px;
+  background: hsla( 0, 0%, 0%, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  z-index: 2; /* over other stuff */
+}
+</style>
+
 	<link rel="apple-touch-icon" sizes="57x57" href="/img/favicon/apple-icon-57x57.png">
 	<link rel="apple-touch-icon" sizes="60x60" href="/img/favicon/apple-icon-60x60.png">
 	<link rel="apple-touch-icon" sizes="72x72" href="/img/favicon/apple-icon-72x72.png">
@@ -381,44 +442,75 @@
 								</form>
 							</div>
 						</div>
+						<div class="grid">
+							<div class="grid-sizer"></div>
+							<div class="grid-item">
+								<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/orange-tree.jpg" />
+							</div>
+							<div class="grid-item">
+								<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/submerged.jpg" />
+							</div>
+							<div class="grid-item">
+								<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/look-out.jpg" />
+							</div>
+							<div class="grid-item">
+								<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/one-world-trade.jpg" />
+							</div>
+							<div class="grid-item">
+								<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/drizzle.jpg" />
+							</div>
+							<div class="grid-item">
+								<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/cat-nose.jpg" />
+							</div>
+							<div class="grid-item">
+								<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/contrail.jpg" />
+							</div>
+							<div class="grid-item">
+								<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/golden-hour.jpg" />
+							</div>
+							<div class="grid-item">
+								<img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/82/flight-formation.jpg" />
+							</div>
+						</div>
+
 					</section>
 
-					<section id="content2" class="lozad">
-						<a id="pictures"></a>
+					<section id="content2" class="">
 						<div class="box alt">
 							<div class="row gtr-uniform">
-								<div class="col-4"><span class="image fit"><img class="lozad"
-											data-src="images/pic04.jpg" alt=""></span>
+								<div class="col-4"><span class="image fit"><img class="lazy" alt="" src="images/pic04.jpg"></span>
 								</div>
-								<div class="col-4"><span class="image fit"><img class="lozad"
-											data-src="images/pic05.jpg" alt=""></span>
+								<div class="col-4"><span class="image fit"><img class="lazy" alt="" src="images/pic05.jpg"></span>
 								</div>
-								<div class="col-4"><span class="image fit"><img class="lozad"
-											data-src="images/pic06.jpg" alt=""></span>
+								<div class="col-4"><span class="image fit"><img class="lazy" alt="" src="images/pic06.jpg"></span>
 								</div>
-								<div class="col-4"><span class="image fit"><img class="lozad"
-											data-src="images/pic06.jpg" alt=""></span>
+								<div class="col-4"><span class="image fit"><img class="lazy" alt="" src="images/pic06.jpg"></span>
 								</div>
-								<div class="col-4"><span class="image fit"><img class="lozad"
-											data-src="images/pic04.jpg" alt=""></span>
+								<div class="col-4"><span class="image fit"><img class="lazy" alt="" src="images/pic04.jpg"></span>
 								</div>
-								<div class="col-4"><span class="image fit"><img class="lozad"
-											data-src="images/pic05.jpg" alt=""></span>
+								<div class="col-4"><span class="image fit"><img class="lazy" alt="" src="images/pic05.jpg"></span>
 								</div>
-								<div class="col-4"><span class="image fit"><img class="lozad"
-											data-src="images/pic05.jpg" alt=""></span>
+								<div class="col-4"><span class="image fit"><img class="lazy" alt="" src="images/pic05.jpg"></span>
 								</div>
-								<div class="col-4"><span class="image fit"><img class="lozad"
-											data-src="images/pic06.jpg" alt=""></span>
+								<div class="col-4"><span class="image fit"><img class="lazy" alt="" src="images/pic06.jpg"></span>
 								</div>
-								<div class="col-4"><span class="image fit"><img class="lozad"
-											data-src="images/pic04.jpg" alt=""></span>
+								<div class="col-4"><span class="image fit"><img class="lazy" alt="" src="images/pic04.jpg"></span>
 								</div>
 							</div>
 						</div>
+						<div class="buttons">
+							<button id="add" class="container">Add images</button>
+							<button id="reset" class="container">Reset</button>
+						</div>
+						<div id="status">
+							<progress max="7" value="0"></progress>
+						</div>
+						<div id="image-container"></div>
+
+
 					</section>
-					<section id="content3" class="lozad" style="align-content: center">
-						<iframe class="lozad" width="1136" height="639"
+					<section id="content3" class="" style="align-content: center">
+						<iframe class="" width="1136" height="639"
 							data-src="https://www.youtube.com/embed/hirV_klo4fw" frameborder="0"
 							allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
 							allowfullscreen></iframe>
@@ -460,7 +552,7 @@
 							<a href="#" class="author"><span class="name">Име Автор</span><img src="images/avatar.jpg" alt="" /></a>
 						</div>
 					</header>
-					<a href="single.html" class="image"><img class="lozad" data-src="images/pic04.jpg" alt="" /></a>
+					<a href="single.html" class="image"><img class="" data-src="images/pic04.jpg" alt="" /></a>
 					<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid eos praesentium dolores
 						natus culpa, obcaecati quas rem quam beatae voluptatibus quidem doloribus fugiat accusamus
 						enim vel facere quae ducimus perferendis.</p>
@@ -491,7 +583,7 @@
 							<a href="#" class="author"><span class="name">Име Автор</span><img src="images/avatar.jpg" alt="" /></a>
 						</div>
 					</header>
-					<a href="single.html" class="image"><img class="lozad" data-src="images/pic04.jpg" alt="" /></a>
+					<a href="single.html" class="image"><img class="" data-src="images/pic04.jpg" alt="" /></a>
 					<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid eos praesentium dolores
 						natus culpa, obcaecati quas
 						rem quam beatae voluptatibus quidem doloribus fugiat accusamus enim vel facere quae ducimus
@@ -522,7 +614,7 @@
 							<a href="#" class="author"><span class="name">Име Автор</span><img src="images/avatar.jpg" alt="" /></a>
 						</div>
 					</header>
-					<a href="single.html" class="image"><img class="lozad" data-src="images/pic04.jpg" alt="" /></a>
+					<a href="single.html" class="image"><img class="" data-src="images/pic04.jpg" alt="" /></a>
 					<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid eos praesentium dolores
 						natus culpa, obcaecati quas
 						rem quam beatae voluptatibus quidem doloribus fugiat accusamus enim vel facere quae ducimus
@@ -554,7 +646,7 @@
 							<a href="#" class="author"><span class="name">Име Автор</span><img src="images/avatar.jpg" alt="" /></a>
 						</div>
 					</header>
-					<a href="single.html" class="image"><img class="lozad" data-src="images/pic04.jpg" alt="" /></a>
+					<a href="single.html" class="image"><img class="" data-src="images/pic04.jpg" alt="" /></a>
 					<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid eos praesentium dolores
 						natus culpa, obcaecati quas
 						rem quam beatae voluptatibus quidem doloribus fugiat accusamus enim vel facere quae ducimus
@@ -661,7 +753,107 @@
 	}
 	</script>
 	<script src="assets/js/jquery.toolbar.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/masonry/4.2.1/masonry.pkgd.min.js"></script>
+<script src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
 
+<script>
+	var $container = $('#image-container');
+		var $status = $('#status');
+		var $progress = $('progress');
+
+		var supportsProgress = $progress[0] &&
+			// IE does not support progress
+			$progress[0].toString().indexOf('Unknown') === -1;
+
+		var loadedImageCount, imageCount;
+
+		$('#add').click(function () {
+			// add new images
+			var items = getItems();
+			$container.prepend($(items));
+			// use ImagesLoaded
+			$container.imagesLoaded()
+				.progress(onProgress)
+				.always(onAlways);
+			// reset progress counter
+			imageCount = $container.find('img').length;
+			resetProgress();
+			updateProgress(0);
+		});
+
+		// reset container
+		$('#reset').click(function () {
+			$container.empty();
+		});
+
+		// -----  ----- //
+
+		// return doc fragment with
+		function getItems() {
+			var items = '';
+			for (var i = 0; i < 7; i++) {
+				items += getImageItem();
+			}
+			return items;
+		}
+
+		// return an <li> with a <img> in it
+		function getImageItem() {
+			var item = '<li class="is-loading">';
+			var size = Math.random() * 3 + 1;
+			var width = Math.random() * 110 + 100;
+			width = Math.round(width * size);
+			var height = Math.round(140 * size);
+			var rando = Math.ceil(Math.random() * 1000);
+			// 10% chance of broken image src
+			// random parameter to prevent cached images
+			var src = rando < 100 ? '//foo/broken-' + rando + '.jpg' :
+				// use lorempixel for great random images
+				'//lorempixel.com/' + width + '/' + height + '/' + '?' + rando;
+			item += '<img src="' + src + '" /></li>';
+			return item;
+		}
+
+		// -----  ----- //
+
+		function resetProgress() {
+			$status.css({ opacity: 1 });
+			loadedImageCount = 0;
+			if (supportsProgress) {
+				$progress.attr('max', imageCount);
+			}
+		}
+
+		function updateProgress(value) {
+			if (supportsProgress) {
+				$progress.attr('value', value);
+			} else {
+				// if you don't support progress elem
+				$status.text(value + ' / ' + imageCount);
+			}
+		}
+
+		// triggered after each item is loaded
+		function onProgress(imgLoad, image) {
+			// change class if the image is loaded or broken
+			var $item = $(image.img).parent();
+			$item.removeClass('is-loading');
+			if (!image.isLoaded) {
+				$item.addClass('is-broken');
+			}
+			// update progress element
+			loadedImageCount++;
+			updateProgress(loadedImageCount);
+		}
+
+		// hide status when done
+		function onAlways() {
+			$status.css({ opacity: 0 });
+		}
+
+
+
+</script>
 	<script src="assets/js/site.js"></script>
 	<script type="text/javascript" src="./assets/js/ssg.js"></script>
 	<!-- <script>

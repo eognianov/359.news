@@ -35,5 +35,10 @@ namespace NewsSystem.Data.Seeding
                 logger.LogInformation($"Seeder {seeder.GetType().Name} done.");
             }
         }
+
+        public static void Seed(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

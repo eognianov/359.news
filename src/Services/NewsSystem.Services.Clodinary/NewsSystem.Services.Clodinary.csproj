@@ -1,14 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <LangVersion>7.1</LangVersion>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="Migrations\20190630013731_NewsSignitureTypes.cs" />
-    <Compile Remove="Migrations\20190704113511_PhotosToNEws.cs" />
-  </ItemGroup>
 
   <ItemGroup>
     <None Remove="appsettings.json" />
@@ -21,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="CloudinaryDotNet" Version="1.8.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.2.4" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="2.2.4" />
@@ -32,9 +28,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Common\NewsSystem.Common\NewsSystem.Common.csproj" />
-    <ProjectReference Include="..\NewsSystem.Data.Common\NewsSystem.Data.Common.csproj" />
-    <ProjectReference Include="..\NewsSystem.Data.Models\NewsSystem.Data.Models.csproj" />
+    <ProjectReference Include="..\..\Data\NewsSystem.Data\NewsSystem.Data.csproj" />
+    <ProjectReference Include="..\NewsSystem.Services.Data\NewsSystem.Services.Data.csproj" />
   </ItemGroup>
 
 </Project>

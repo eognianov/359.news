@@ -10,11 +10,14 @@ namespace NewsSystem.Data.Models
         public News()
         {
             this.Tags = new HashSet<NewsTag>();
+            this.Photos = new List<Photo>();
         }
 
         public string Title { get; set; }
 
         public string Content { get; set; }
+
+        public bool Published { get; set; }
 
         public string ImageUrl { get; set; }
 
@@ -29,6 +32,8 @@ namespace NewsSystem.Data.Models
         public string SearchText { get; set; }
 
         public virtual ICollection<NewsTag> Tags { get; set; }
+
+        public virtual ICollection<Photo> Photos { get; set; }
 
         public string AuthorId { get; set; }
 

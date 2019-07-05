@@ -16,7 +16,10 @@
                 </div>
                 <div class="meta">
                     <time class="published" datetime="@news.CreatedOn.ToString("O")">@news.CreatedOn.ToString("dd/MM/yyyy HH:mm")</time>
-                    <a href="@news.Url" class="author">
+                    <a href="@news.Url" class="author" title=" @if (news.Author != null)
+                                                       {
+                                                           @news.SourceName;
+                                                       }">
                         <span class="name">
                             @{
                                 if (news.Author != null)
@@ -25,7 +28,7 @@
                                 }
                                 else
                                 {
-                                    @news.SourceShortName
+                                    @news.SourceShortName;
                                 }
                             }
                         </span>

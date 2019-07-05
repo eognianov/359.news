@@ -1,11 +1,15 @@
 ﻿@using NewsSystem.Common
 @model NewsSystem.ViewModels.NewsListViewModel
+@using NewsSystem.Data.Models
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
+
 @{
     Layout = "_MainLayout";
 
     if (this.Model.CurrentPage != 1)
     {
-        this.ViewData["Title"] = "Всички прессъобщения, страница " + this.Model.CurrentPage;
+        this.ViewData["Title"] = "Всички новини, страница " + this.Model.CurrentPage;
     }
     else
     {
@@ -13,113 +17,99 @@
     }
 }
 
-@if (!string.IsNullOrWhiteSpace(this.Model.Search))
-{
-    <h3>Търсене за "@this.Model.Search", страница @this.Model.CurrentPage, резултати @this.Model.NewsCount</h3>
-}
+@* @if (!string.IsNullOrWhiteSpace(this.Model.Search)) *@
+@* { *@
+@*     <h3>Търсене за "@this.Model.Search", страница @this.Model.CurrentPage, резултати @this.Model.NewsCount</h3> *@
+@* } *@
+@* *@
+@* @if (this.User.Identity.IsAuthenticated) *@
+@* { *@
+@*     <form method="get" asp-controller="News" asp-action="List" asp-route-id="1"> *@
+@*         <div class="input-group mb-4"> *@
+@*             <input type="search" name="search" class="form-control" value="@this.Model.Search" placeholder="Въведете думи за търсене, разделени с интервал..." /> *@
+@*             <div class="input-group-append"> *@
+@*                 <input type="submit" value="Търси" class="btn btn-outline-secondary" /> *@
+@*             </div> *@
+@*         </div> *@
+@*     </form> *@
+@* } *@
 
-@if (this.User.Identity.IsAuthenticated)
-{
-    <form method="get" asp-controller="News" asp-action="List" asp-route-id="1">
-        <div class="input-group mb-4">
-            <input type="search" name="search" class="form-control" value="@this.Model.Search" placeholder="Въведете думи за търсене, разделени с интервал..." />
-            <div class="input-group-append">
-                <input type="submit" value="Търси" class="btn btn-outline-secondary" />
-            </div>
-        </div>
-    </form>
-}
+<section id="last-news-list">
+    @foreach (var news in this.Model.News)
+    {
+        <article class="last-news">
+            <header>
+                <div class="title">
+                    <h4><a href="@news.Url">@news.Title</a></h4>
 
-@foreach (var news in this.Model.News)
-{
-    <article class="g-mb-20 clearfix">
-        <div class="g-pos-rel px-2">
-            <h3 class="h5">
-                <a class="u-link-v5 g-color-black g-color-primary--hover" href="@news.Url">
-                    @if (!string.IsNullOrWhiteSpace(news.SourceShortName))
+                </div>
+                <div class="meta">
+                    <time class="published" datetime="@news.CreatedOn.ToString("O")">@news.CreatedOn.ToString("dd/MM/yyyy HH:mm")</time>
+                    <a href="@news.Url" class="author" title=" @if (news.Author != null)
+                                                       {
+                                                           @news.SourceName;
+                                                       }">
+                        <span class="name">
+                            @{
+                                if (news.Author != null)
+                                {
+                                    @news.GetSign();
+                                }
+                                else
+                                {
+                                    @news.SourceShortName;
+                                }
+                            }
+                        </span>
+                    </a>
+                </div>
+            </header>
+            <a href="@news.Url" class="image"><img class="lozad" data-src="@news.ImageUrl" alt="@news.Title" /></a>
+            <p> @news.ShortContent</p>
+            <footer>
+                <ul class="actions">
+                    <li><a href="@news.Url" class="button medium">Прочети още</a></li>
+                    @* //TODO: IF NOT USER IS LOGGED EXCEPTION *@
+                    @if (SignInManager.IsSignedIn(User) &&
+                    (this.User.IsInRole(GlobalConstants.EditorRoleName) || this.User.Identity.Name == (news.Author != null ? news.Author.UserName : null))
+                   )
                     {
-                        <span title="@news.SourceName">@news.SourceShortName:</span>
-                    }
-                    @news.Title
-                </a>
-            </h3>
-            <div class="media">
-                <a class="d-flex mr-2">
-                    <img class="rounded g-width-100 g-height-60" src="@news.ImageUrl" alt="@news.SourceShortName" title="@news.Title" />
-                </a>
-                <p class="g-color-gray-dark-v4 text-justify mb-2">
-                    @news.ShortContent
-                </p>
-            </div>
-            <ul class="d-flex justify-content-start align-items-end list-inline g-color-gray-dark-v5 g-font-size-13 g-mb-10">
-                <li class="list-inline-item">
-                    <span class="g-font-size-13">
-                        <a href="@news.OriginalUrl" target="_blank">@news.SourceName</a>
-                    </span>
-                </li>
-                <li class="list-inline-item ml-auto">
-                    <span class="g-color-gray-dark-v5">@news.CreatedOnAsString</span>
-                </li>
-            </ul>
-        </div>
-    </article>
-}
 
+                        <li><a asp-area="Administration" asp-controller="News" asp-action="Udpate" asp-route-id="@news.Id" class="tools"><i class="fa fa-edit"></i></a></li>
+
+                    }
+
+                </ul>
+                <ul class="stats">
+                    @* <li><a href="#">име категория</a></li> *@
+                    <li><a href="#" class="icon fa-heart">28</a></li>
+                    <li><a href="#" class="icon fa-comment">128</a></li>
+                    <li><a href="#" class="icon fa-image">9</a></li>
+                    <li><a href="#" class="icon fa-video">2</a></li>
+                </ul>
+            </footer>
+        </article>
+    }
+</section>
 <!-- Pagination -->
-<nav aria-label="Страници новини">
-    <ul class="pagination justify-content-center">
-        @if (this.Model.CurrentPage > 1)
-        {
-            <li class="page-item">
-                <a class="page-link" asp-controller="News" asp-action="List" asp-route-id="@this.Model.PreviousPage" asp-route-search="@this.Model.Search" aria-label="Предишна">
-                    <span aria-hidden="true">&laquo;</span>
-                </a>
-            </li>
-        }
-        @{
-            const int MorePagesToShow = 3;
-            var pagesToShow = new List<int>();
-            for (var i = 1; i <= MorePagesToShow; i++)
-            {
-                pagesToShow.Add(i);
-            }
-            for (var i = this.Model.CurrentPage - MorePagesToShow; i <= this.Model.CurrentPage + MorePagesToShow; i++)
-            {
-                if (i > 0)
-                {
-                    pagesToShow.Add(i);
-                }
-            }
-            for (var i = this.Model.PagesCount - MorePagesToShow + 1; i <= this.Model.PagesCount; i++)
-            {
-                if (i > 0)
-                {
-                    pagesToShow.Add(i);
-                }
-            }
-            pagesToShow = pagesToShow.Where(x => x <= this.Model.PagesCount).Distinct().OrderBy(x => x).ToList();
-        }
-        @for (var i = 0; i < pagesToShow.Count; i++)
-        {
-            var className = string.Empty;
-            var pageNumber = pagesToShow[i];
-            if (pageNumber == this.Model.CurrentPage)
-            {
-                className = "active";
-            }
-            if (i > 0 && pageNumber - 1 != pagesToShow[i - 1])
-            {
-                <li class="page-item @className"><a class="page-link" asp-controller="News" asp-action="List" asp-route-id="@(pagesToShow[i - 1] + 1)" asp-route-search="@this.Model.Search">...</a></li>
-            }
-            <li class="page-item @className"><a class="page-link" asp-controller="News" asp-action="List" asp-route-id="@pageNumber" asp-route-search="@this.Model.Search">@pageNumber</a></li>
-        }
-        @if (this.Model.CurrentPage < this.Model.PagesCount)
-        {
-            <li class="page-item">
-                <a class="page-link" asp-controller="News" asp-action="List" asp-route-id="@this.Model.NextPage" asp-route-search="@this.Model.Search" aria-label="Следваща">
-                    <span aria-hidden="true">&raquo;</span>
-                </a>
-            </li>
-        }
-    </ul>
-</nav>
+<ul class="actions pagination">
+    @if (this.Model.CurrentPage > 1)
+    {
+        <li>
+            <a class="button large previous" asp-controller="News" asp-action="List" asp-route-id="@this.Model.PreviousPage" asp-route-search="@this.Model.Search">
+                Предищна стр.
+            </a>
+        </li>
+    }
+    
+    <li><a class="button large disabled" href="#"> @this.Model.CurrentPage / @this.Model.PagesCount </a></li>
+
+    @if (this.Model.CurrentPage < this.Model.PagesCount)
+    {
+        <li class="page-item">
+            <a class="button large next" asp-controller="News" asp-action="List" asp-route-id="@this.Model.NextPage" asp-route-search="@this.Model.Search" aria-label="Следваща">
+                Следваща стр.
+            </a>
+        </li>
+    }
+</ul>

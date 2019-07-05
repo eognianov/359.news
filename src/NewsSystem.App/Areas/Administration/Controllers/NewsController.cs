@@ -86,10 +86,18 @@ namespace NewsSystem.App.Areas.Administration.Controllers
              return Redirect(newsService.GetUrlById(input.Id));
         }
 
-        public async Task<IActionResult> TopNews(int id)
+        public async Task<IActionResult> TopNews(int id, bool remove=false)
         {
             var topNews = new TopNews(){NewsId = id};
-            await this.TopNewsRepository.AddAsync(topNews);
+            if (remove)
+            {
+                this.TopNewsRepository.Delete(topNews);
+            }
+            else
+            {
+
+                await this.TopNewsRepository.AddAsync(topNews);
+            }
             await this.TopNewsRepository.SaveChangesAsync();
             return this.RedirectToAction("List", "News", new { area = string.Empty });
         }

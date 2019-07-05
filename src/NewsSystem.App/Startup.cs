@@ -136,7 +136,7 @@ namespace NewsSystem.App
 
             // Application services
 //            services.AddTransient<IEmailSender, NullMessageSender>();
-//            services.AddTransient<ISmsSender, NullMessageSender>();
+            //services.AddTransient<ISmsSender, NullMessageSender>();
 //            services.AddTransient<ISettingsService, SettingsService>();
 
             services.AddTransient<INewsService, NewsService>();
