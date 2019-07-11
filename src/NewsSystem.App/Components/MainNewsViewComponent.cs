@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NewsSystem.Mappings;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace NewsSystem.App.Components
 {
@@ -22,10 +23,10 @@ namespace NewsSystem.App.Components
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var news = this.mainNewsRepository.All().Where(x => !x.Source.IsDeleted).GroupBy(
+            var news = await this.mainNewsRepository.All().Where(x => !x.Source.IsDeleted).GroupBy(
                     x => x.SourceId,
                     (key, g) => g.OrderByDescending(e => e.Id).FirstOrDefault()).OrderByDescending(x => x.CreatedOn)
-                .To<MainNewsViewModel>().ToList();
+                .To<MainNewsViewModel>().ToListAsync();
             var viewModel = new MainNewsComponentViewModel { MainNews = news };
             return  this.View(viewModel);
         }

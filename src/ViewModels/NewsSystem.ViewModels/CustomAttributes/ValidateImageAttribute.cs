@@ -1,7 +1,6 @@
-﻿using System;
-using System.Linq;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace NewsSystem.ViewModels.CustomAttributes
 {

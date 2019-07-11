@@ -156,5 +156,10 @@ namespace NewsSystem.ViewModels
             return sing;
         }
 
+        public bool isPublished { get; set; }
+        public DateTime? PublishedOn { get; set; }
+
+        public bool IsDeleted { get; set; }
+
     }
 }

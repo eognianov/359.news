@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using NewsSystem.Common;
 using NewsSystem.Data.Common.Repositories;
 using NewsSystem.Data.Models;
 using NewsSystem.ViewModels;
 using NewsSystem.Mappings;
+using NewsSystem.ViewModels.Common;
 
 namespace NewsSystem.App.Controllers
 {
@@ -15,9 +18,9 @@ namespace NewsSystem.App.Controllers
     {
         private const int ItemsPerPage = 10;
 
-        private readonly IDeletableEntityRepository<News> newsRepository;
+        private readonly IPublishableEntityRepository<News> newsRepository;
 
-        public NewsController(IDeletableEntityRepository<News> newsRepository)
+        public NewsController(IPublishableEntityRepository<News> newsRepository)
         {
             this.newsRepository = newsRepository;
         }
@@ -26,7 +29,7 @@ namespace NewsSystem.App.Controllers
         {
             id = Math.Max(1, id);
             var skip = (id - 1) * ItemsPerPage;
-            var query = this.newsRepository.All();
+            var query = this.newsRepository.AllPublished();
             var words = search?.Split(' ').Select(x => x.Trim())
                 .Where(x => !string.IsNullOrWhiteSpace(x) && x.Length >= 2).ToList();
             if (words != null)
@@ -61,12 +64,24 @@ namespace NewsSystem.App.Controllers
         public IActionResult ById(int id, string slug)
         {
             var news = this.newsRepository.All().Where(x => x.Id == id).To<NewsViewModel>().FirstOrDefault();
-            if (news == null)
+
+            if (news == null || news.IsDeleted)
+            {
+                return NotFound();
+
+            }
+            else if(news.isPublished || 
+                    User.IsInRole(GlobalConstants.EditorRoleName) || 
+                    User.IsInRole(GlobalConstants.AdministratorRoleName) || 
+                    (User.Identity.IsAuthenticated && news.Author?.UserName == User.Identity.Name))
+
+            {
+                return View(news);
+            }
+            else
             {
                 return this.NotFound();
             }
-
-            return this.View(news);
         }
     }
 }

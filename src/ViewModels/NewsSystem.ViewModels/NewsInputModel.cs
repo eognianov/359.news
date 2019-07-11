@@ -5,7 +5,6 @@ using NewsSystem.Data.Models;
 using NewsSystem.Mappings;
 using NewsSystem.ViewModels.CustomAttributes;
 
-
 namespace NewsSystem.ViewModels
 {
     public class NewsInputModel : IMapTo<News>

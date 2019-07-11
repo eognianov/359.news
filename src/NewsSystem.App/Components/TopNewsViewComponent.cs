@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using NewsSystem.Data.Common.Repositories;
 using NewsSystem.Data.Models;
 using NewsSystem.ViewModels;
@@ -21,14 +22,14 @@ namespace NewsSystem.App.Components
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var news = this.topNewsRepository.All().Select(tp=>new NewsViewModel
+            var news =await this.topNewsRepository.All().Select(tp=>new NewsViewModel
             {
                 Id = tp.News.Id,
                 ImageUrl = tp.News.ImageUrl,
                 Title = tp.News.Title,
                 Content = tp.News.Content,
                 ContentLenght = 485
-            });
+            }).ToListAsync();
 
             var model = new NewsListViewModel
             {

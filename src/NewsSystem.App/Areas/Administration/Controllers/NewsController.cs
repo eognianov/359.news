@@ -17,7 +17,7 @@ using NewsSystem.Common;
 namespace NewsSystem.App.Areas.Administration.Controllers
 {    
     [Authorize(Roles = "Administrator,Editor,Reporter")]
-    public class NewsController :AdministrationController
+    public class NewsController : AdministrationController
     {
         private readonly INewsService newsService;
         private readonly IDeletableEntityRepository<News> newsRepository;
@@ -39,6 +39,7 @@ namespace NewsSystem.App.Areas.Administration.Controllers
             return View("Create");
         }
 
+        //HIGH: Update only if is editor, admin or author
         [HttpPost]
         public async Task<IActionResult> Create(NewsInputModel model)
         {
@@ -68,6 +69,7 @@ namespace NewsSystem.App.Areas.Administration.Controllers
             return this.View("Update", model);
         }
 
+        //HIGH: Update only if is editor, admin or author
         [HttpPost]
         public async Task<IActionResult> Update(NewsUpdataInputModel input)
         {
@@ -106,6 +108,14 @@ namespace NewsSystem.App.Areas.Administration.Controllers
         {
             var news = this.newsRepository.All().FirstOrDefault(x => x.Id == id);
             this.newsRepository.Delete(news);
+            await this.newsRepository.SaveChangesAsync();
+
+            return this.RedirectToAction("List", "News", new { area = string.Empty });
+        }
+        public async Task<IActionResult> UnDelete(int id)
+        {
+            var news = this.newsRepository.All().FirstOrDefault(x => x.Id == id);
+            this.newsRepository.Undelete(news);
             await this.newsRepository.SaveChangesAsync();
 
             return this.RedirectToAction("List", "News", new { area = string.Empty });
