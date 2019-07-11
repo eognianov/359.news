@@ -13,31 +13,34 @@
                 <div class="top_news blue-hover">
                     @if (this.User.IsInRole(GlobalConstants.EditorRoleName) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
                     {
-                        <a asp-area="Administration" asp-controller="News" asp-action="TopNews" asp-route-remove="true" asp-route-id="@news.Id">							<div class="top-news-remove-btn"><i class="fa fa-minus"></i></div>
+                    <div class="top-news-remove-btn">
+                        <a asp-area="Administration" asp-controller="News" asp-action="TopNews" asp-route-remove="true" asp-route-id="@news.Id">
+                            <i class="fa fa-minus"></i>
                         </a>
-                    }
-                    <img class="lozad" data-src="@news.ImageUrl">
-                    <div class="top_news_content">
-                        @* <p class="mb-0 small font-weight-medium text-uppercase mb-1 text-muted lts-2px"> *@
-                        @*     Travel *@
-                        @* </p> *@
+                    </div>
+                        }
+                        <img class="lozad" data-src="@news.ImageUrl">
+                        <div class="top_news_content">
+                            @* <p class="mb-0 small font-weight-medium text-uppercase mb-1 text-muted lts-2px"> *@
+                            @*     Travel *@
+                            @* </p> *@
 
-                        <h3 class="mt-0 mb-1" style="line-height: 1.25;">
-                            @news.Title
-                        </h3>
+                            <h3 class="mt-0 mb-1" style="line-height: 1.25;">
+                                @news.Title
+                            </h3>
 
-                        <p class="mb-1 ti-1">
-                            @news.ShortContent
-                        </p>
+                            <p class="mb-1 ti-1">
+                                @news.ShortContent
+                            </p>
 
-                        @* NORMAL: Fix readmore bar overflow *@
-                        <div class="readMore">
-                            <a href="@news.Url" class="text-uppercase d-inline-block font-weight-medium lts-2px ml-2 mb-2 text-center styled-link">
-                                Read More
-                            </a>
+                            @* NORMAL: Fix readmore bar overflow *@
+                            <div class="readMore">
+                                <a href="@news.Url" class="text-uppercase d-inline-block font-weight-medium lts-2px ml-2 mb-2 text-center styled-link">
+                                    Read More
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
             </li>
         }
     </ul>
