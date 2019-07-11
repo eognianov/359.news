@@ -35,14 +35,16 @@ ul.swiper-wrapper {
 .blue-hover:hover {
 	/* -webkit-transform: translateY(-5px);
 	transform: translateY(-5px); */
-	box-shadow: inset 0px -5px 0px 0px rgba(33,150,254,1);
+	-webkit-box-shadow: inset 0px -5px 0px 0px rgba(33,150,254,1);
+	        box-shadow: inset 0px -5px 0px 0px rgba(33,150,254,1);
 }
 
 .top_news img {
 	display: block;
 	width: 100%;
 	height: 40%;
-	object-fit: cover;
+	-o-object-fit: cover;
+	   object-fit: cover;
 	border-bottom: solid 1px rgba(160, 160, 160, 0.3);
 }
 
@@ -123,8 +125,10 @@ ul.swiper-wrapper {
     border-radius: 0.5em;
     line-height: 1em;
     padding: .5em;
-	box-shadow: 0px 0px 5px 0px rgba(204,166,204,1);
+	-webkit-box-shadow: 0px 0px 5px 0px rgba(204,166,204,1);
+	        box-shadow: 0px 0px 5px 0px rgba(204,166,204,1);
 	@include breakpoint('<=small') {
 		right: 3em;
 	}
 }
+
