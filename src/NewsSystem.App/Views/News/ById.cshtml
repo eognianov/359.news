@@ -8,10 +8,10 @@
 @* //TODO:IF IS AUTHOR *@
 @if (this.User.IsInRole(GlobalConstants.ReporterRoleName) || this.User.IsInRole(GlobalConstants.EditorRoleName))
 {
-    <a asp-area="Administration" asp-controller="News" asp-action="TopNews" asp-route-id="@this.Model.Id">Top</a>
-    <a asp-area="Administration" asp-controller="News" asp-action="Udpate" asp-route-id="@this.Model.Id" class="btn btn-secondary">Update</a>
-    <a asp-area="Administration" asp-controller="News" asp-action="SoftDelete" asp-route-id="@this.Model.Id" class="btn btn-danger">Soft delete</a>
-    <a asp-area="Administration" asp-controller="News" asp-action="HardDelete" asp-route-id="@this.Model.Id" class="btn btn-danger">Hard delete</a>
+    <a asp-area="Administration" asp-controller="News" asp-action="TopNews" asp-route-id="@this.Model.Id" class="btn btn-secondary" ><i class="fa fa-thumbtack"></i></a>
+    <a asp-area="Administration" asp-controller="News" asp-action="Udpate" asp-route-id="@this.Model.Id" class="btn btn-secondary"><i class="fa fa-edit"></i></a>
+    <a asp-area="Administration" asp-controller="News" asp-action="SoftDelete" asp-route-id="@this.Model.Id" class="btn btn-danger"><i class="fa fa-archive"></i></a>
+    <a asp-area="Administration" asp-controller="News" asp-action="HardDelete" asp-route-id="@this.Model.Id" class="btn btn-danger"><i class="fa fa-trash"></i></a>
 
 }
 

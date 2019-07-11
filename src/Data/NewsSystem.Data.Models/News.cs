@@ -2,10 +2,11 @@
 using System.Collections.Generic;
 using NewsSystem.Common;
 using NewsSystem.Mappings;
+using System;
 
 namespace NewsSystem.Data.Models
 {
-    public class News : BaseDeletableModel<int>
+    public class News : BaseDeletableModel<int>, IPublishableEntity
     {
         public News()
         {
@@ -17,7 +18,6 @@ namespace NewsSystem.Data.Models
 
         public string Content { get; set; }
 
-        public bool Published { get; set; }
 
         public string ImageUrl { get; set; }
 
@@ -40,5 +40,8 @@ namespace NewsSystem.Data.Models
         public virtual ApplicationUser Author { get; set; }
 
         public virtual NewsSignature Signature { get; set; }
+
+        public bool isPublished { get; set; }
+        public DateTime? PublishedOn { get; set; }
     }
 }
