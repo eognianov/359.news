@@ -88,22 +88,25 @@ namespace NewsSystem.App.Areas.Administration.Controllers
              return Redirect(newsService.GetUrlById(input.Id));
         }
 
+        [Authorize(Roles = "Administrator,Editor")]
         public async Task<IActionResult> TopNews(int id, bool remove=false)
         {
-            var topNews = new TopNews(){NewsId = id};
+
             if (remove)
             {
-                this.TopNewsRepository.Delete(topNews);
+                var topNews = TopNewsRepository.All().FirstOrDefault(tp => tp.NewsId == id);
+                this.TopNewsRepository.HardDelete(topNews);
             }
             else
             {
-
+                var topNews = new TopNews(){NewsId = id};
                 await this.TopNewsRepository.AddAsync(topNews);
             }
             await this.TopNewsRepository.SaveChangesAsync();
-            return this.RedirectToAction("List", "News", new { area = string.Empty });
+            return this.RedirectToAction("Index", "Home", new { area = string.Empty });
         }
  
+        [Authorize(Roles = "Administrator,Editor")]
         public async Task<IActionResult> SoftDelete(int id)
         {
             var news = this.newsRepository.All().FirstOrDefault(x => x.Id == id);
@@ -112,6 +115,8 @@ namespace NewsSystem.App.Areas.Administration.Controllers
 
             return this.RedirectToAction("List", "News", new { area = string.Empty });
         }
+
+        [Authorize(Roles = "Administrator,Editor")]
         public async Task<IActionResult> UnDelete(int id)
         {
             var news = this.newsRepository.All().FirstOrDefault(x => x.Id == id);
@@ -121,8 +126,10 @@ namespace NewsSystem.App.Areas.Administration.Controllers
             return this.RedirectToAction("List", "News", new { area = string.Empty });
         }
 
+        [Authorize(Roles = "Administrator,Editor")]
         public async Task<IActionResult> HardDelete(int id)
         {
+            //NORMAL: Move deleted to another table
             var news = this.newsRepository.All().FirstOrDefault(x => x.Id == id);
             this.newsRepository.HardDelete(news);
             await this.newsRepository.SaveChangesAsync();

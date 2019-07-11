@@ -39,26 +39,48 @@
             <p> @news.ShortContent</p>
             <footer>
                 <ul class="actions">
-                    <li><a href="@news.Url" class="button medium">Прочети още</a></li>
-                    @* //TODO: IF NOT USER IS LOGGED EXCEPTION *@
-                    @if (SignInManager.IsSignedIn(User) &&
-                        (this.User.IsInRole(GlobalConstants.EditorRoleName) || this.User.Identity.Name == (news.Author != null ? news.Author.UserName : null))
-                       )
-                    {
-
-                        <li><a asp-area="Administration" asp-controller="News" asp-action="Udpate" asp-route-id="@news.Id" class="tools"><i class="fa fa-edit"></i></a></li>
-
-                    }
-                    
+                    <li>
+                        <div class="btn-group">
+                            <a href="@news.Url" class="button medium">Прочети още</a>
+                            @* //TODO: IF NOT USER IS LOGGED EXCEPTION *@
+                            @if (SignInManager.IsSignedIn(User))
+                            {
+                                if (this.User.IsInRole(GlobalConstants.EditorRoleName) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                                {
+                                    <button type="button" class="button medium" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding-left: 1em; padding-right: 1em;">
+                                        <i class="fa fa-arrow-down"></i>
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" asp-area="Administration" asp-controller="News" asp-action="TopNews" asp-route-id="@news.Id">ТОП Новина</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" asp-area="Administration" asp-controller="News" asp-action="Udpate" asp-route-id="@news.Id">Редактирай</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" asp-area="Administration" asp-controller="News" asp-action="SoftDelete" asp-route-id="@news.Id">Soft Изтриване</a>
+                                    </div>
+                                }
+                                else if (this.User.Identity.Name == (news.Author != null ? news.Author.UserName : null))
+                                {
+                                    <button type="button" class="button medium" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding-left: 1em; padding-right: 1em;">
+                                        <i class="fa fa-arrow-down"></i>
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" asp-area="Administration" asp-controller="News" asp-action="Udpate" asp-route-id="@news.Id">Редактирай</a>
+                                    </div>
+                                }
+                            }
+                        </div>
+                    </li>
                 </ul>
                 <ul class="stats">
                     @* <li><a href="#">име категория</a></li> *@
-                    <li><a href="#" class="icon fa-heart">28</a></li>
+                    @* <li><a href="#" class="icon fa-heart">28</a></li> *@
                     <li><a href="#" class="icon fa-comment">128</a></li>
                     <li><a href="#" class="icon fa-image">9</a></li>
                     <li><a href="#" class="icon fa-video">2</a></li>
                 </ul>
             </footer>
         </article>
-    }
+                                }
 </section>

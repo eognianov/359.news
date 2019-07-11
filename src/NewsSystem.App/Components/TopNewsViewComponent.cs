@@ -22,7 +22,7 @@ namespace NewsSystem.App.Components
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var news =await this.topNewsRepository.All().Select(tp=>new NewsViewModel
+            var news =await this.topNewsRepository.All().OrderByDescending(n=>n.Id).Select(tp=>new NewsViewModel
             {
                 Id = tp.News.Id,
                 ImageUrl = tp.News.ImageUrl,
