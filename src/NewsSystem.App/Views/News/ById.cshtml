@@ -6,14 +6,36 @@
     this.ViewData["bodyClass"] = "single";
 }
 @* //TODO:IF IS AUTHOR *@
-@if (this.User.IsInRole(GlobalConstants.ReporterRoleName) || this.User.IsInRole(GlobalConstants.EditorRoleName))
-{
-    <a asp-area="Administration" asp-controller="News" asp-action="TopNews" asp-route-id="@this.Model.Id" class="btn btn-secondary" ><i class="fa fa-thumbtack"></i></a>
-    <a asp-area="Administration" asp-controller="News" asp-action="Udpate" asp-route-id="@this.Model.Id" class="btn btn-secondary"><i class="fa fa-edit"></i></a>
-    <a asp-area="Administration" asp-controller="News" asp-action="SoftDelete" asp-route-id="@this.Model.Id" class="btn btn-danger"><i class="fa fa-archive"></i></a>
-    <a asp-area="Administration" asp-controller="News" asp-action="HardDelete" asp-route-id="@this.Model.Id" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+<div class="toast-toolbar">
+    @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName) || this.User.IsInRole(GlobalConstants.EditorRoleName))
+    {
+        <a asp-area="Administration" asp-controller="News" asp-action="TopNews" asp-route-id="@this.Model.Id" class="btn btn-toolbar-primary" title="ТОП Новина"><i class="fa fa-thumbtack"></i></a>
+        <a asp-area="Administration" asp-controller="News" asp-action="Udpate" asp-route-id="@this.Model.Id" class="btn btn-secondary" title="Редактирай"><i class="fa fa-edit"></i></a>
+        {
+            if (!Model.IsDeleted)
+            {
+                <a asp-area="Administration" asp-controller="News" asp-action="SoftDelete" asp-route-id="@this.Model.Id" class="btn btn-danger" title="Soft Изтриване"><i class="fa fa-box"></i></a>
+            }
+            else
+            {
+                <a asp-area="Administration" asp-controller="News" asp-action="UnDelete" asp-route-id="@this.Model.Id" class="btn btn-secondary" title="Възстанови"><i class="fa fa-box-open"></i></a>
+            }
+        }
+        <a asp-area="Administration" asp-controller="News" asp-action="HardDelete" asp-route-id="@this.Model.Id" class="btn btn-danger" title="ИЗТРИВАНЕ"><i class="fa fa-trash"></i></a>
 
-}
+    }
+    else if (User.Identity.IsAuthenticated && Model.Author?.UserName == User.Identity.Name)
+    {
+        <a asp-area="Administration" asp-controller="News" asp-action="Udpate" asp-route-id="@this.Model.Id" class="btn btn-secondary" title="Редактирай"><i class="fa fa-edit"></i></a>
+    }
+
+    @if (Model.isPublished == false)
+    {
+        <div class="toast-fixed">
+            Новината не е публикувана!
+        </div>
+    }
+</div>
 
 <article class="post">
     <header>

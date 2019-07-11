@@ -69,7 +69,7 @@
 	& #tab3:checked ~ #content3,
 	& #tab4:checked ~ #content4 {
 		&::before {
-			content: url('/img/loader.gif');
+			//content: url('/img/loader.gif');
 		}
 
 		display: block;
