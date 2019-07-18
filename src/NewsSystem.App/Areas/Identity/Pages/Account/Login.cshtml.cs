@@ -8,11 +8,13 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Logging;
 using NewsSystem.Data.Models;
 
 namespace NewsSystem.App.Areas.Identity.Pages.Account
 {
+
     [AllowAnonymous]
     public class LoginModel : PageModel
     {
@@ -72,7 +74,8 @@ namespace NewsSystem.App.Areas.Identity.Pages.Account
 
             if (ModelState.IsValid)
             {
-                // This doesn't count login failures towards account lockout
+                // This
+                // doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var result = await _signInManager.PasswordSignInAsync(Input.Username, Input.Password, Input.RememberMe, lockoutOnFailure: true);
                 if (result.Succeeded)

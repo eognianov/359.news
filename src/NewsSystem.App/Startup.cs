@@ -25,6 +25,7 @@ using NewsSystem.ViewModels;
 using NewsSystem.Services.Images.Commands;
 using NewsSystem.Services.Images.Caching;
 using Microsoft.Extensions.Options;
+using NewsSystem.Services.Clodinary;
 using NewsSystem.Services.Images.Middleware;
 using NewsSystem.Services.Images;
 using NewsSystem.Services.Images.DependencyInjection;
@@ -104,15 +105,14 @@ namespace NewsSystem.App
                 .AddProcessor<ResizeWebProcessor>()
                 .AddProcessor<FormatWebProcessor>()
                 .AddProcessor<BackgroundColorWebProcessor>();
-           
+
             services
                 .ConfigureApplicationCookie(options =>
                 {
-                    options.LoginPath = "/Identity/Account/Login";
-                    options.LogoutPath = "/Identity/Account/Logout";
+                    options.LoginPath = "/login";
+                    options.LogoutPath = "/Logout";
                     options.AccessDeniedPath = "/Identity/Account/AccessDenied";
                 });
-
             services
                 .Configure<CookiePolicyOptions>(options =>
                 {
@@ -136,13 +136,14 @@ namespace NewsSystem.App
             services.AddScoped<IDbQueryRunner, DbQueryRunner>();
 
             // Application services
-//            services.AddTransient<IEmailSender, NullMessageSender>();
+            //            services.AddTransient<IEmailSender, NullMessageSender>();
             //services.AddTransient<ISmsSender, NullMessageSender>();
-//            services.AddTransient<ISettingsService, SettingsService>();
+            //            services.AddTransient<ISettingsService, SettingsService>();
 
             services.AddTransient<INewsService, NewsService>();
             services.AddTransient<ISlugGenerator, SlugGenerator>();
             services.AddTransient<IImagesServices, ImagesServices>();
+            services.AddTransient<ICloudinaryServise, CloudinaryServise>();
 
 
 
@@ -161,15 +162,15 @@ namespace NewsSystem.App
                 var userMgr = serviceScope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
                 var roleMgr = serviceScope.ServiceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
 
-//                if (env.IsDevelopment())
-//                {
-//                    dbContext.Database.Migrate();
-//                }
+                //                if (env.IsDevelopment())
+                //                {
+                //                    dbContext.Database.Migrate();
+                //                }
 
                 new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter()
                     .GetResult();
 
-                if (!dbContext.Users.Any(u=>u.UserName=="eognianov"))
+                if (!dbContext.Users.Any(u => u.UserName == "eognianov"))
                 {
                     var adminUser = new ApplicationUser
                     {
@@ -205,7 +206,7 @@ namespace NewsSystem.App
                 routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
                 routes.MapRoute("news",
                     "News/{id:int:min(1)}/{slug:required}",
-                    new {controller = "News", action = "ById",});
+                    new { controller = "News", action = "ById", });
                 routes.MapRoute("news",
                     "News/{id:int:min(1)}",
                     new { controller = "News", action = "ById", });

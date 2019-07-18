@@ -1,4 +1,7 @@
-﻿namespace NewsSystem.Common
+﻿using System;
+using System.Collections.Generic;
+
+namespace NewsSystem.Common
 {
     public static class GlobalConstants
     {
@@ -16,6 +19,19 @@
 
         public static string SystemVersion { get; set; }
 
-        //LOW: Add constants for ui text (Update, Delete and etc.) 
-    }
+        public static class imgSizes
+        {
+            public static List<string> MainNews =>new List<string>
+            {
+                "430x215",
+                "350x175"
+            };
+        }
+
+    //LOW: Add constants for ui text (Update, Delete and etc.) 
+
+
+
+}
+
 }

@@ -1,0 +1,41 @@
+﻿@using NewsSystem.Common
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <title>@(this.ViewData["Title"] ?? GlobalConstants.SystemSlogan) - @GlobalConstants.SystemName</title>
+    <meta name="description" content="@(this.ViewData["Description"] ?? "Най-новите прессъобщения и новини от над 40 източника.")">
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/dashboard/dashboard.css" rel="stylesheet" />
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-align: center;
+            align-items: center;
+            padding-top: 40px;
+            padding-bottom: 40px;
+        }
+    </style>
+    </head>
+<body>
+    <!-- ============================================================== -->
+    <!-- login page  -->
+    <!-- ============================================================== -->
+
+    @RenderBody();
+
+    <!-- ============================================================== -->
+    <!-- end login page  -->
+    <!-- ============================================================== -->
+    <!-- Optional JavaScript -->
+    @RenderSection("Scripts", required: false);
+</body>
+</html>`

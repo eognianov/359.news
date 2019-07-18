@@ -7,13 +7,14 @@
     <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
     <LangVersion>7.1</LangVersion>
     <TypeScriptToolsVersion>3.1</TypeScriptToolsVersion>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
-
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.4.10" />
+    <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.7.11" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
     <PackageReference Include="WebEssentials.AspNetCore.Analyzers" Version="1.0.7">
       <PrivateAssets>all</PrivateAssets>
@@ -27,6 +28,7 @@
     <ProjectReference Include="..\Data\NewsSystem.Data.Models\NewsSystem.Data.Models.csproj" />
     <ProjectReference Include="..\Data\NewsSystem.Data\NewsSystem.Data.csproj" />
     <ProjectReference Include="..\Services\NewsSystem.Mappings\NewsSystem.Mappings.csproj" />
+    <ProjectReference Include="..\Services\NewsSystem.Services.Clodinary\NewsSystem.Services.Clodinary.csproj" />
     <ProjectReference Include="..\Services\NewsSystem.Services.Data\NewsSystem.Services.Data.csproj" />
     <ProjectReference Include="..\Services\NewsSystem.Services.Images\NewsSystem.Services.Images.csproj" />
     <ProjectReference Include="..\Services\NewsSystem.Services\NewsSystem.Services.csproj" />
