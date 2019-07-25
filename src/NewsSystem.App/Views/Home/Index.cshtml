@@ -1,5 +1,6 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@using NewsSystem.Common
+@{
+    ViewData["Title"] = UIConstants.HOME;
 }
 
     <!-- Top News -->
@@ -36,7 +37,7 @@
 
             <footer>
                 <ul class="actions">
-                    <li><a href="single.html" class="button large">Прочети още</a></li>
+                    <li><a href="single.html" class="button large">@UIConstants.READ_MORE</a></li>
                 </ul>
                 <ul class="stats">
                     <li><a href="#">име категория</a></li>
@@ -117,7 +118,7 @@
 
 <!-- Pagination -->
 <ul class="actions pagination">
-    <li><a href="" class="disabled button large previous">Предищна стр.</a></li>
-    <li><a asp-controller="News" asp-action="List" asp-route-id="2" class="button large next">Следваща стр.</a></li>
+    <li><a href="" class="disabled button large previous">@UIConstants.NEXT_PAGE</a></li>
+    <li><a asp-controller="News" asp-action="List" asp-route-id="2" class="button large next">@UIConstants.PREV_PAGE</a></li>
 </ul>
 
