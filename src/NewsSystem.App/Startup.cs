@@ -22,15 +22,7 @@ using NewsSystem.Services;
 using NewsSystem.Services.Data;
 using NewsSystem.ViewModels;
 //using NewsSystem.Services.Images.DependencyInjection;
-using NewsSystem.Services.Images.Commands;
-using NewsSystem.Services.Images.Caching;
-using Microsoft.Extensions.Options;
 using NewsSystem.Services.Clodinary;
-using NewsSystem.Services.Images.Middleware;
-using NewsSystem.Services.Images;
-using NewsSystem.Services.Images.DependencyInjection;
-using NewsSystem.Services.Images.Providers;
-using NewsSystem.Services.Images.Processors;
 
 namespace NewsSystem.App
 {
@@ -167,6 +159,7 @@ namespace NewsSystem.App
                 //                    dbContext.Database.Migrate();
                 //                }
 
+           
                 new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter()
                     .GetResult();
 
@@ -195,7 +188,7 @@ namespace NewsSystem.App
             }
 
             app.UseHttpsRedirection();
-            app.UseImageSharp();
+//            app.UseImageSharp();
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseAuthentication();

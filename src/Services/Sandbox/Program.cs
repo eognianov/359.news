@@ -1,11 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Security.Cryptography.X509Certificates;
 using NewsSystem.Data;
 using Microsoft.Extensions.DependencyInjection;
 using NewsSystem.Services.Clodinary;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Linq;
 

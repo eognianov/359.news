@@ -1,11 +1,9 @@
 ﻿using System;
-using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using AngleSharp.Html.Parser;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using NewsSystem.Data.Common.Repositories;
 using NewsSystem.Data.Models;
 using NewsSystem.ViewModels;

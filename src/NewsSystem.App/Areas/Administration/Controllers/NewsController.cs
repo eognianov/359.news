@@ -1,21 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using NewsSystem.App.Areas.Administration.Models;
-using NewsSystem.App.Controllers;
 using NewsSystem.Data.Common.Repositories;
 using NewsSystem.Data.Models;
 using NewsSystem.Services.Data;
 using NewsSystem.ViewModels;
-using NewsSystem.Mappings;
 using Microsoft.AspNetCore.Authorization;
-using NewsSystem.Common;
 
 namespace NewsSystem.App.Areas.Administration.Controllers
-{    
+{
     [Authorize(Roles = "Administrator,Editor,Reporter")]
     public class NewsController : AdministrationController
     {

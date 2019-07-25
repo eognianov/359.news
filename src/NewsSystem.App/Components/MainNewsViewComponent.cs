@@ -2,8 +2,6 @@
 using NewsSystem.Data.Common.Repositories;
 using NewsSystem.Data.Models;
 using NewsSystem.ViewModels;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using NewsSystem.Mappings;
 using System.Threading.Tasks;

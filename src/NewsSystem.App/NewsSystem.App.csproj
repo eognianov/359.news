@@ -41,7 +41,6 @@
     <ProjectReference Include="..\Services\NewsSystem.Mappings\NewsSystem.Mappings.csproj" />
     <ProjectReference Include="..\Services\NewsSystem.Services.Clodinary\NewsSystem.Services.Clodinary.csproj" />
     <ProjectReference Include="..\Services\NewsSystem.Services.Data\NewsSystem.Services.Data.csproj" />
-    <ProjectReference Include="..\Services\NewsSystem.Services.Images\NewsSystem.Services.Images.csproj" />
     <ProjectReference Include="..\Services\NewsSystem.Services\NewsSystem.Services.csproj" />
     <ProjectReference Include="..\ViewModels\NewsSystem.ViewModels.Common\NewsSystem.ViewModels.Common.csproj" />
     <ProjectReference Include="..\ViewModels\NewsSystem.ViewModels\NewsSystem.ViewModels.csproj" />

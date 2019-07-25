@@ -1,9 +1,7 @@
 ﻿using NewsSystem.Data.Common.Models;
 using System.Collections.Generic;
 using NewsSystem.Common;
-using NewsSystem.Mappings;
 using System;
-using System.Reflection.Emit;
 
 namespace NewsSystem.Data.Models
 {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 
@@ -10,6 +11,11 @@ namespace NewsSystem.Data.Seeding
     {
         public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
         {
+            if (dbContext.Database.GetAppliedMigrations() !=
+dbContext.Database.GetMigrations())
+            {
+                dbContext.Database.Migrate();
+            }
             if (dbContext == null)
             {
                 throw new ArgumentNullException(nameof(dbContext));

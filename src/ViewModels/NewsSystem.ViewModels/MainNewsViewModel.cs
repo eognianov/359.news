@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using NewsSystem.Data.Models;
 using NewsSystem.Mappings;
 

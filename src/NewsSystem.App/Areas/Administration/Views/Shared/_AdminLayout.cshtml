@@ -8,17 +8,13 @@
     <title>@(this.ViewData["Title"] ?? GlobalConstants.SystemSlogan) - @GlobalConstants.SystemName</title>
     <meta name="description" content="@(this.ViewData[" Description"] ?? "Най-новите прессъобщения и новини от над 40 източника." )">
 
-    <environment include="Development">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
               integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
         <link rel="stylesheet" href="~/css/main.css" />
         <link href="~/lib/Trumbowyg/ui/trumbowyg.min.css" rel="stylesheet"/>
         <link href="~/lib/Trumbowyg/plugins/colors/ui/trumbowyg.colors.min.css" rel="stylesheet"/>
         <link href="~/lib/jqueryui/jquery-ui.min.css" rel="stylesheet"/>
-    </environment>
-    <environment exclude="Development">
-        <link rel="stylesheet" href="~/css/main.min.css" />
-    </environment>
+ 
 
     <partial name="_favicon" />
 
@@ -36,7 +32,6 @@
 
     </div>
 
-    <environment include="Development">
         <script src="~/lib/intersection-observer/intersection-observer.js"></script>
         <script src="~/lib/lazyLoad/lazyLoad.js"></script>
         <script src="~/lib/jquery/dist/jquery.js"></script>
@@ -84,12 +79,7 @@
                 contain: true
             });
         </script>
-    </environment>
 
-
-    <environment exclude="Development">
-
-    </environment>
 
     @RenderSection("Scripts", required: false)
 </body>
