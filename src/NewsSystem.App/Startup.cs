@@ -86,25 +86,25 @@ namespace NewsSystem.App
             services.AddAuthorization();
 
             //ImageMiddleware
-            services.AddImageSharpCore()
-                .SetRequestParser<QueryCollectionRequestParser>()
-                .Configure<PhysicalFileSystemCacheOptions>(options =>
-                {
-                    options.CacheFolder = "is-cache";
-                })
-                .SetCache(provider =>
-                {
-                    return new PhysicalFileSystemCache(
-                        provider.GetRequiredService<IOptions<PhysicalFileSystemCacheOptions>>(),
-                        provider.GetRequiredService<IHostingEnvironment>(),
-                        provider.GetRequiredService<IOptions<ImageSharpMiddlewareOptions>>(),
-                        provider.GetRequiredService<FormatUtilities>());
-                })
-                .SetCacheHash<CacheHash>()
-                .AddProvider<PhysicalFileSystemProvider>()
-                .AddProcessor<ResizeWebProcessor>()
-                .AddProcessor<FormatWebProcessor>()
-                .AddProcessor<BackgroundColorWebProcessor>();
+//            services.AddImageSharpCore()
+//                .SetRequestParser<QueryCollectionRequestParser>()
+//                .Configure<PhysicalFileSystemCacheOptions>(options =>
+//                {
+//                    options.CacheFolder = "is-cache";
+//                })
+//                .SetCache(provider =>
+//                {
+//                    return new PhysicalFileSystemCache(
+//                        provider.GetRequiredService<IOptions<PhysicalFileSystemCacheOptions>>(),
+//                        provider.GetRequiredService<IHostingEnvironment>(),
+//                        provider.GetRequiredService<IOptions<ImageSharpMiddlewareOptions>>(),
+//                        provider.GetRequiredService<FormatUtilities>());
+//                })
+//                .SetCacheHash<CacheHash>()
+//                .AddProvider<PhysicalFileSystemProvider>()
+//                .AddProcessor<ResizeWebProcessor>()
+//                .AddProcessor<FormatWebProcessor>()
+//                .AddProcessor<BackgroundColorWebProcessor>();
 
             services
                 .ConfigureApplicationCookie(options =>

@@ -12,6 +12,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\FrontEnd\**" />
+    <Compile Remove="wwwroot\is-cache\**" />
+    <Content Remove="wwwroot\FrontEnd\**" />
+    <Content Remove="wwwroot\is-cache\**" />
+    <EmbeddedResource Remove="wwwroot\FrontEnd\**" />
+    <EmbeddedResource Remove="wwwroot\is-cache\**" />
+    <None Remove="wwwroot\FrontEnd\**" />
+    <None Remove="wwwroot\is-cache\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.7.11" />
