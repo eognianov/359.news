@@ -6,6 +6,7 @@ using AngleSharp.Html.Parser;
 using Microsoft.AspNetCore.Hosting;
 using NewsSystem.Data.Common.Repositories;
 using NewsSystem.Data.Models;
+using NewsSystem.Services.Clodinary;
 using NewsSystem.ViewModels;
 
 namespace NewsSystem.Services.Data
@@ -14,12 +15,14 @@ namespace NewsSystem.Services.Data
     {
         private readonly IDeletableEntityRepository<News> newsRepository;
         private readonly IImagesServices imagesServices;
+        private readonly ICloudinaryServise cloudinaryServise;
         private readonly IHostingEnvironment environment;
 
-        public NewsService(IDeletableEntityRepository<News> newsRepository, IImagesServices imagesServices)
+        public NewsService(IDeletableEntityRepository<News> newsRepository, IImagesServices imagesServices, ICloudinaryServise cloudinaryServise)
         {
             this.newsRepository = newsRepository;
             this.imagesServices = imagesServices;
+            this.cloudinaryServise = cloudinaryServise;
         }
 
         public async Task<bool> AddAsync(RemoteNews remoteNews, int sourceId)
@@ -54,6 +57,7 @@ namespace NewsSystem.Services.Data
             var news = new News
             {
                 Title = input.Title?.Trim(),
+                //ImageUrl = cloudinaryServise.Upload(input.Image.FileName, "NewsArticles").ToString(),
                 ImageUrl = await  imagesServices.SaveImage(input.Image),
                 Content = input.Content?.Trim(),
                 CreatedOn = DateTime.UtcNow,

@@ -16,16 +16,7 @@
 
         }
     }
-    
-    {
-        var user = UserManager.Users.FirstOrDefault(u => u.UserName == this.User.Identity.Name);
-        {<li>@user.UserName.ToCharArray()[0]</li>}
-        var roles = await UserManager.GetRolesAsync(user);
-        foreach (var role in roles)
-        {
-            <li>@role</li>
-        }
-    }
+
     <form  style="display: inline-block" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
         <button  type="submit" class="">Logout</button>
     </form>
@@ -39,10 +30,4 @@ else
     @*         <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a> *@
     @*     </li> *@
 }
-<div id="user-options" class="hidden">
-    <a asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage"><i class="fa fa-user-edit"></i></a>
-    <a href="#"><i class="fa fa-edit"></i></a>
-    <a href="#"><i class="fa fa-folder-open"></i></a>
-    <a href="#"><i class="fa fa-archive"></i></a>
-    <a asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })"><i class="fa fa-logout"></i></a>
-</div>
+

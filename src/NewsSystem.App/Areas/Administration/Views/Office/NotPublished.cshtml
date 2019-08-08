@@ -1,0 +1,62 @@
+﻿@using NewsSystem.Common
+@using NewsSystem.ViewModels
+@model OfficeNewsListViewModel
+
+
+
+@{
+    ViewData["Title"] = "OFFICE | " + @UIConstants.NOT_PUBLISHED;
+    Layout = "_DashboardLayout";
+    var news = this.Model.News;
+    var returnUrl = this.ViewData["ReturnUrl"];
+
+}
+
+
+<div class="box">
+    <div class="box-header with-border">
+        <h3 class="box-title">@UIConstants.NOT_PUBLISHED</h3>
+    </div>
+    <div class="box-body">
+        <table class="table table-bordered">
+            <tbody>
+            <tr>
+                <th>@UIConstants.TITLE</th>
+                <th>@UIConstants.CONTENT</th>
+                <th>@UIConstants.AUTHOR / @UIConstants.SOURCE</th>
+                <th>@UIConstants.ACTIONS</th>
+            </tr>
+            @foreach (var n in news)
+            {
+                <tr>
+                    <td>@n.Title</td>
+                    <td>@n.ShortContent</td>
+                    <td>
+                        @if (n.Author != null)
+                        {
+                            @n.Author.UserName
+                        }
+                        else
+                        {
+                            @n.SourceShortName
+                        }
+                    </td>
+                    <td>
+
+                        <form style="display: inline-block" asp-area="Administration" asp-controller="News" asp-action="Publish" asp-route-returnUrl="@returnUrl">
+                            <div class="row">
+                                <input type="number" name="newsId" value="@n.Id" hidden/>
+                                <button type="submit" class="">Публикувай</button>
+                            </div>
+                        </form>
+                        <a href="@n.Url" target="_blank">go</a>
+                    </td>
+                </tr>
+            }
+            </tbody>
+        </table>
+    </div>
+    <div class="box-footer clearfix">
+        <p class="pull-right">@UIConstants.ALL : @news.Count() </p>
+    </div>
+</div>

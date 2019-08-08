@@ -29,7 +29,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Data\NewsSystem.Data\NewsSystem.Data.csproj" />
-    <ProjectReference Include="..\NewsSystem.Services.Data\NewsSystem.Services.Data.csproj" />
   </ItemGroup>
 
 </Project>

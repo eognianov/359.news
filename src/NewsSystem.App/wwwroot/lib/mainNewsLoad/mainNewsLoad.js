@@ -40,20 +40,24 @@ $(() => {
     moreNewsBtn.on('click', loadMainNews);
 
     function addNews(element) {
-        let newNews = $(`<li><article><header><h3></h3><time></time></header><a class="image"><img class="lozad" data-src=${element.ImageUrl} alt></a></article></li>`);
-        newNews.find('h3').html(element.Title);
-        newNews.find('time').html(element.CreatedOn);
-        newNews.find('a.image').attr({ href: element.OriginalUrl, target: "_blank" });
-        newNews.find('img').data('src', element.ImageUrl);
+        let newNews = $(`<li><article><header><h3></h3><time></time></header><a class="image"><img class="lozad" data-src=${element.urlToImage} alt></a></article></li>`);
+        newNews.find('h3').html(element.title);
+        newNews.find('time').html(mainNewsAPI.dateDiffInDays(new Date(element.publishedAt)));
+        newNews.find('a.image').attr({ href: element.url, target: "_blank" });
+        newNews.find('img').data('src', element.urlToImage);
         mainNewsList.append(newNews);
     }
 			
     function loadMainNews() {
         let loadedNews = $('#mainNewsPosts > ul.posts li').length;
         moreNewsBtn.attr("disabled", true).addClass("btnLoading", {
-            complete: mainNewsService.gatLastMainNews(5, loadedNews).then((mainNews) => {
-                mainNews.map((element) => addNews(element), moreNewsBtn.removeAttr("disabled").removeClass('btnLoading'));
-            }).then(() => { imgLazyLoad.update();}).catch(function (err) {
+            complete: mainNewsAPI.getTopHeadlinesInBg(loadedNews*0.1).then((mainNews) => {
+                let currNews = mainNews.articles;
+                currNews.map((element) => addNews(element), moreNewsBtn.removeAttr("disabled").removeClass('btnLoading'));
+            }).then(() => {
+                
+                imgLazyLoad.update();
+            }).catch(function (err) {
                 console.log(err);
             })
         });

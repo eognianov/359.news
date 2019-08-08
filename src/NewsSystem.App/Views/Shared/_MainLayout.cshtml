@@ -8,14 +8,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <title>@(this.ViewData["Title"] ?? GlobalConstants.SystemSlogan) - @GlobalConstants.SystemName</title>
     <meta name="description" content="@(this.ViewData["Description"] ?? "Най-новите прессъобщения и новини от над 40 източника.")">
+    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
+          integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
 
     <environment include="Development">
         <link rel="stylesheet" href="~/css/main.css" />
     </environment>
 
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
-          integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <environment exclude="Development">
         <link rel="stylesheet" href="~/css/main.min.css" />
     </environment>
@@ -51,7 +53,7 @@
     <script src="~/lib/util/util.js"></script>
     <script src="~/lib/main/main.js"></script>
     <script src="~/lib/toastr.js/toastr.min.js"></script>
-    <script src="~/lib/kinvey/kinvey.js"></script>
+    @* <script src="~/lib/kinvey/kinvey.js"></script> *@
     <script src="~/lib/mainNews/mainNews.js"></script>
     <script src="~/lib/mainNewsLoad/mainNewsLoad.js"></script>
     <script src="~/lib/flickity/flickity.js"></script>

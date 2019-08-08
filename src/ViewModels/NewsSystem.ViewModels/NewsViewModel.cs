@@ -157,6 +157,7 @@ namespace NewsSystem.ViewModels
         }
 
         public bool isPublished { get; set; }
+
         public DateTime? PublishedOn { get; set; }
 
         public bool IsDeleted { get; set; }

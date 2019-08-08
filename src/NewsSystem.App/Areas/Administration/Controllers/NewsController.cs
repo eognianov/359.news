@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -129,6 +130,25 @@ namespace NewsSystem.App.Areas.Administration.Controllers
             await this.newsRepository.SaveChangesAsync();
 
             return this.RedirectToAction("List", "News", new { area = string.Empty });
+        }
+
+        [Authorize(Roles = "Administrator,Editor")]
+        [HttpPost]
+        public async Task<IActionResult> Publish(int newsId, string returnUrl = null)
+        {
+            var news = await this.newsRepository.GetByIdWithDeletedAsync(newsId);
+            if (news == null)
+            {
+                return NotFound($"Unable to load user with ID '{newsId}'.");
+            }
+            news.isPublished = true;
+            news.PublishedOn = DateTime.UtcNow;
+            await this.newsRepository.SaveChangesAsync();
+            if (returnUrl!=null)
+            {
+                return Redirect(returnUrl);
+            }
+            return RedirectToAction("Index", "Home", new {area = string.Empty});
         }
     }
 }

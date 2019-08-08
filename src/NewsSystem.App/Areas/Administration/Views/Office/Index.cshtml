@@ -1,0 +1,255 @@
+﻿@using NewsSystem.Data.Models
+@using NewsSystem.ViewModels
+@model DashboardIndexViewModel
+
+@{
+    ViewData["Title"] = "OFFICE | Home";
+    Layout = "_DashboardLayout";
+}
+
+
+
+<div class="row">
+    <!--stats-->
+    <div class="col-md-3">
+        <!--WIDJETS-->
+        <div class="row">
+
+            <!--All Articles-->
+            <div class="col-lg-12">
+                <!-- small box -->
+                <div class="small-box bg-aqua">
+                    <div class="inner">
+                        <h3>@Model.AllPosts</h3>
+
+                        <p>Публикации</p>
+                    </div>
+                    <div class="icon">
+                        <i class="fa fa-folder-open-o"></i>
+                    </div>
+                    <a href="#" class="small-box-footer">
+                        Виж всички <i class="fa fa-arrow-circle-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <!--Published-->
+            <div class="col-lg-12">
+                <div class="info-box bg-green">
+                    <span class="info-box-icon"><i class="fa fa-eye"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">Публикувани</span>
+                        <span class="info-box-number">@Model.PublishedPosts</span>
+
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 75%"></div>
+                        </div>
+                        <span class="progress-description">
+                            @Model.PublishedPostsAsPercentege% от всички
+                        </span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+        </div>
+        <div class="row">
+            <!--NOT Published-->
+            <div class="col-lg-12">
+                <div class="info-box bg-yellow">
+                    <span class="info-box-icon"><i class="fa fa-eye-slash"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">НЕ Публикувани</span>
+                        <span class="info-box-number">@Model.NotPublishedPosts</span>
+
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 25%"></div>
+                        </div>
+                        <span class="progress-description">
+                            @Model.NotPublishedPostsAsPercentege% от всички
+                        </span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+        </div>
+        <div class="row">
+            <!--Deleted-->
+            <div class="col-lg-12">
+                <div class="info-box bg-red">
+                    <span class="info-box-icon"><i class="fa fa-trash"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">Изтрити</span>
+                        <span class="info-box-number">@this.Model.DeletedPosts</span>
+
+                        <div class="progress">
+                            <div class="progress-bar" style="width: 0%"></div>
+                        </div>
+                        <span class="progress-description">
+                            @Model.DeletedPostsAsPercentege% от всички
+                        </span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <!-- Widget: user widget style 1 -->
+                <div class="box box-widget widget-user-2 ">
+                    <!-- Add the bg color to the header using any of the bg-* classes -->
+                    <div class="widget-user-header bg-gray">
+                        <div class="widget-user-image">
+                            <img class="img-circle" src="~/dashboard/img/avatars/iconfinder_User_Generic_1_1218733.png" alt="User Avatar">
+                        </div>
+                        <!-- /.widget-user-image -->
+                        <h3 class="widget-user-username">Nadia Carmichael</h3>
+                        <h5 class="widget-user-desc">Lead Developer</h5>
+                    </div>
+                    <div class="box-footer no-padding">
+                        <ul class="nav nav-stacked">
+                            <li><a href="#">Всички <span class="pull-right badge bg-blue">31</span></a></li>
+                            <li><a href="#">Публикувани <span class="pull-right badge bg-green">5</span></a></li>
+                            <li><a href="#">Не публикувани <span class="pull-right badge bg-yellow">12</span></a></li>
+                            <li><a href="#">Изтрити <span class="pull-right badge bg-red">842</span></a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- /.widget-user -->
+            </div>
+        </div>
+    </div>
+
+    <!--report-->
+    <div class="col-md-9">
+        <!--Mounth Report-->
+        <div class="box">
+            <!--box header-->
+            <div class="box-header with-border">
+                <h3 class="box-title">Mesechen otchet</h3>
+                <div class="box-tools pull-right">
+                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
+                        <i class="fa fa-minus"></i>
+                    </button>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">
+                            <i class="fa fa-wrench"></i>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a href="#">Action</a></li>
+                            <li><a href="#">Another action</a></li>
+                            <li><a href="#">Something else here</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#">Separated link</a></li>
+                        </ul>
+                    </div>
+                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+            <!--box body-->
+            <div class="box-body">
+                <div class="row">
+                    <!--Mountly grapich-->
+                    <div class="col-lg-8">
+                        <p class="text-center"><strong>Sales: 1 Jan, 2014 - 30 Jul, 2014</strong></p>
+                        <div class="chart">
+                            <!-- Sales Chart Canvas -->
+                            <canvas id="areaChart"></canvas>
+                        </div>
+                    </div>
+
+                    <!--adition stas-->
+                    <div class="col-lg-4">
+                        <p class="text-center">
+                            <strong>Goal Completion</strong>
+                        </p>
+
+                        <div class="progress-group">
+                            <span class="progress-text">Add Products to Cart</span>
+                            <span class="progress-number"><b>160</b>/200</span>
+
+                            <div class="progress sm">
+                                <div class="progress-bar progress-bar-aqua" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        <!-- /.progress-group -->
+                        <div class="progress-group">
+                            <span class="progress-text">Complete Purchase</span>
+                            <span class="progress-number"><b>310</b>/400</span>
+
+                            <div class="progress sm">
+                                <div class="progress-bar progress-bar-red" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        <!-- /.progress-group -->
+                        <div class="progress-group">
+                            <span class="progress-text">Visit Premium Page</span>
+                            <span class="progress-number"><b>480</b>/800</span>
+
+                            <div class="progress sm">
+                                <div class="progress-bar progress-bar-green" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        <!-- /.progress-group -->
+                        <div class="progress-group">
+                            <span class="progress-text">Send Inquiries</span>
+                            <span class="progress-number"><b>250</b>/500</span>
+
+                            <div class="progress sm">
+                                <div class="progress-bar progress-bar-yellow" style="width: 80%"></div>
+                            </div>
+                        </div>
+                        <!-- /.progress-group -->
+                    </div>
+                </div>
+            </div>
+            <!--box footer-->
+            <div class="box-footer">
+                <div class="row">
+                    <div class="col-sm-3 col-xs-6">
+                        <div class="description-block border-right">
+                            <span class="description-percentage text-green"><i class="fa fa-caret-up"></i> 17%</span>
+                            <h5 class="description-header">$35,210.43</h5>
+                            <span class="description-text">TOTAL REVENUE</span>
+                        </div>
+                        <!-- /.description-block -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-sm-3 col-xs-6">
+                        <div class="description-block border-right">
+                            <span class="description-percentage text-yellow"><i class="fa fa-caret-left"></i> 0%</span>
+                            <h5 class="description-header">$10,390.90</h5>
+                            <span class="description-text">TOTAL COST</span>
+                        </div>
+                        <!-- /.description-block -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-sm-3 col-xs-6">
+                        <div class="description-block border-right">
+                            <span class="description-percentage text-green"><i class="fa fa-caret-up"></i> 20%</span>
+                            <h5 class="description-header">$24,813.53</h5>
+                            <span class="description-text">TOTAL PROFIT</span>
+                        </div>
+                        <!-- /.description-block -->
+                    </div>
+                    <!-- /.col -->
+                    <div class="col-sm-3 col-xs-6">
+                        <div class="description-block">
+                            <span class="description-percentage text-red"><i class="fa fa-caret-down"></i> 18%</span>
+                            <h5 class="description-header">1200</h5>
+                            <span class="description-text">GOAL COMPLETIONS</span>
+                        </div>
+                        <!-- /.description-block -->
+                    </div>
+                </div>
+                <!-- /.row -->
+            </div>
+        </div>
+    </div>
+</div>

@@ -26,7 +26,8 @@
     "gulp-pug": "^4.0.1",
     "gulp-rename": "^1.4.0",
     "gulp-sass": "^4.0.2",
-    "intersection-observer": "^0.7.0"
+    "intersection-observer": "^0.7.0",
+    "newsapi": "^2.4.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

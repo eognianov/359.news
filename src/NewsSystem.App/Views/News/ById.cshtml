@@ -32,7 +32,16 @@
     @if (Model.isPublished == false)
     {
         <div class="toast-fixed">
-            Новината не е публикувана!
+             @if (User.IsInRole(GlobalConstants.EditorRoleName) ||User.IsInRole(GlobalConstants.AdministratorRoleName))
+                                       {
+                                           <form  style="display: inline-block" asp-area="Administration" asp-controller="News" asp-action="Publish" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+                                               <div class="row">
+                                                   <label class="label">Новината не е публикувана!</label>
+                                                   <input type="number" name="newsId" value="@this.Model.Id" hidden />
+                                                   <button type="submit" class="">Публикувай</button>
+                                               </div>
+                                           </form>
+                                       }
         </div>
     }
 </div>

@@ -54,6 +54,9 @@
 
 
   <ItemGroup>
+    <None Include="wwwroot\dashboard\fontawose\css\font-awesome.css.map" />
+    <None Include="wwwroot\dashboard\fontawose\fonts\fontawesome-webfont.svg" />
+    <None Include="wwwroot\dashboard\fontawose\fonts\fontawesome-webfont.woff2" />
     <None Include="wwwroot\js\site.js" />
   </ItemGroup>
 

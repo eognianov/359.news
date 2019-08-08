@@ -17,6 +17,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Data\NewsSystem.Data.Models\NewsSystem.Data.Models.csproj" />
     <ProjectReference Include="..\..\ViewModels\NewsSystem.ViewModels\NewsSystem.ViewModels.csproj" />
+    <ProjectReference Include="..\NewsSystem.Services.Clodinary\NewsSystem.Services.Clodinary.csproj" />
     <ProjectReference Include="..\NewsSystem.Services\NewsSystem.Services.csproj" />
   </ItemGroup>
 

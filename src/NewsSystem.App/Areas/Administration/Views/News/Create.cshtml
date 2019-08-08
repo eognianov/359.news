@@ -31,7 +31,7 @@
                         </div>
                         <div class="form-group">
                             <label asp-for="Content" class="control-label"></label>@Html.Display("Съдаржание:")
-                            <input asp-for="Content" type="hidden" id="newsContent"/>
+                            <input asp-for="Content" type="hidden" id="newsContent" />
                             <div id="contentEditor"></div>
                             <span asp-validation-for="Content" class="text-danger"></span>
                         </div>
@@ -41,8 +41,8 @@
 
                         </div>
                         <div class="form-group">
-                            
-                            <input type="submit" value="Create" class="btn btn-primary"/>
+
+                            <input type="submit" value="Create" class="btn btn-primary" />
                         </div>
                     </form>
                 </div>
@@ -50,7 +50,7 @@
         </section>
     </div>
 
-@section Scripts{
+    @section Scripts{
         <environment include="Development">
             <script src="~/lib/Trumbowyg/trumbowyg.js"></script>
             <script src="~/lib/Trumbowyg/langs/bg.js"></script>
@@ -109,7 +109,7 @@
                     ['fontsize'],
                     ['strong', 'em'],
                     ['link'],
-                    ['image'],
+//                    ['image'],
                     ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
                     ['unorderedList', 'orderedList'],
                     ['horizontalRule'],

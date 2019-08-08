@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -23,6 +22,7 @@ using NewsSystem.Services.Data;
 using NewsSystem.ViewModels;
 //using NewsSystem.Services.Images.DependencyInjection;
 using NewsSystem.Services.Clodinary;
+using Microsoft.AspNetCore.Identity.UI;
 
 namespace NewsSystem.App
 {
@@ -40,16 +40,11 @@ namespace NewsSystem.App
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.Configure<CookiePolicyOptions>(options =>
-            {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
-            });
+            
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                    this.configuration.GetConnectionString("PressCentersConnection")));
+                    this.configuration.GetConnectionString("Deployment")));
 
 
             services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
@@ -66,14 +61,6 @@ namespace NewsSystem.App
                 .AddDefaultTokenProviders()
                 .AddDefaultUI(UIFramework.Bootstrap4);
 
-            services.AddMvc()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-                .AddRazorPagesOptions(options =>
-                {
-                    options.AllowAreas = true;
-                    options.Conventions.AuthorizeAreaFolder("Identity", "/Account/Manage");
-                    options.Conventions.AuthorizeAreaPage("Identity", "/Account/Logout");
-                });
 
             services.AddAuthorization();
 
@@ -98,13 +85,14 @@ namespace NewsSystem.App
 //                .AddProcessor<FormatWebProcessor>()
 //                .AddProcessor<BackgroundColorWebProcessor>();
 
-            services
-                .ConfigureApplicationCookie(options =>
-                {
-                    options.LoginPath = "/login";
-                    options.LogoutPath = "/Logout";
-                    options.AccessDeniedPath = "/Identity/Account/AccessDenied";
-                });
+            services.Configure<CookiePolicyOptions>(options =>
+            {
+                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
+                options.CheckConsentNeeded = context => true;
+                options.MinimumSameSitePolicy = SameSiteMode.None;
+            });
+
+            
             services
                 .Configure<CookiePolicyOptions>(options =>
                 {
@@ -112,6 +100,15 @@ namespace NewsSystem.App
                     options.CheckConsentNeeded = context => true;
                     options.MinimumSameSitePolicy = SameSiteMode.Lax;
                     options.ConsentCookie.Name = ".AspNetCore.ConsentCookie";
+                });
+
+            services
+                .ConfigureApplicationCookie(options =>
+                {
+                    options.LoginPath = "/login";
+                    options.LogoutPath = "/Logout";
+                    options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+                    options.Cookie.Name = "0722.newsAuth";
                 });
 
             services.AddSingleton(this.configuration);
@@ -138,7 +135,15 @@ namespace NewsSystem.App
             services.AddTransient<ICloudinaryServise, CloudinaryServise>();
 
 
-
+            
+            services.AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                .AddRazorPagesOptions(options =>
+                {
+                    options.AllowAreas = true;
+                    options.Conventions.AuthorizeAreaFolder("Identity", "/Account/Manage");
+                    options.Conventions.AuthorizeAreaPage("Identity", "/Account/Logout");
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -153,6 +158,7 @@ namespace NewsSystem.App
                 var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
                 var userMgr = serviceScope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
                 var roleMgr = serviceScope.ServiceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
+                
 
                 //                if (env.IsDevelopment())
                 //                {
