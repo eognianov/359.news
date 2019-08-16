@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Http;
 using NewsSystem.Common;
 using NewsSystem.Data.Models;
@@ -25,5 +26,9 @@ namespace NewsSystem.ViewModels
         public string ImageUrl { get; set; }
 
         public bool Published { get; set; }
+
+        public bool CustomDateValue { get; set; }
+
+        public DateTime CustomDate { get; set; }
     }
 }

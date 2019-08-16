@@ -38,6 +38,17 @@
                             <div id="contentEditor"></div>
                             <span asp-validation-for="Content" class="text-danger"></span>
                         </div>
+                        
+                        @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName) || this.User.IsInRole(GlobalConstants.EditorRoleName))
+                        {
+                            <div class="form-group">
+                                <label for="ChangeDateTogle" style="cursor: pointer;" id="ChangeDataLabel">@UIConstants.CHAHGE_DATE</label>
+                                <input type="checkbox" class="" id="ChangeDateTogle" name="ChangedDate" value="checkbox"/>
+                                <input type="date" name="CustomDate" id="CustomDate" disabled/>
+                                <input type="hidden" value="" id="CustomDateValue" name="CustomDateValue" />
+                            </div>
+                        }
+
                         <div class="form-group">
                             <label asp-for="Signature" class="control-label"></label>@Html.Display("Подпис:")
                             <select asp-for="Signature" asp-items="Html.GetEnumSelectList<NewsSignature>()"></select>
@@ -84,8 +95,6 @@
         </environment>
 
         <script>
-
-
             function showPreview(input) {
                 if (input.files && input.files[0]) {
                     var reader = new FileReader();
@@ -168,6 +177,23 @@
                 });
             editor.onkeypress =
                 function(e) { console.log(e.keyCode); }
+        </script>
+
+        <script>
+            let togle = $('#ChangeDateTogle');
+            let label = $('#ChangeDataLabel');
+            let customDate = $('#CustomDateValue');
+            togle.change(function(){
+                if(document.getElementById('ChangeDateTogle').checked) {
+                    document.getElementById('CustomDate').disabled = false;
+                    label.addClass('checked');
+                    customDate.val(true);
+                }else{
+                    document.getElementById('CustomDate').disabled = true;
+                    label.removeClass('checked');
+                    customDate.val(false);
+                }
+            });
         </script>
 
     }

@@ -124,6 +124,16 @@ namespace NewsSystem.Services.Data
                 originalNews.Signature = input.Signature;
             }
 
+            if (input.CustomDateValue)
+            {
+                var inputDate = input.CustomDate.Date;
+                var originalDate = originalNews.CreatedOn;
+
+                var customDate = new DateTime(inputDate.Year, inputDate.Month, inputDate.Day, originalDate.Hour, originalDate.Minute, originalDate.Second);
+
+                originalNews.CreatedOn = customDate;
+            }
+
             await this.newsRepository.SaveChangesAsync();
 
             return originalNews.Id;

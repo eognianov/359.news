@@ -44,7 +44,7 @@ namespace NewsSystem.App
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                    this.configuration.GetConnectionString("Deployment")));
+                    this.configuration.GetConnectionString("Development")));
 
 
             services.AddIdentity<ApplicationUser, ApplicationRole>(options =>

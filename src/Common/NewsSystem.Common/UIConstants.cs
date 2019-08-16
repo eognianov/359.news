@@ -20,6 +20,7 @@
         public const string ACTIONS = "Действия";
         public const string ALL = "Всички";
         public const string CREATE = "Създай";
+        public const string CHAHGE_DATE = "Смени дата";
 
         //news
 
