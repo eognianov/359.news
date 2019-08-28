@@ -16,7 +16,6 @@ namespace NewsSystem.Data.Models
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
             this.News = new HashSet<News>();
-            this.Photos = new List<Photo>();
         }
 
         public string FirstName { get; set; }
@@ -42,6 +41,5 @@ namespace NewsSystem.Data.Models
 
         public virtual  ICollection<News> News { get; set; }
 
-        public virtual ICollection<Photo> Photos { get; set; }
     }
 }
