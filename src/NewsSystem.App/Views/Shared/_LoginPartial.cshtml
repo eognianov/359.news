@@ -1,4 +1,4 @@
-@using Microsoft.AspNetCore.Identity
+﻿@using Microsoft.AspNetCore.Identity
 @using NewsSystem.Common
 @using NewsSystem.Data.Models
 @inject SignInManager<ApplicationUser> SignInManager
@@ -17,17 +17,18 @@
         }
     }
 
-    <form  style="display: inline-block" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-        <button  type="submit" class="">Logout</button>
+    <form style="display: inline-block" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+        <button type="submit" class="">Logout</button>
     </form>
 }
 else
 {
-    @*     <li class="nav-item"> *@
-    @*         <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Register">Register</a> *@
-    @*     </li> *@
-    @*     <li class="nav-item"> *@
-    @*         <a class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Login">Login</a> *@
-    @*     </li> *@
+    <!-- Actions --> 
+       <section>
+           <ul class="actions stacked"> 
+           <li><a href="/Identity/Account/Login" class="button large fit">Вход</a></li> 
+            </ul> 
+      </section>
+
 }
 
