@@ -39,6 +39,7 @@ namespace NewsSystem.Data.Models
         public virtual ApplicationUser Author { get; set; }
 
         public virtual NewsSignature Signature { get; set; }
+        public virtual NewsCategory Category { get; set; }
 
         public bool isPublished { get; set; }
         public DateTime? PublishedOn { get; set; }

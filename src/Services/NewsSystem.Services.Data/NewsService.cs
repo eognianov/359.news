@@ -62,7 +62,8 @@ namespace NewsSystem.Services.Data
                 Content = input.Content?.Trim(),
                 CreatedOn = DateTime.UtcNow,
                 AuthorId = input.AuthorId,
-                Signature = input.Signature
+                Signature = input.Signature,
+                Category = input.Category
             };
 
             news.SearchText = this.GetSearchText(news);
@@ -122,6 +123,11 @@ namespace NewsSystem.Services.Data
             if (input.Signature!=originalNews.Signature)
             {
                 originalNews.Signature = input.Signature;
+            }
+
+            if (input.Category!=originalNews.Category)
+            {
+                originalNews.Category = input.Category;
             }
 
             if (input.CustomDateValue)

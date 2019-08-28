@@ -59,7 +59,8 @@ namespace NewsSystem.App.Areas.Administration.Controllers
                 Content = news.Content,
                 Title = news.Title,
                 Signature = news.Signature,
-                ImageUrl = news.ImageUrl
+                ImageUrl = news.ImageUrl,
+                Category = news.Category
             };
             return this.View("Update", model);
         }

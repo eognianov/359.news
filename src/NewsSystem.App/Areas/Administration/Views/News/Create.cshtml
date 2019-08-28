@@ -18,6 +18,10 @@
                             <span asp-validation-for="Title" class="text-danger"></span>
                         </div>
                         <div class="form-group">
+                            <label asp-for="Category" class="control-label"></label>@Html.Display("Категория:")
+                            <select asp-for="Category" asp-items="Html.GetEnumSelectList<NewsCategory>()"></select>
+                        </div>
+                        <div class="form-group">
                             <label class="control-label">Снимка:</label>
                             <div id="targetOuter">
                                 <div id="targetLayer"></div>
@@ -38,7 +42,6 @@
                         <div class="form-group">
                             <label asp-for="Signature" class="control-label"></label>@Html.Display("Подпис:")
                             <select asp-for="Signature" asp-items="Html.GetEnumSelectList<NewsSignature>()"></select>
-
                         </div>
                         <div class="form-group">
 

@@ -19,9 +19,14 @@
                             <span asp-validation-for="Title" class="text-danger"></span>
                         </div>
                         <div class="form-group">
+                            <label asp-for="Category" class="control-label"></label>@Html.Display("Категория:")
+                            <select asp-for="Category" asp-items="Html.GetEnumSelectList<NewsCategory>()"></select>
+                        </div>
+                        <div class="form-group">
                             <label class="control-label">Снимка:</label>
                             <div id="targetOuter">
-                                <div id="targetLayer">@if(this.Model.ImageUrl!=null){<img src="@this.Model.ImageUrl" class="upload-preview" />}</div>
+                                <div id="targetLayer">@if (this.Model.ImageUrl != null)
+                                {<img src="@this.Model.ImageUrl" class="upload-preview" />}</div>
                                 <img src="~/img/photo.png" class="icon-choose-image">
                                 <div class="icon-choose-image">
                                     <input name="Image" id="userImage" type="file" class="inputFile" onchange="showPreview(this);">
@@ -32,19 +37,19 @@
                         </div>
                         <div class="form-group">
                             <label asp-for="Content" class="control-label"></label>@Html.Display("Съдаржание:")
-                            <input asp-for="Content" type="hidden" id="newsContent"/>
-                            <input asp-for="Id" type="hidden"/>
-                            <input asp-for="ImageUrl" type="hidden"/>
+                            <input asp-for="Content" type="hidden" id="newsContent" />
+                            <input asp-for="Id" type="hidden" />
+                            <input asp-for="ImageUrl" type="hidden" />
                             <div id="contentEditor"></div>
                             <span asp-validation-for="Content" class="text-danger"></span>
                         </div>
-                        
+
                         @if (this.User.IsInRole(GlobalConstants.AdministratorRoleName) || this.User.IsInRole(GlobalConstants.EditorRoleName))
                         {
                             <div class="form-group">
                                 <label for="ChangeDateTogle" style="cursor: pointer;" id="ChangeDataLabel">@UIConstants.CHAHGE_DATE</label>
-                                <input type="checkbox" class="" id="ChangeDateTogle" name="ChangedDate" value="checkbox"/>
-                                <input type="date" name="CustomDate" id="CustomDate" disabled/>
+                                <input type="checkbox" class="" id="ChangeDateTogle" name="ChangedDate" value="checkbox" />
+                                <input type="date" name="CustomDate" id="CustomDate" disabled />
                                 <input type="hidden" value="" id="CustomDateValue" name="CustomDateValue" />
                             </div>
                         }
@@ -183,6 +188,7 @@
             let togle = $('#ChangeDateTogle');
             let label = $('#ChangeDataLabel');
             let customDate = $('#CustomDateValue');
+            customDate.val(false);
             togle.change(function(){
                 if(document.getElementById('ChangeDateTogle').checked) {
                     document.getElementById('CustomDate').disabled = false;

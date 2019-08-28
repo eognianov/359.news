@@ -25,6 +25,8 @@ namespace NewsSystem.ViewModels
 
         public NewsSignature Signature { get; set; }
 
+        public NewsCategory Category { get; set; }
+
         public string ImageUrl { get; set; }
 
     }

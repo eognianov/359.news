@@ -20,6 +20,9 @@ namespace NewsSystem.ViewModels
 
         public NewsSignature Signature { get; set; }
 
+        public NewsCategory Category { get; set; }
+
+
         [ValidateImage]
         public IFormFile Image { get; set; }
         
