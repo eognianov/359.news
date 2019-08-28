@@ -90,6 +90,7 @@ namespace NewsSystem.ViewModels
         public int ContentLenght { get; set; }
 
         public IEnumerable<string> Tags { get; set; }
+        public IEnumerable<Video> Videos { get; set; }
 
         public string ShorterOriginalUrl
         {

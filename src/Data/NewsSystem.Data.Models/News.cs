@@ -11,6 +11,7 @@ namespace NewsSystem.Data.Models
         {
             this.Tags = new HashSet<NewsTag>();
             this.Photos = new List<Photo>();
+            this.Videos = new List<Video>();
         }
 
         public string Title { get; set; }
@@ -33,6 +34,8 @@ namespace NewsSystem.Data.Models
         public virtual ICollection<NewsTag> Tags { get; set; }
 
         public virtual ICollection<Photo> Photos { get; set; }
+
+        public virtual ICollection<Video> Videos { get; set; }
 
         public string AuthorId { get; set; }
 
