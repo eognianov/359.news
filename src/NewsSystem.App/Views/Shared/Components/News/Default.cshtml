@@ -41,7 +41,7 @@
                 <ul class="actions">
                     <li>
                         <div class="btn-group">
-                            <a href="@news.Url" class="button medium">Прочети още</a>
+                            <a href="@news.Url" class="button medium">още</a>
                             @* //TODO: IF NOT USER IS LOGGED EXCEPTION *@
                             @if (SignInManager.IsSignedIn(User))
                             {
@@ -74,13 +74,18 @@
                     </li>
                 </ul>
                 <ul class="stats">
-                    @* <li><a href="#">име категория</a></li> *@
-                    @* <li><a href="#" class="icon fa-heart">28</a></li> *@
+                    <li><a href="#">@news.Category</a></li>
                     <li><a href="#" class="icon fa-comment">128</a></li>
-                    <li><a href="#" class="icon fa-image">9</a></li>
-                    <li><a href="#" class="icon fa-video">2</a></li>
+                    <li><a href="#" class="icon fa-image">@news.Photos.Count()</a></li>
+                    <li><a href="#" class="icon fa-video">@news.Videos.Count()</a></li>
                 </ul>
             </footer>
         </article>
-                                }
+    }
 </section>
+
+<!-- Pagination -->
+<ul class="actions pagination">
+    <li><a href="" class="disabled button large previous">@UIConstants.NEXT_PAGE</a></li>
+    <li><a asp-controller="News" asp-action="List" asp-route-id="2" class="button large next">@UIConstants.PREV_PAGE</a></li>
+</ul>

@@ -87,10 +87,15 @@ namespace NewsSystem.ViewModels
 
         public NewsSignature Signature { get; set; }
 
+        public NewsCategory Category { get; set; }
+
         public int ContentLenght { get; set; }
 
         public IEnumerable<string> Tags { get; set; }
+
         public IEnumerable<Video> Videos { get; set; }
+
+        public IEnumerable<Photo> Photos { get; set; }
 
         public string ShorterOriginalUrl
         {
