@@ -29,8 +29,8 @@ namespace NewsSystem.App.Areas.Administration.Controllers
             var news = await newsRepository.AllWithDeleted().ToListAsync();
 
             var all = news.Count();
-            var published = news.Where(n => n.isPublished == true).Count();
-            var notPublished = news.Where(n => n.isPublished == false).Count();
+            var published = news.Where(n => n.isPublished == true || n.IsDeleted==false).Count();
+            var notPublished = news.Where(n => n.isPublished == false || n.IsDeleted == false).Count();
             var deleted = news.Where(n => n.IsDeleted == true).Count();
 
             var model = new DashboardIndexViewModel

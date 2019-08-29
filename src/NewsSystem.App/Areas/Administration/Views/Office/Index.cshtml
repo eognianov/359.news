@@ -44,7 +44,7 @@
                         <span class="info-box-number">@Model.PublishedPosts</span>
 
                         <div class="progress">
-                            <div class="progress-bar" style="width: 75%"></div>
+                            <div class="progress-bar" style="width: @Model.PublishedPostsAsPercentege%"></div>
                         </div>
                         <span class="progress-description">
                             @Model.PublishedPostsAsPercentege% от всички
@@ -66,7 +66,7 @@
                         <span class="info-box-number">@Model.NotPublishedPosts</span>
 
                         <div class="progress">
-                            <div class="progress-bar" style="width: 25%"></div>
+                            <div class="progress-bar" style="width: @Model.NotPublishedPostsAsPercentege%"></div>
                         </div>
                         <span class="progress-description">
                             @Model.NotPublishedPostsAsPercentege% от всички
@@ -88,7 +88,7 @@
                         <span class="info-box-number">@this.Model.DeletedPosts</span>
 
                         <div class="progress">
-                            <div class="progress-bar" style="width: 0%"></div>
+                            <div class="progress-bar" style="width: @Model.DeletedPostsAsPercentege%"></div>
                         </div>
                         <span class="progress-description">
                             @Model.DeletedPostsAsPercentege% от всички

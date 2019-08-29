@@ -8,11 +8,14 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-    <li><a href="#" class="tools" id="userTools"><i class="fa fa-user-circle"></i></a></li>
     {
+        if (this.User.IsInRole(GlobalConstants.AdministratorRoleName) || this.User.IsInRole(GlobalConstants.EditorRoleName))
+        {
+            <li><a asp-area="Administration" asp-controller="Office" asp-action="Index" id="userTools"><h3><i class="fa fa-user-circle"></i>Офис</h3></a></li>
+        }
         if (this.User.IsInRole(GlobalConstants.ReporterRoleName) || this.User.IsInRole(GlobalConstants.EditorRoleName))
         {
-            <li><a asp-area="Administration" asp-controller="News" asp-action="Create" class="tools" id="userTools"><i class="fa fa-file"></i></a></li>
+            <li><a asp-area="Administration" asp-controller="News" asp-action="Create" id="userTools"><h3><i class="fa fa-file"></i>Създай</h3></a></li>
 
         }
     }
@@ -23,12 +26,12 @@
 }
 else
 {
-    <!-- Actions --> 
-       <section>
-           <ul class="actions stacked"> 
-           <li><a href="/Identity/Account/Login" class="button large fit">Вход</a></li> 
-            </ul> 
-      </section>
+    <!-- Actions -->
+    <section>
+        <ul class="actions stacked">
+            <li><a href="/Identity/Account/Login" class="button large fit">Вход</a></li>
+        </ul>
+    </section>
 
 }
 
