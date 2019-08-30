@@ -29,8 +29,8 @@ namespace NewsSystem.App.Areas.Administration.Controllers
             var news = await newsRepository.AllWithDeleted().ToListAsync();
 
             var all = news.Count();
-            var published = news.Where(n => n.isPublished == true || n.IsDeleted==false).Count();
-            var notPublished = news.Where(n => n.isPublished == false || n.IsDeleted == false).Count();
+            var published = news.Where(n => n.isPublished == true && n.IsDeleted==false).Count();
+            var notPublished = news.Where(n => n.isPublished == false && n.IsDeleted == false).Count();
             var deleted = news.Where(n => n.IsDeleted == true).Count();
 
             var model = new DashboardIndexViewModel
@@ -117,6 +117,47 @@ namespace NewsSystem.App.Areas.Administration.Controllers
                     break;
             }
             
+            return this.View(viewModel);
+        }
+
+        public async Task<IActionResult> Deleted(string period)
+        {
+            //MEDIUM: extraxt
+            var today = DateTime.Today;
+            var yestarday = today.Date.Subtract(new TimeSpan(1, 0,0,0));
+            var week = today.Date.Subtract(new TimeSpan(7,0,0,0));
+            var news = new List<NewsViewModel>();
+            var viewModel = new OfficeNewsListViewModel();
+
+            var returnUrl = "/Administration/Office/NotPublished";
+
+
+            switch (period)
+            {
+                case "yestarday":
+                    news = await this.newsRepository.AllWithDeleted().Where(n=>n.IsDeleted==true && n.DeletedOn.GetValueOrDefault().Date==yestarday).OrderByDescending(x => x.DeletedOn)
+                        .ThenByDescending(x => x.Id).To<NewsViewModel>().ToListAsync();
+                    viewModel.News = news;
+                    returnUrl += "?period=yestarday";
+
+                    break;
+
+                case "week":
+                    news = await this.newsRepository.AllWithDeleted().Where(n=>n.IsDeleted==true && n.DeletedOn.GetValueOrDefault().Date<=yestarday && n.DeletedOn.GetValueOrDefault().Date>=week).OrderByDescending(x => x.DeletedOn)
+                        .ThenByDescending(x => x.Id).To<NewsViewModel>().ToListAsync();
+                    viewModel.News = news;
+                    returnUrl += "?period=week";
+
+                    break;
+
+                default:
+                    news = await this.newsRepository.AllWithDeleted().Where(n=>n.DeletedOn.GetValueOrDefault().Date==today && n.IsDeleted==true).OrderByDescending(x => x.DeletedOn)
+                        .ThenByDescending(x => x.Id).To<NewsViewModel>().ToListAsync();
+                    viewModel.News = news;
+                    break;
+            }
+
+            this.ViewData["ReturnUrl"] = returnUrl;
             return this.View(viewModel);
         }
     }

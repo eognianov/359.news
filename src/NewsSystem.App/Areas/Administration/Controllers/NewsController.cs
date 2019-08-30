@@ -113,11 +113,16 @@ namespace NewsSystem.App.Areas.Administration.Controllers
         }
 
         [Authorize(Roles = "Administrator,Editor")]
-        public async Task<IActionResult> UnDelete(int id)
+        public async Task<IActionResult> UnDelete(int id, string returnUrl = null)
         {
-            var news = this.newsRepository.All().FirstOrDefault(x => x.Id == id);
+            var news = this.newsRepository.AllWithDeleted().FirstOrDefault(x => x.Id == id);
             this.newsRepository.Undelete(news);
             await this.newsRepository.SaveChangesAsync();
+
+            if (returnUrl!=null)
+            {
+                return this.Redirect(returnUrl);
+            }
 
             return this.RedirectToAction("List", "News", new { area = string.Empty });
         }
@@ -126,7 +131,7 @@ namespace NewsSystem.App.Areas.Administration.Controllers
         public async Task<IActionResult> HardDelete(int id)
         {
             //NORMAL: Move deleted to another table
-            var news = this.newsRepository.All().FirstOrDefault(x => x.Id == id);
+            var news = this.newsRepository.AllWithDeleted().FirstOrDefault(x => x.Id == id);
             this.newsRepository.HardDelete(news);
             await this.newsRepository.SaveChangesAsync();
 

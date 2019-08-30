@@ -74,9 +74,9 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="#">@UIConstants.TODAY</a></li>
-                    <li><a href="#">@UIConstants.YESTARDAY</a></li>
-                    <li><a href="#">@UIConstants.SEVEN_DAYS</a></li>
+                    <li><a asp-controller="Office" asp-action="Deleted">@UIConstants.TODAY</a></li>
+                    <li><a asp-controller="Office" asp-action="Deleted" asp-route-period="yestarday">@UIConstants.YESTARDAY</a></li>
+                    <li><a asp-controller="Office" asp-action="Deleted" asp-route-period="week">@UIConstants.SEVEN_DAYS</a></li>
                 </ul>
             </li>
         </ul>
