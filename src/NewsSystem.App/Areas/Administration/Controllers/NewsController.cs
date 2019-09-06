@@ -8,6 +8,7 @@ using NewsSystem.Data.Models;
 using NewsSystem.Services.Data;
 using NewsSystem.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using NewsSystem.Common;
 
 namespace NewsSystem.App.Areas.Administration.Controllers
 {
@@ -17,16 +18,18 @@ namespace NewsSystem.App.Areas.Administration.Controllers
         private readonly INewsService newsService;
         private readonly IDeletableEntityRepository<News> newsRepository;
         private readonly IImagesServices imagesServices;
+        private readonly IFacebookPage facebookPage;
 
         public IDeletableEntityRepository<TopNews> TopNewsRepository { get; }
 
-        public NewsController(INewsService newsService, IDeletableEntityRepository<News> newsRepository,IDeletableEntityRepository<TopNews> topNewsRepository, IImagesServices imagesServices)
+        public NewsController(INewsService newsService, IDeletableEntityRepository<News> newsRepository,IDeletableEntityRepository<TopNews> topNewsRepository, IImagesServices imagesServices, IFacebookPage facebookPage)
         {
             this.newsService = newsService;
             this.newsRepository = newsRepository;
             //TODO:topNews
             TopNewsRepository = topNewsRepository;
             this.imagesServices = imagesServices;
+            this.facebookPage = facebookPage;
         }
 
         public IActionResult Create()
@@ -150,10 +153,18 @@ namespace NewsSystem.App.Areas.Administration.Controllers
             news.isPublished = true;
             news.PublishedOn = DateTime.UtcNow;
             await this.newsRepository.SaveChangesAsync();
+            if (news.Author!=null)
+            {
+                var model = new NewsToFacebookViewMode{Id = news.Id, Content = news.Content, Title = news.Title, ImageUrl = GlobalConstants.TempUrl + news.ImageUrl};
+                this.facebookPage.PublishToFacebook(model);
+            }
+            
+
             if (returnUrl!=null)
             {
                 return Redirect(returnUrl);
             }
+            
             return RedirectToAction("Index", "Home", new {area = string.Empty});
         }
     }

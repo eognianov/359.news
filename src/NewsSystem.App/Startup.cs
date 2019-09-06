@@ -44,7 +44,7 @@ namespace NewsSystem.App
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                    this.configuration.GetConnectionString("Development")));
+                    this.configuration.GetConnectionString("Deployment")));
 
 
             services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
@@ -133,6 +133,7 @@ namespace NewsSystem.App
             services.AddTransient<ISlugGenerator, SlugGenerator>();
             services.AddTransient<IImagesServices, ImagesServices>();
             services.AddTransient<ICloudinaryServise, CloudinaryServise>();
+            services.AddTransient<IFacebookPage, FacebookPage>();
 
 
             

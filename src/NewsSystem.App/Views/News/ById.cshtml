@@ -5,6 +5,12 @@
     Layout = "_MainLayout";
     this.ViewData["bodyClass"] = "single";
     this.ViewData["Title"] = this.Model.Title;
+    this.ViewData["url"] = GlobalConstants.TempUrl + Model.Url;
+    if (this.Model.Author != null)
+    {
+        this.ViewData["img"] = GlobalConstants.TempUrl+Model.ImageUrl;
+    }
+    this.ViewData["dsc"] = this.Model.GetShortContent(250);
 }
 @* //TODO:IF IS AUTHOR *@
 <div class="toast-toolbar">

@@ -3,12 +3,19 @@
 
 <!DOCTYPE html>
 <html>
-<head>
+<head prefix="og: http://ogp.me/ns#">
     <meta charset="utf-8" />
+    <meta property="fb:app_id" content="2118228275137333" />
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="@this.ViewData["url"]" />
+    <meta property="og:title" content="@this.ViewData["Title"]" />
+    <meta property="og:image" content="@this.ViewData["img"]" />
+    <meta property="og:description" content="@this.ViewData["dsc"]" />
+
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
     <title>@(this.ViewData["Title"] ?? GlobalConstants.SystemSlogan) - @GlobalConstants.SystemName</title>
     <meta name="description" content="@(this.ViewData["Description"] ?? "Най-новите прессъобщения и новини от над 40 източника.")">
-    
+
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
           integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">

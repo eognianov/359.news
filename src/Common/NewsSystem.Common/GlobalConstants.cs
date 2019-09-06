@@ -5,7 +5,8 @@ namespace NewsSystem.Common
     public static class GlobalConstants
     {
         public const string SystemName = "0722.news";
-        public const string SystemBaseUrl = "https://0722.news";
+        public const string SystemBaseUrl = "https://0722.news/";
+        public const string TempUrl = "https://0722news.azurewebsites.net";
 
         public const string SystemSlogan = "Истината за Самоков и региона!";
 
