@@ -44,7 +44,8 @@ namespace NewsSystem.App
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
-                    this.configuration.GetConnectionString("Deployment")));
+                    this.configuration.GetConnectionString("Development")));
+
 
 
             services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
@@ -132,7 +133,7 @@ namespace NewsSystem.App
             services.AddTransient<INewsService, NewsService>();
             services.AddTransient<ISlugGenerator, SlugGenerator>();
             services.AddTransient<IImagesServices, ImagesServices>();
-            services.AddTransient<ICloudinaryServise, CloudinaryServise>();
+            services.AddTransient<ICloudinaryService, CloudinaryService>();
             services.AddTransient<IFacebookPage, FacebookPage>();
 
 
@@ -166,9 +167,10 @@ namespace NewsSystem.App
                 //                    dbContext.Database.Migrate();
                 //                }
 
+
            
-                new ApplicationDbContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter()
-                    .GetResult();
+                ApplicationDbContextSeeder.Seed(dbContext, serviceScope.ServiceProvider);
+
 
                 if (!dbContext.Users.Any(u => u.UserName == "eognianov"))
                 {

@@ -5,21 +5,22 @@
 @inject SignInManager<ApplicationUser> SignInManager
 
 
-<section id="last-news-list">
+@* <section id="last-news-list"> *@
     @foreach (var news in this.Model.News)
     {
-        <article class="last-news">
+
+        <article class="post">
             <header>
                 <div class="title">
-                    <h4><a href="@news.Url">@news.Title</a></h4>
-
+                    <h2><a href="@news.Url">@news.Title</a></h2>
+                    <p>Lorem ipsum dolor amet nullam consequat etiam feugiat</p>
                 </div>
                 <div class="meta">
                     <time class="published" datetime="@news.CreatedOn.ToString("O")">@news.CreatedOn.ToString("dd/MM/yyyy HH:mm")</time>
                     <a href="@news.Url" class="author" title=" @if (news.Author != null)
-                                                       {
-                                                           @news.SourceName;
-                                                       }">
+                                                               {
+                                                                   @news.SourceName;
+                                                               }">
                         <span class="name">
                             @{
                                 if (news.Author != null)
@@ -35,8 +36,9 @@
                     </a>
                 </div>
             </header>
-            <a href="@news.Url" class="image"><img class="lozad" data-src="@news.ImageUrl" alt="@news.Title" /></a>
+            <a href="@news.Url" class="image featured"><img class="lozad" data-src="@news.ImageUrl" alt="@news.Title" /></a>
             <p> @news.ShortContent</p>
+
             <footer>
                 <ul class="actions">
                     <li>
@@ -81,8 +83,9 @@
                 </ul>
             </footer>
         </article>
+
+      
     }
-</section>
 
 <!-- Pagination -->
 <ul class="actions pagination">

@@ -1,8 +1,10 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <LangVersion>7.1</LangVersion>
+    <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+    <LangVersion>latest</LangVersion>
+    <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
   </PropertyGroup>
 
   <ItemGroup>
@@ -31,6 +33,8 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="2.2.0" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.2.4" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.Design" Version="1.1.1" />
   </ItemGroup>
 
   <ItemGroup>

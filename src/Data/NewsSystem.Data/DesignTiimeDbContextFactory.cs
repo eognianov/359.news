@@ -17,7 +17,7 @@ namespace NewsSystem.Data
 
             var builder = new DbContextOptionsBuilder<ApplicationDbContext>();
 
-            var connectionString = configuration.GetConnectionString("Deployment");
+            var connectionString = configuration.GetConnectionString("Development");
 
             builder.UseSqlServer(connectionString);
 

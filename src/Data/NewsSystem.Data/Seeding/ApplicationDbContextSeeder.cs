@@ -7,15 +7,10 @@ using Microsoft.Extensions.Logging;
 
 namespace NewsSystem.Data.Seeding
 {
-    public class ApplicationDbContextSeeder : ISeeder
+    public static class ApplicationDbContextSeeder
     {
-        public async Task SeedAsync(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
+        public static void Seed(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
         {
-            if (dbContext.Database.GetAppliedMigrations() !=
-dbContext.Database.GetMigrations())
-            {
-                dbContext.Database.Migrate();
-            }
             if (dbContext == null)
             {
                 throw new ArgumentNullException(nameof(dbContext));
@@ -31,20 +26,17 @@ dbContext.Database.GetMigrations())
             var seeders = new List<ISeeder>
             {
                 new RolesSeeder(),
-                new SettingsSeeder(),
+                new SourcesSeeder(),
+                new MainNewsSourcesSeeder(),
+//                new WorkerTasksSeeder(),
             };
 
             foreach (var seeder in seeders)
             {
-                await seeder.SeedAsync(dbContext, serviceProvider);
-                await dbContext.SaveChangesAsync();
+                seeder.Seed(dbContext, serviceProvider);
                 logger.LogInformation($"Seeder {seeder.GetType().Name} done.");
+                dbContext.SaveChanges();
             }
-        }
-
-        public static void Seed(ApplicationDbContext dbContext, IServiceProvider serviceProvider)
-        {
-            throw new NotImplementedException();
         }
     }
 }

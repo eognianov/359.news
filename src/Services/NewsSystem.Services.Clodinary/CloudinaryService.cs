@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 
 namespace NewsSystem.Services.Clodinary
 {
-    public class CloudinaryServise : ICloudinaryServise
+    public class CloudinaryService : ICloudinaryService
         {
             private readonly IConfiguration configuration;
 
@@ -14,7 +14,7 @@ namespace NewsSystem.Services.Clodinary
                 new Cloudinary(new Account("news0722", "791228753937375", "uK1KSeRDXZitVebMQc5Yjvlq1W8"));
 
 
-            public CloudinaryServise()
+            public CloudinaryService()
             {
             }
 
@@ -40,18 +40,10 @@ namespace NewsSystem.Services.Clodinary
 //            return "";
 //        }
 
-            public ImageUploadResult Upload(string pathToFile, string assetType ="mainNews" )
+            public ImageUploadResult Upload(ImageUploadParams upldParams)
             {
-                try
-                {
-                    return cloudinary.Upload(UploadParams(pathToFile, assetType));
 
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine(e);
-                    throw;
-                }
+                return cloudinary.Upload(upldParams);
 
             }
         }

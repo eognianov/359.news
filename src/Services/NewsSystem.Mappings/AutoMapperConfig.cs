@@ -7,9 +7,19 @@ using AutoMapper.Configuration;
 
 namespace NewsSystem.Mappings
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
+
+    using AutoMapper;
+    using AutoMapper.Configuration;
+
     public static class AutoMapperConfig
     {
         private static bool initialized;
+
+        public static IMapper MapperInstance { get; set; }
 
         public static void RegisterMappings(params Assembly[] assemblies)
         {
@@ -45,7 +55,7 @@ namespace NewsSystem.Mappings
                         map.CreateMappings(configuration);
                     }
                 });
-            Mapper.Initialize(config);
+            MapperInstance = new Mapper(new MapperConfiguration(config));
         }
 
         private static IEnumerable<TypesMap> GetFromMaps(IEnumerable<Type> types)

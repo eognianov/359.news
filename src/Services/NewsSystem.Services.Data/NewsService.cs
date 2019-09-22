@@ -1,8 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using AngleSharp.Html.Parser;
+using CloudinaryDotNet;
+using CloudinaryDotNet.Actions;
 using Microsoft.AspNetCore.Hosting;
 using NewsSystem.Data.Common.Repositories;
 using NewsSystem.Data.Models;
@@ -15,14 +19,14 @@ namespace NewsSystem.Services.Data
     {
         private readonly IDeletableEntityRepository<News> newsRepository;
         private readonly IImagesServices imagesServices;
-        private readonly ICloudinaryServise cloudinaryServise;
+        private readonly ICloudinaryService cloudinaryService;
         private readonly IHostingEnvironment environment;
 
-        public NewsService(IDeletableEntityRepository<News> newsRepository, IImagesServices imagesServices, ICloudinaryServise cloudinaryServise)
+        public NewsService(IDeletableEntityRepository<News> newsRepository, IImagesServices imagesServices, ICloudinaryService cloudinaryService)
         {
             this.newsRepository = newsRepository;
             this.imagesServices = imagesServices;
-            this.cloudinaryServise = cloudinaryServise;
+            this.cloudinaryService = cloudinaryService;
         }
 
         public async Task<bool> AddAsync(RemoteNews remoteNews, int sourceId)
@@ -35,15 +39,15 @@ namespace NewsSystem.Services.Data
             }
 
             var news = new News
-                         {
-                             Title = remoteNews.Title?.Trim(),
-                             OriginalUrl = remoteNews.OriginalUrl?.Trim(),
-                             ImageUrl = remoteNews.ImageUrl?.Trim(),
-                             Content = remoteNews.Content?.Trim(),
-                             CreatedOn = remoteNews.PostDate,
-                             SourceId = sourceId,
-                             RemoteId = remoteNews.RemoteId?.Trim()
-                         };
+            {
+                Title = remoteNews.Title?.Trim(),
+                OriginalUrl = remoteNews.OriginalUrl?.Trim(),
+                ImageUrl = this.ResolveImageUrl(remoteNews.ImageUrl),
+                Content = remoteNews.Content?.Trim(),
+                CreatedOn = remoteNews.PostDate,
+                SourceId = sourceId,
+                RemoteId = remoteNews.RemoteId?.Trim()
+            };
             news.SearchText = this.GetSearchText(news);
 
             await this.newsRepository.AddAsync(news);
@@ -53,12 +57,13 @@ namespace NewsSystem.Services.Data
 
         public async Task<int> AddAsync(NewsInputModel input)
         {
-            
+
             var news = new News
             {
                 Title = input.Title?.Trim(),
-                //ImageUrl = cloudinaryServise.Upload(input.Image.FileName, "NewsArticles").ToString(),
-                ImageUrl = await  imagesServices.SaveImage(input.Image),
+                //ImageUrl = cloudinaryService.Upload(input.Image.FileName, "NewsArticles").ToString(),
+                //                ImageUrl = await  imagesServices.SaveImage(input.Image),
+                ImageUrl = this.ResolveImageUrl(input.ImageUrl),
                 Content = input.Content?.Trim(),
                 CreatedOn = DateTime.UtcNow,
                 AuthorId = input.AuthorId,
@@ -75,7 +80,7 @@ namespace NewsSystem.Services.Data
 
         public async Task UpdateAsync(int id, RemoteNews remoteNews)
         {
-            var news =await this.newsRepository.GetByIdWithDeletedAsync(id);
+            var news = await this.newsRepository.GetByIdWithDeletedAsync(id);
             if (news == null)
             {
                 return;
@@ -88,7 +93,7 @@ namespace NewsSystem.Services.Data
 
             news.Title = remoteNews.Title;
             news.OriginalUrl = remoteNews.OriginalUrl;
-            news.ImageUrl = remoteNews.ImageUrl;
+            news.ImageUrl = this.ResolveImageUrl(remoteNews.ImageUrl);
             news.Content = remoteNews.Content;
             news.RemoteId = remoteNews.RemoteId;
             news.SearchText = this.GetSearchText(news);
@@ -99,7 +104,7 @@ namespace NewsSystem.Services.Data
 
         public async Task<int> UpdateAsync(NewsUpdataInputModel input)
         {
-            var originalNews =await this.newsRepository.GetByIdWithDeletedAsync(input.Id);
+            var originalNews = await this.newsRepository.GetByIdWithDeletedAsync(input.Id);
             if (originalNews == null)
             {
                 return 0;
@@ -115,17 +120,17 @@ namespace NewsSystem.Services.Data
                 originalNews.ImageUrl = await imagesServices.SaveImage(input.Image);
             }
 
-            if (input.Content!=originalNews.Content)
+            if (input.Content != originalNews.Content)
             {
                 originalNews.Content = input.Content;
             }
 
-            if (input.Signature!=originalNews.Signature)
+            if (input.Signature != originalNews.Signature)
             {
                 originalNews.Signature = input.Signature;
             }
 
-            if (input.Category!=originalNews.Category)
+            if (input.Category != originalNews.Category)
             {
                 originalNews.Category = input.Category;
             }
@@ -174,6 +179,37 @@ namespace NewsSystem.Services.Data
             var title = newsRepository.GetByIdWithDeletedAsync(id).GetAwaiter().GetResult().Title;
 
             return $"/News/{id}/{new SlugGenerator().GenerateSlug(title)}";
+        }
+
+        private string ResolveImageUrl(string newsImageUrl)
+        {
+            var uploadParams = new ImageUploadParams
+            {
+                File = new FileDescription(newsImageUrl),
+                EagerTransforms = new List<Transformation>
+                {
+                    new Transformation().Width(931).Height(378).Gravity("auto").Crop("fill"),
+                    new Transformation().Width(846).Height(343).Gravity("auto").Crop("fill"),
+                    new Transformation().Width(1086).Height(440).Gravity("auto").Crop("fill"),
+                    new Transformation().Width(884).Height(358).Gravity("auto").Crop("fill"),
+                    new Transformation().Width(688).Height(278).Gravity("auto").Crop("fill"),
+                    new Transformation().Width(480).Height(195).Gravity("auto").Crop("fill"),
+                    new Transformation().Width(1308).Height(567).Gravity("auto").Crop("fill"),
+                    new Transformation().Width(1246).Height(505).Gravity("auto").Crop("fill"),
+
+                },
+                Folder = "photos/news/",
+                UniqueFilename = true,
+                AccessMode = "public",
+            };
+            var result = this.cloudinaryService.Upload(uploadParams);
+
+            if (result.StatusCode == HttpStatusCode.OK)
+            {
+                return result.SecureUri.ToString();
+            }
+
+            return newsImageUrl;
         }
     }
 }
