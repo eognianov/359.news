@@ -60,7 +60,7 @@ namespace NewsSystem.Services.Sources.BgInstitutions
             var time = DateTime.ParseExact(timeAsString, "dd MMMM yyyy HH:mm", new CultureInfo("bg-BG"));
 
             var imageElement = document.QuerySelector(".entry-thumbnail img");
-            var imageUrl = imageElement?.GetAttribute("src") ?? "/images/sources/bfunion.bg.png";
+            var imageUrl = imageElement?.GetAttribute("src") ?? "https://res.cloudinary.com/news0722/image/upload/v1563245104/Photos/default/institucii/bfunion.bg.png";
 
             var contentElement = document.QuerySelector(".tr-details");
             this.NormalizeUrlsRecursively(contentElement);

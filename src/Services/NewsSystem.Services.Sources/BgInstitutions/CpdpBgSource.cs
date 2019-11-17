@@ -56,7 +56,7 @@ namespace NewsSystem.Services.Sources.BgInstitutions
             var time = DateTime.ParseExact(timeAsString, "dd.MM.yyyy", CultureInfo.InvariantCulture);
 
             var imageElement = document.QuerySelector(".center-part .titleImage img");
-            var imageUrl = imageElement?.GetAttribute("src") ?? "/images/sources/cpdp.bg.jpg";
+            var imageUrl = imageElement?.GetAttribute("src") ?? "https://res.cloudinary.com/news0722/image/upload/v1563245104/Photos/default/institucii/cpdp.bg.jpg";
 
             var contentElement = document.QuerySelector(".center-part");
             contentElement.RemoveRecursively(document.QuerySelector(".center-part .path"));

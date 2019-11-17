@@ -13,7 +13,7 @@
     <meta property="og:description" content="@this.ViewData["dsc"]" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-    <title>@(this.ViewData["Title"] ?? GlobalConstants.SystemSlogan) - @GlobalConstants.SystemName</title>
+    <title>@(this.ViewData["Title"] ?? GlobalConstants.SystemSlogan) - @GlobalConstants.TitleAfter</title>
     <meta name="description" content="@(this.ViewData["Description"] ?? "Най-новите прессъобщения и новини от над 40 източника.")">
 
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
@@ -37,18 +37,20 @@
 <body class="@this.ViewData["bodyClass"]">
 
     <div id="wrapper">
-        <partial name="_Header"/>
-        
+        <partial name="_Header" />
+
         <div id="main">
+            <partial name="_CookieConsentPartial" />
+
             @RenderBody()
         </div>
         @if (this.ViewData["bodyClass"] == "single")
         {
-            <partial name="_NewsAdition"/>
+            <partial name="_NewsAdition" />
         }
         else
         {
-            <partial name="_Sidebar"/>
+            <partial name="_Sidebar" />
         }
     </div>
 
@@ -86,9 +88,9 @@
             "tapToDismiss": false
         };
 
-//            toastr.info("test");
-//            toastr.warning("jega");
-//            toastr.success("opa");
+        //            toastr.info("test");
+        //            toastr.warning("jega");
+        //            toastr.success("opa");
 
     </script>
     <script>
@@ -111,6 +113,6 @@
     </script>
 
 
-@RenderSection("Scripts", required: false)
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

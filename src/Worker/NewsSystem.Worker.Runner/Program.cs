@@ -75,7 +75,7 @@
             var loggerFactory = new LoggerFactory();
 
             services.AddDbContext<ApplicationDbContext>(
-                options => options.UseSqlServer(configuration.GetConnectionString("Deployment"))
+                options => options.UseSqlServer(configuration.GetConnectionString("Development"))
                     .UseLoggerFactory(loggerFactory));
 
             services.AddIdentity<ApplicationUser, ApplicationRole>(IdentityOptionsProvider.GetIdentityOptions)

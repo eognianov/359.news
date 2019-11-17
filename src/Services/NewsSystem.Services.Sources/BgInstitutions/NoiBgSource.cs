@@ -82,7 +82,7 @@ namespace NewsSystem.Services.Sources.BgInstitutions
             }
 
             var imageElement = document.QuerySelector(".nssi-article img[src*='News']");
-            var imageUrl = imageElement?.GetAttribute("src") ?? "/images/sources/noi.bg.jpg";
+            var imageUrl = imageElement?.GetAttribute("src") ?? "https://res.cloudinary.com/news0722/image/upload/v1563245104/Photos/default/institucii/noi.bg.jpg";
 
             var contentElement = document.QuerySelector(".nssi-article");
             contentElement.RemoveRecursively(imageElement);

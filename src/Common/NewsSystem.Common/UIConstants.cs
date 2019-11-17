@@ -23,6 +23,8 @@
         public const string CHAHGE_DATE = "Смени дата";
         public const string ABOUT = "За нас";
         public const string ETICAL_CODEX = "Етичен кодекс";
+        public const string RULES = "Общи Правила";
+
 
         //news
 

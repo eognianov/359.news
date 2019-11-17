@@ -1,5 +1,8 @@
-﻿using System;
+﻿using NewsSystem.Data.Models;
+using System;
 using System.Collections.Generic;
+using System.Globalization;
+using System.Linq;
 using System.Text;
 
 namespace NewsSystem.ViewModels
@@ -50,5 +53,13 @@ namespace NewsSystem.ViewModels
                 return (DeletedPosts / AllPosts * 100).ToString("F1");
             }
         }
+
+        public StastsViewModel Stats { get; set; }
+
+        public List<SourceViewModel> Sources {get;set;}
+
+        public IEnumerable<ApplicationUser> Authors { get; set; }
+
+
     }
 }

@@ -31,7 +31,7 @@ namespace NewsSystem.Services.Sources.Ministries
                 }
 
                 var remoteNews = this.GetPublication($"{this.BaseUrl}Pages/Press/News/Default.aspx?evntid={i}");
-                if (remoteNews == null || remoteNews.ImageUrl.StartsWith("/images/sources/"))
+                if (remoteNews == null || remoteNews.ImageUrl.StartsWith("https://res.cloudinary.com/news0722/image/upload/v1563245104/Photos/default/institucii/"))
                 {
                     continue;
                 }
@@ -58,7 +58,7 @@ namespace NewsSystem.Services.Sources.Ministries
             }
 
             var imageElement = document.QuerySelector(".PanelFullText .event_text table img");
-            var imageUrl = imageElement?.GetAttribute("src") ?? "/images/sources/mpes.government.bg.jpg";
+            var imageUrl = imageElement?.GetAttribute("src") ?? "https://res.cloudinary.com/news0722/image/upload/v1563245104/Photos/default/institucii/mpes.government.bg.jpg";
 
             var contentElement = document.QuerySelector(".PanelFullText .event_text");
             contentElement.RemoveRecursively(document.QuerySelector(".PanelFullText .event_text table:has(img)"));

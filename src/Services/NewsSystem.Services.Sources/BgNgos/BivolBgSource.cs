@@ -57,7 +57,7 @@ namespace NewsSystem.Services.Sources.BgNgos
             var time = DateTime.Parse(timeAsString, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal).AddHours(2); // TODO: Remove .AddHours when move to UTC
 
             var imageElement = document.QuerySelector(".post-image a");
-            var imageUrl = imageElement?.GetAttribute("href") ?? "/images/sources/bivol.bg.jpg";
+            var imageUrl = imageElement?.GetAttribute("href") ?? "https://res.cloudinary.com/news0722/image/upload/v1563245104/Photos/default/institucii/bivol.bg.jpg";
 
             var contentElement = document.QuerySelector("div[itemprop=articleBody]");
             contentElement.RemoveRecursively(document.QuerySelector("div[itemprop=articleBody] .dkpdf-button-container"));

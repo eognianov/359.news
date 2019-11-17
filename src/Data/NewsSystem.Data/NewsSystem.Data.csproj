@@ -1,26 +1,17 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
     <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
     <LangVersion>latest</LangVersion>
     <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Migrations\20190630013731_NewsSignitureTypes.cs" />
-    <Compile Remove="Migrations\20190704113511_PhotosToNEws.cs" />
-    <Compile Remove="Migrations\20190828184651_UpdatePhotoModel.cs" />
-    <Compile Remove="Migrations\20190828185050_UpdatePhotoModel.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="appsettings.json" />
-  </ItemGroup>
 
   <ItemGroup>
     <Content Include="appsettings.json">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
@@ -41,6 +32,22 @@
     <ProjectReference Include="..\..\Common\NewsSystem.Common\NewsSystem.Common.csproj" />
     <ProjectReference Include="..\NewsSystem.Data.Common\NewsSystem.Data.Common.csproj" />
     <ProjectReference Include="..\NewsSystem.Data.Models\NewsSystem.Data.Models.csproj" />
+
+    <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="2.2.0" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.2.4" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL.Design" Version="1.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System">
+      <HintPath>System</HintPath>
+    </Reference>
+    <Reference Include="System.Data">
+      <HintPath>System.Data</HintPath>
+    </Reference>
+    <Reference Include="System.Drawing">
+      <HintPath>System.Drawing</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

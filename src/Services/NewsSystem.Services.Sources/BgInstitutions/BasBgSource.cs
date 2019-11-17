@@ -57,7 +57,7 @@ namespace NewsSystem.Services.Sources.BgInstitutions
             var time = DateTime.ParseExact(timeAsString, "dddd, d MMMM yyyy", new CultureInfo("bg-BG"));
 
             var imageElement = document.QuerySelector(".post-content img");
-            var imageUrl = imageElement?.GetAttribute("src") ?? "/images/sources/bas.bg.png";
+            var imageUrl = imageElement?.GetAttribute("src") ?? "https://res.cloudinary.com/news0722/image/upload/v1563245104/Photos/default/institucii/bas.bg.png";
 
             var contentElement = document.QuerySelector(".post-content");
             contentElement.RemoveRecursively(imageElement);

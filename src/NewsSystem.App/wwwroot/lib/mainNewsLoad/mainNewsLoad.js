@@ -4,7 +4,8 @@ $(() => {
 
     let imgLazyLoad = new LazyLoad({
         elements_selector: "img.lozad",
-        load_delay: 2000
+        load_delay: 2000,
+        
         // Assign the callbacks defined above
     });
 

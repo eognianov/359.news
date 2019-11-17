@@ -56,7 +56,7 @@ namespace NewsSystem.Services.Sources.Ministries
             var time = DateTime.ParseExact(timeAsString, "dd.MM.yyyy", CultureInfo.InvariantCulture);
 
             var imageElement = document.QuerySelector("div.article-image-container a.article-image");
-            var imageUrl = imageElement?.GetAttribute("href") ?? "/images/sources/me.government.bg.png";
+            var imageUrl = imageElement?.GetAttribute("href") ?? "https://res.cloudinary.com/news0722/image/upload/v1563245104/Photos/default/institucii/me.government.bg.png";
 
             var contentElement = document.QuerySelector("article.item-article");
             contentElement.RemoveRecursively(document.QuerySelector("article.item-article .article-header"));

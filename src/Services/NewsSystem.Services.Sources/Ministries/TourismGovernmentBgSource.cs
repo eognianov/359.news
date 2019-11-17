@@ -51,7 +51,7 @@ namespace NewsSystem.Services.Sources.Ministries
             var time = DateTime.Parse(timeElement?.Attributes["content"]?.Value, CultureInfo.InvariantCulture);
 
             var imageElement = document.QuerySelector("#main .content .field-name-field-image a");
-            var imageUrl = imageElement?.GetAttribute("href") ?? "/images/sources/tourism.government.bg.jpg";
+            var imageUrl = imageElement?.GetAttribute("href") ?? "https://res.cloudinary.com/news0722/image/upload/v1563245104/Photos/default/institucii/tourism.government.bg.jpg";
 
             var contentElement = document.QuerySelector("#main .content .field-name-body .field-item");
             this.NormalizeUrlsRecursively(contentElement);

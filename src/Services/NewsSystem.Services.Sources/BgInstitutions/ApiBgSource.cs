@@ -50,7 +50,7 @@ namespace NewsSystem.Services.Sources.BgInstitutions
             if (string.IsNullOrWhiteSpace(imageUrl))
             {
                 imageElement = document.QuerySelector(".news-article img");
-                imageUrl = imageElement?.GetAttribute("src") ?? "/images/sources/api.bg.jpg";
+                imageUrl = imageElement?.GetAttribute("src") ?? "https://res.cloudinary.com/news0722/image/upload/v1563245104/Photos/default/institucii/api.bg.jpg";
             }
 
             contentElement.RemoveChild(timeNode);

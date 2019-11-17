@@ -50,7 +50,7 @@ namespace NewsSystem.Services.Sources.BgInstitutions
             var time = DateTime.ParseExact(timeAsString, "dd.MM.yyyy", CultureInfo.InvariantCulture);
 
             var imageElement = document.QuerySelector(".blog-post img");
-            var imageUrl = imageElement?.GetAttribute("src") ?? "/images/sources/kzp.bg.jpg";
+            var imageUrl = imageElement?.GetAttribute("src") ?? "https://res.cloudinary.com/news0722/image/upload/v1563245104/Photos/default/institucii/kzp.bg.jpg";
 
             var contentElement = document.QuerySelector(".blog-post article");
             this.NormalizeUrlsRecursively(contentElement);

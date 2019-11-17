@@ -48,7 +48,7 @@ namespace NewsSystem.Services.Sources.Ministries
             }
 
             var imageElement = document.QuerySelector(".col-md-8 img.img-responsive");
-            var imageUrl = imageElement?.GetAttribute("src") ?? "/images/sources/mzh.government.bg.png";
+            var imageUrl = imageElement?.GetAttribute("src") ?? "https://res.cloudinary.com/news0722/image/upload/v1563245104/Photos/default/institucii/mzh.government.bg.png";
 
             var contentElement = document.QuerySelector(".single_news");
             this.NormalizeUrlsRecursively(contentElement);

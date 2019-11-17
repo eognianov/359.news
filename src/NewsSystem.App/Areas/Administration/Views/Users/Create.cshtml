@@ -2,6 +2,13 @@
 @model NewsSystem.ViewModels.UserCreatInputModel
 
 
+
+@{
+    ViewData["Title"] = "OFFICE | Create User";
+    this.Layout = "_DashboardLayout";
+}
+
+
 <h3>Create User</h3>
 <div class="col-md-4">
     <form asp-route-returnUrl="" method="post" asp-controller="Users" asp-action="Create">
@@ -15,11 +22,11 @@
         </div>
         <div class="form-group">
             <label asp-for="@Model.LastName"></label>
-            <input asp-for="@Model.LastName" class="form-control"  />
+            <input asp-for="@Model.LastName" class="form-control" />
         </div>
         <div class="form-group">
             <label asp-for="@Model.FirstName"></label>
-            <input asp-for="@Model.FirstName" class="form-control"  />
+            <input asp-for="@Model.FirstName" class="form-control" />
         </div>
         <div class="form-group">
             <label asp-for="@Model.Password"></label>

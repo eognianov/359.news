@@ -6,5 +6,7 @@ namespace NewsSystem.Services.Clodinary
     {
         ImageUploadResult Upload(ImageUploadParams upldParams);
 
+        string imageTag(string url);
+
     }
 }

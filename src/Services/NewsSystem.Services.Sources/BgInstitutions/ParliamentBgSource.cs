@@ -51,7 +51,7 @@ namespace NewsSystem.Services.Sources.BgInstitutions
             var title = titleElement.TextContent;
 
             var imageElement = document.QuerySelector(".markframe .markcontent img");
-            var imageUrl = imageElement?.GetAttribute("src") ?? "/images/sources/parliament.bg.jpg";
+            var imageUrl = imageElement?.GetAttribute("src") ?? "https://res.cloudinary.com/news0722/image/upload/v1563245104/Photos/default/institucii/parliament.bg.jpg";
 
             var contentElement = document.QuerySelector(".markframe .markcontent");
             contentElement.RemoveRecursively(imageElement);

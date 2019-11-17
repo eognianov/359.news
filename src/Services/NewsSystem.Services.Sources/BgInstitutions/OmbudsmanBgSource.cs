@@ -90,7 +90,7 @@ namespace NewsSystem.Services.Sources.BgInstitutions
 
             // Image
             var imageUrl = document.QuerySelector(".news-content > .inline-image img")?.Attributes?["src"]?.Value
-                           ?? "/images/sources/ombudsman.bg.jpg";
+                           ?? "https://res.cloudinary.com/news0722/image/upload/v1563245104/Photos/default/institucii/ombudsman.bg.jpg";
 
             // Content
             var contentElement = document.QuerySelector(".news-content .news-body");

@@ -51,7 +51,7 @@ namespace NewsSystem.Services.Sources.BgStateCompanies
             var title = titleElement.TextContent.Trim();
 
             var imageElement = document.QuerySelector(".main-content .small-12 a.fancybox");
-            var imageUrl = imageElement?.GetAttribute("href") ?? "/images/sources/pirogov.eu.png";
+            var imageUrl = imageElement?.GetAttribute("href") ?? "https://res.cloudinary.com/news0722/image/upload/v1563245104/Photos/default/institucii/pirogov.eu.png";
 
             var contentElement = document.QuerySelector(".main-content .small-12");
             contentElement.RemoveRecursively(imageElement);

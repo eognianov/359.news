@@ -37,7 +37,7 @@ namespace NewsSystem.Services.Sources.BgInstitutions
             var time = DateTime.ParseExact(timeAsString, "dd.MM.yyyy", CultureInfo.InvariantCulture);
 
             var imageElement = document.QuerySelector(".view .gallery img");
-            var imageUrl = imageElement?.GetAttribute("src") ?? "/images/sources/government.bg.png";
+            var imageUrl = imageElement?.GetAttribute("src") ?? "https://res.cloudinary.com/news0722/image/upload/v1563245104/Photos/default/institucii/government.bg.png";
 
             var contentElement = document.QuerySelector(".view");
             contentElement.RemoveRecursively(titleElement);

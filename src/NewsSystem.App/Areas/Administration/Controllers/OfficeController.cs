@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -17,13 +18,18 @@ namespace NewsSystem.App.Areas.Administration.Controllers
     public class OfficeController : AdministrationController
     {
         private readonly IPublishableEntityRepository<News> newsRepository;
+        private readonly IDeletableEntityRepository<Source> sourceRepository;
+        private readonly IDeletableEntityRepository<ApplicationUser> usersRepository;
 
-        public OfficeController(IPublishableEntityRepository<News> newsRepository)
+        public OfficeController(IPublishableEntityRepository<News> newsRepository, IDeletableEntityRepository<Source> sourceRepository, IDeletableEntityRepository<ApplicationUser> usersRepository)
         {
             this.newsRepository = newsRepository;
+            this.sourceRepository = sourceRepository;
+            this.usersRepository = usersRepository;
         }
 
         [Route("/office")]
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             var news = await newsRepository.AllWithDeleted().ToListAsync();
@@ -38,8 +44,13 @@ namespace NewsSystem.App.Areas.Administration.Controllers
                 AllPosts = all,
                 PublishedPosts = published,
                 NotPublishedPosts = notPublished,
-                DeletedPosts = deleted
+                DeletedPosts = deleted,
+                Stats = this.GetStat(),
+                Authors = this.usersRepository.All()
             };
+
+            model.Sources = this.sourceRepository.All().OrderBy(x => x.ShortName).To<SourceViewModel>().ToList();
+
 
             return View(model);
         }
@@ -50,6 +61,7 @@ namespace NewsSystem.App.Areas.Administration.Controllers
             var today = DateTime.Today;
             var yestarday = today.Date.Subtract(new TimeSpan(1, 0,0,0));
             var week = today.Date.Subtract(new TimeSpan(7,0,0,0));
+            var mouth = today.Date.Subtract(new TimeSpan(30,0,0,0));
             var news = new List<NewsViewModel>();
             var viewModel = new OfficeNewsListViewModel();
 
@@ -68,6 +80,14 @@ namespace NewsSystem.App.Areas.Administration.Controllers
 
                 case "week":
                     news = await this.newsRepository.AllNotPublished().Where(n=>n.CreatedOn.Date<=yestarday && n.CreatedOn>=week).OrderByDescending(x => x.PublishedOn)
+                        .ThenByDescending(x => x.Id).To<NewsViewModel>().ToListAsync();
+                    viewModel.News = news;
+                    returnUrl += "?period=week";
+
+                    break;
+
+                    case "mouth":
+                    news = await this.newsRepository.AllNotPublished().Where(n=>n.CreatedOn.Date<=yestarday && n.CreatedOn>=mouth).OrderByDescending(x => x.PublishedOn)
                         .ThenByDescending(x => x.Id).To<NewsViewModel>().ToListAsync();
                     viewModel.News = news;
                     returnUrl += "?period=week";
@@ -159,6 +179,47 @@ namespace NewsSystem.App.Areas.Administration.Controllers
 
             this.ViewData["ReturnUrl"] = returnUrl;
             return this.View(viewModel);
+        }
+
+        private  StastsViewModel GetStat()
+        {
+            var allDates = this.newsRepository.All().Select(x => x.CreatedOn.Date).ToList();
+            var byDateOfWeek = allDates.GroupBy(x => x.Date.DayOfWeek)
+                .Select(g => new GroupByViewModel<DayOfWeek> { Group = g.Key, Count = g.Count() }).ToList();
+            var byMonth = allDates.GroupBy(x => x.Date.Month)
+                .Select(g => new GroupByViewModel<int> { Group = g.Key, Count = g.Count() }).ToList();
+            var byYear = allDates.GroupBy(x => x.Date.Year)
+                .Select(g => new GroupByViewModel<int> { Group = g.Key, Count = g.Count() }).ToList();
+            var newsCount = this.newsRepository.All().Count();
+            var newsToday = this.newsRepository.All().Count(x => x.CreatedOn.Date == DateTime.Today);
+            var newsYesterday = this.newsRepository.All().Count(x => x.CreatedOn.Date == DateTime.Today.AddDays(-1));
+            var newsTheDayBeforeYesterday = this.newsRepository.All().Count(x => x.CreatedOn.Date == DateTime.Today.AddDays(-2));
+            var model = new StastsViewModel
+            {
+                NewsByDayOfWeek = byDateOfWeek,
+                NewsByMonth = byMonth,
+                NewsByYear = byYear,
+                NewsCount = newsCount,
+                NewsToday = newsToday,
+                NewsYesterday = newsYesterday,
+                NewsTheDayBeforeYesterday = newsTheDayBeforeYesterday,
+                MouthStatNormalise = GetNomalise(byMonth)
+            };
+
+            return model;
+        }
+
+        private MouthStatNormalise GetNomalise(List<GroupByViewModel<int>> byMonth)
+        {
+            var result = new MouthStatNormalise();
+
+            foreach (var item in byMonth.OrderBy(x=>x.Group))
+            {
+                result.Mounths.Add(new CultureInfo("bg-BG").DateTimeFormat.GetMonthName(item.Group));
+                result.NewsCount.Add(item.Count);
+            }
+
+            return result;
         }
     }
 }

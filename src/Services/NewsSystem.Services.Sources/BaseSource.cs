@@ -87,7 +87,7 @@ namespace NewsSystem.Services.Sources
 
             // Image URL
             publication.ImageUrl = publication.ImageUrl?.Trim();
-            if (publication.ImageUrl?.StartsWith("/images/sources/") == false)
+            if (publication.ImageUrl?.StartsWith("https://res.cloudinary.com/news0722/image/upload/v1563245104/Photos/default/institucii/") == false)
             {
                 publication.ImageUrl = this.NormalizeUrl(publication.ImageUrl)?.Trim();
             }

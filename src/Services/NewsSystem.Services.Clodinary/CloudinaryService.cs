@@ -10,12 +10,14 @@ namespace NewsSystem.Services.Clodinary
         {
             private readonly IConfiguration configuration;
 
-            private readonly Cloudinary cloudinary =
-                new Cloudinary(new Account("news0722", "791228753937375", "uK1KSeRDXZitVebMQc5Yjvlq1W8"));
+            private readonly Cloudinary cloudinary;
 
 
-            public CloudinaryService()
+            public CloudinaryService(IConfiguration configuration)
             {
+                this.cloudinary = new Cloudinary(new Account(configuration["Cloudinary:Cloud"], configuration["Cloudinary:API Key"]
+                    ,configuration["Cloudinary:API Secret"]));
+
             }
 
 
@@ -46,6 +48,15 @@ namespace NewsSystem.Services.Clodinary
                 return cloudinary.Upload(upldParams);
 
             }
+
+            public string imageTag(string url)
+            {
+               return cloudinary.Api.UrlImgUp
+                    .Transform(
+                        new CloudinaryDotNet.Transformation().Width(688).Height(279).Gravity("auto").Crop("fill"))
+                    .BuildImageTag(url);
+            }
+
         }
 
 

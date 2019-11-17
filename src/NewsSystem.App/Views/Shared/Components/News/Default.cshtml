@@ -1,91 +1,92 @@
 ﻿@using NewsSystem.Common
 @using NewsSystem.Data.Models
 @using Microsoft.AspNetCore.Identity
+@using NewsSystem.Services.Clodinary
 @model NewsSystem.ViewModels.NewsListViewModel
 @inject SignInManager<ApplicationUser> SignInManager
-
-
+@using CloudinaryDotNet
+@using CloudinaryDotNet.Actions
+@inject ICloudinaryService cloudinary
 @* <section id="last-news-list"> *@
-    @foreach (var news in this.Model.News)
-    {
+@foreach (var news in this.Model.News)
+{
 
-        <article class="post">
-            <header>
-                <div class="title">
-                    <h2><a href="@news.Url">@news.Title</a></h2>
-                    <p>Lorem ipsum dolor amet nullam consequat etiam feugiat</p>
-                </div>
-                <div class="meta">
-                    <time class="published" datetime="@news.CreatedOn.ToString("O")">@news.CreatedOn.ToString("dd/MM/yyyy HH:mm")</time>
-                    <a href="@news.Url" class="author" title=" @if (news.Author != null)
+    <article class="post">
+        <header>
+            <div class="title">
+                <h2><a href="@news.Url">@news.Title</a></h2>
+            </div>
+            <div class="meta">
+                <time class="published" datetime="@news.CreatedOn.ToString("O")">@news.CreatedOn.ToString("dd/MM/yyyy HH:mm")</time>
+                <a href="@news.Url" class="author" title=" @if (news.Author != null)
                                                                {
                                                                    @news.SourceName;
                                                                }">
-                        <span class="name">
-                            @{
-                                if (news.Author != null)
-                                {
-                                    @news.GetSign();
-                                }
-                                else
-                                {
-                                    @news.SourceShortName;
-                                }
-                            }
-                        </span>
-                    </a>
-                </div>
-            </header>
-            <a href="@news.Url" class="image featured"><img class="lozad" data-src="@news.ImageUrl" alt="@news.Title" /></a>
-            <p> @news.ShortContent</p>
-
-            <footer>
-                <ul class="actions">
-                    <li>
-                        <div class="btn-group">
-                            <a href="@news.Url" class="button medium">още</a>
-                            @* //TODO: IF NOT USER IS LOGGED EXCEPTION *@
-                            @if (SignInManager.IsSignedIn(User))
+                    <span class="name">
+                        @{
+                            if (news.Author != null)
                             {
-                                if (this.User.IsInRole(GlobalConstants.EditorRoleName) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
-                                {
-                                    <button type="button" class="button medium" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding-left: 1em; padding-right: 1em;">
-                                        <i class="fa fa-arrow-down"></i>
-                                        <span class="sr-only">Toggle Dropdown</span>
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" asp-area="Administration" asp-controller="News" asp-action="TopNews" asp-route-id="@news.Id">ТОП Новина</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" asp-area="Administration" asp-controller="News" asp-action="Udpate" asp-route-id="@news.Id">Редактирай</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a class="dropdown-item" asp-area="Administration" asp-controller="News" asp-action="SoftDelete" asp-route-id="@news.Id">Soft Изтриване</a>
-                                    </div>
-                                }
-                                else if (this.User.Identity.Name == (news.Author != null ? news.Author.UserName : null))
-                                {
-                                    <button type="button" class="button medium" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding-left: 1em; padding-right: 1em;">
-                                        <i class="fa fa-arrow-down"></i>
-                                        <span class="sr-only">Toggle Dropdown</span>
-                                    </button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" asp-area="Administration" asp-controller="News" asp-action="Udpate" asp-route-id="@news.Id">Редактирай</a>
-                                    </div>
-                                }
+                                @news.GetSign();
                             }
-                        </div>
-                    </li>
-                </ul>
-                <ul class="stats">
-                    <li><a href="#">@news.Category</a></li>
-                    <li><a href="#" class="icon fa-comment">128</a></li>
-                    <li><a href="#" class="icon fa-image">@news.Photos.Count()</a></li>
-                    <li><a href="#" class="icon fa-video">@news.Videos.Count()</a></li>
-                </ul>
-            </footer>
-        </article>
+                            else
+                            {
+                                @news.SourceShortName;
+                            }
+                        }
+                    </span>
+                </a>
+            </div>
+        </header>
+        <a href="@news.Url" class="image featured">@Html.Raw(cloudinary.imageTag(news.ImageUrl))</a>
+        <p> @news.ShortContent</p>
 
-      
-    }
+        <footer>
+            <ul class="actions">
+                <li>
+                    <div class="btn-group">
+                        <a href="@news.Url" class="button medium">още</a>
+                        @* //TODO: IF NOT USER IS LOGGED EXCEPTION *@
+                        @if (SignInManager.IsSignedIn(User))
+                        {
+                            if (this.User.IsInRole(GlobalConstants.EditorRoleName) || this.User.IsInRole(GlobalConstants.AdministratorRoleName))
+                            {
+                                <button type="button" class="button medium" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding-left: 1em; padding-right: 1em;">
+                                    <i class="fa fa-arrow-down"></i>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" asp-area="Administration" asp-controller="News" asp-action="TopNews" asp-route-id="@news.Id">ТОП Новина</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" asp-area="Administration" asp-controller="News" asp-action="Udpate" asp-route-id="@news.Id">Редактирай</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" asp-area="Administration" asp-controller="News" asp-action="SoftDelete" asp-route-id="@news.Id">Soft Изтриване</a>
+                                </div>
+                            }
+                            else if (this.User.Identity.Name == (news.Author != null ? news.Author.UserName : null))
+                            {
+                                <button type="button" class="button medium" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="padding-left: 1em; padding-right: 1em;">
+                                    <i class="fa fa-arrow-down"></i>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" asp-area="Administration" asp-controller="News" asp-action="Udpate" asp-route-id="@news.Id">Редактирай</a>
+                                </div>
+                            }
+                        }
+                    </div>
+                </li>
+            </ul>
+            <ul class="stats">
+                <li><a href="#">@news.Category</a></li>
+                <li><a href="#" class="icon fa-comment">128</a></li>
+                <li><a href="#" class="icon fa-image">@news.Photos.Count()</a></li>
+                <li><a href="#" class="icon fa-video">@news.Videos.Count()</a></li>
+            </ul>
+        </footer>
+    </article>
+
+
+}
 
 <!-- Pagination -->
 <ul class="actions pagination">

@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 using NewsSystem.ViewModels;
 using Newtonsoft.Json.Linq;
 using NewsSystem.Common;
+using Microsoft.Extensions.Configuration;
+
 
 namespace NewsSystem.Services.Data
 {
@@ -19,10 +20,10 @@ namespace NewsSystem.Services.Data
         readonly string _postToPageURL;
         readonly string _postToPagePhotosURL;
 
-        public FacebookPage()
+        public FacebookPage(IConfiguration configuration)
         {
-            _accessToken = "EAAeGhHPkizUBALO0kiJYZCXsNaToZAafchDRXZCFozfOxW7V6ZAJq8ZBSTYvxRydfVBEnFiV2ceAIBdCekQy8CHVxPSRn3vCQ57gRcs5fC9P3dy1wm8aOhFlN2zpr0ctEkhaZAqVERrPzXlqHXD9hr9ZCtQqXhrqWVSVg6qiPYHmX5neHF1LoDV";
-            _pageID = "105628697487098";
+            _accessToken = configuration["Facebook:accessToken"];
+            _pageID = configuration["Facebook:pageId"];
             _postToPageURL = $"{_facebookAPI}{_pageID}/{_pageEdgeFeed}";
             _postToPagePhotosURL = $"{_facebookAPI}{_pageID}/{_pageEdgePhotos}";
         }

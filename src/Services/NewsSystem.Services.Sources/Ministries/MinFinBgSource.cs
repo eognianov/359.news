@@ -52,7 +52,7 @@ namespace NewsSystem.Services.Sources.Ministries
             contentElement.RemoveRecursively(document.QuerySelector("#social"));
 
             var imageElement = contentElement?.QuerySelector("#content img");
-            var imageUrl = imageElement?.GetAttribute("src") ?? "/images/sources/minfin.bg.jpg";
+            var imageUrl = imageElement?.GetAttribute("src") ?? "https://res.cloudinary.com/news0722/image/upload/v1563245104/Photos/default/institucii/minfin.bg.jpg";
 
             contentElement.RemoveRecursively(timeElement);
             contentElement.RemoveRecursively(imageElement);

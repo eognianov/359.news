@@ -44,7 +44,7 @@ namespace NewsSystem.Services.Sources.Ministries
             var time = DateTime.ParseExact(timeAsString, "dd.MM.yyyy", CultureInfo.InvariantCulture);
 
             var imageElement = document.QuerySelector(".col-md-9.content-center img");
-            var imageUrl = imageElement?.GetAttribute("src") ?? "/images/sources/mon.bg.png";
+            var imageUrl = imageElement?.GetAttribute("src") ?? "https://res.cloudinary.com/news0722/image/upload/v1563245104/Photos/default/institucii/mon.bg.png";
 
             var socialMediaShareElement = document.QuerySelector(".col-md-9.content-center div");
             var contentElement = document.QuerySelector(".col-md-9.content-center");

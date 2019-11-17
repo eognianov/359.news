@@ -48,7 +48,7 @@ namespace NewsSystem.Services.Sources.Ministries
             var time = DateTime.ParseExact(timeAsString, "dd MMMM yyyy", CultureInfo.GetCultureInfo("bg-BG"));
 
             var imageElement = document.QuerySelector(".col2 div.left img");
-            var imageUrl = imageElement?.GetAttribute("src") ?? "/images/sources/mi.government.bg.png";
+            var imageUrl = imageElement?.GetAttribute("src") ?? "https://res.cloudinary.com/news0722/image/upload/v1563245104/Photos/default/institucii/mi.government.bg.png";
 
             var contentElement = document.QuerySelector(".col2");
             contentElement.RemoveRecursively(titleElement);

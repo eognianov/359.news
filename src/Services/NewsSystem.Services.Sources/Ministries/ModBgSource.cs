@@ -52,7 +52,7 @@ namespace NewsSystem.Services.Sources.Ministries
             var imageUrl = imageElement?.GetAttribute("src");
             if (imageUrl == null)
             {
-                imageUrl = "/images/sources/mod.bg.jpg";
+                imageUrl = "https://res.cloudinary.com/news0722/image/upload/v1563245104/Photos/default/institucii/mod.bg.jpg";
             }
             else if (!imageUrl.Contains("/bg/"))
             {

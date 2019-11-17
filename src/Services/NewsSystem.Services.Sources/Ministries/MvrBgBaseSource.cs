@@ -78,7 +78,7 @@ namespace NewsSystem.Services.Sources.Ministries
             }
 
             var imageElement = document.QuerySelector("#image_source");
-            var imageUrl = imageElement?.GetAttribute("src") ?? "/images/sources/mvr.bg.jpg";
+            var imageUrl = imageElement?.GetAttribute("src") ?? "https://res.cloudinary.com/news0722/image/upload/v1563245104/Photos/default/institucii/mvr.bg.jpg";
 
             // Try to get exact time
             var modifiedTimeElement = document.QuerySelector(".article__container .timestamp");

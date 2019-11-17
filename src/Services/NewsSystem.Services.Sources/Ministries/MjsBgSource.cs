@@ -73,7 +73,7 @@ namespace NewsSystem.Services.Sources.Ministries
             this.NormalizeUrlsRecursively(contentElement);
             var content = contentElement?.InnerHtml;
 
-            return new RemoteNews(title, content, time, "/images/sources/mjs.bg.jpg");
+            return new RemoteNews(title, content, time, "https://res.cloudinary.com/news0722/image/upload/v1563245104/Photos/default/institucii/mjs.bg.jpg");
         }
 
         private RemoteNews GetNthLastNews(int i)

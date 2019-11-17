@@ -69,7 +69,7 @@ namespace NewsSystem.Services.Sources.BgInstitutions
                 return null;
             }
 
-            return new RemoteNews(title, content, time, "/images/sources/nap.bg.jpg");
+            return new RemoteNews(title, content, time, "https://res.cloudinary.com/news0722/image/upload/v1563245104/Photos/default/institucii/nap.bg.jpg");
         }
     }
 }

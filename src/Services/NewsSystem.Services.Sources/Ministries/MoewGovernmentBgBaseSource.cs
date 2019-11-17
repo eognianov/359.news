@@ -41,7 +41,7 @@ namespace NewsSystem.Services.Sources.Ministries
             var time = DateTime.ParseExact(timeAsString, "dd MMMM yyyy | HH:mm", CultureInfo.GetCultureInfo("bg-BG"));
 
             var imageElement = document.QuerySelector(".content-box .image-container img");
-            var imageUrl = imageElement?.GetAttribute("src") ?? "/images/sources/moew.government.bg.png";
+            var imageUrl = imageElement?.GetAttribute("src") ?? "https://res.cloudinary.com/news0722/image/upload/v1563245104/Photos/default/institucii/moew.government.bg.png";
 
             var contentElement = document.QuerySelector(".description_holder_div");
             this.NormalizeUrlsRecursively(contentElement);

@@ -18,15 +18,14 @@ namespace NewsSystem.Services.Data
     public class NewsService : INewsService
     {
         private readonly IDeletableEntityRepository<News> newsRepository;
-        private readonly IImagesServices imagesServices;
         private readonly ICloudinaryService cloudinaryService;
-        private readonly IHostingEnvironment environment;
+        private readonly IImagesServices imagesServices;
 
-        public NewsService(IDeletableEntityRepository<News> newsRepository, IImagesServices imagesServices, ICloudinaryService cloudinaryService)
+        public NewsService(IDeletableEntityRepository<News> newsRepository, ICloudinaryService cloudinaryService, IImagesServices imagesServices)
         {
             this.newsRepository = newsRepository;
-            this.imagesServices = imagesServices;
             this.cloudinaryService = cloudinaryService;
+            this.imagesServices = imagesServices;
         }
 
         public async Task<bool> AddAsync(RemoteNews remoteNews, int sourceId)
@@ -62,14 +61,15 @@ namespace NewsSystem.Services.Data
             {
                 Title = input.Title?.Trim(),
                 //ImageUrl = cloudinaryService.Upload(input.Image.FileName, "NewsArticles").ToString(),
-                //                ImageUrl = await  imagesServices.SaveImage(input.Image),
-                ImageUrl = this.ResolveImageUrl(input.ImageUrl),
+                ImageUrl = await  imagesServices.SaveImage(input.Image),
+                //ImageUrl = this.ResolveImageUrl(input.Image.FileName),
                 Content = input.Content?.Trim(),
                 CreatedOn = DateTime.UtcNow,
                 AuthorId = input.AuthorId,
                 Signature = input.Signature,
                 Category = input.Category
             };
+
 
             news.SearchText = this.GetSearchText(news);
 
@@ -117,7 +117,7 @@ namespace NewsSystem.Services.Data
 
             if (input.Image != null)
             {
-                originalNews.ImageUrl = await imagesServices.SaveImage(input.Image);
+                originalNews.ImageUrl =  this.ResolveImageUrl(input.ImageUrl);
             }
 
             if (input.Content != originalNews.Content)
@@ -188,14 +188,10 @@ namespace NewsSystem.Services.Data
                 File = new FileDescription(newsImageUrl),
                 EagerTransforms = new List<Transformation>
                 {
-                    new Transformation().Width(931).Height(378).Gravity("auto").Crop("fill"),
-                    new Transformation().Width(846).Height(343).Gravity("auto").Crop("fill"),
-                    new Transformation().Width(1086).Height(440).Gravity("auto").Crop("fill"),
+                    
                     new Transformation().Width(884).Height(358).Gravity("auto").Crop("fill"),
-                    new Transformation().Width(688).Height(278).Gravity("auto").Crop("fill"),
                     new Transformation().Width(480).Height(195).Gravity("auto").Crop("fill"),
-                    new Transformation().Width(1308).Height(567).Gravity("auto").Crop("fill"),
-                    new Transformation().Width(1246).Height(505).Gravity("auto").Crop("fill"),
+                    new Transformation().Width(1308).Height(567).Gravity("auto").Crop("fill")
 
                 },
                 Folder = "photos/news/",

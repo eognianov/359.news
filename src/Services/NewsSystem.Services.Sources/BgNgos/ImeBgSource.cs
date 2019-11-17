@@ -55,7 +55,7 @@ namespace NewsSystem.Services.Sources.BgNgos
                 return null;
             }
 
-            return new RemoteNews(title, content, time, "/images/sources/ime.bg.jpg");
+            return new RemoteNews(title, content, time, "https://res.cloudinary.com/news0722/image/upload/v1563245104/Photos/default/institucii/ime.bg.jpg");
         }
     }
 }

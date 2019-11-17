@@ -40,7 +40,7 @@ namespace NewsSystem.Services.Sources.BgNgos
             }
 
             var imageElement = contentElement?.QuerySelector("#content img");
-            var imageUrl = imageElement?.GetAttribute("src") ?? "/images/sources/gallup-international.bg.png";
+            var imageUrl = imageElement?.GetAttribute("src") ?? "https://res.cloudinary.com/news0722/image/upload/v1563245104/Photos/default/institucii/gallup-international.bg.png";
 
             contentElement.RemoveRecursively(imageElement);
             this.NormalizeUrlsRecursively(contentElement);

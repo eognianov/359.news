@@ -20,7 +20,6 @@ using NewsSystem.Services.Contracts;
 using NewsSystem.Services;
 using NewsSystem.Services.Data;
 using NewsSystem.ViewModels;
-//using NewsSystem.Services.Images.DependencyInjection;
 using NewsSystem.Services.Clodinary;
 using Microsoft.AspNetCore.Identity.UI;
 
@@ -42,10 +41,14 @@ namespace NewsSystem.App
         {
             
 
+//            services.AddEntityFrameworkNpgsql().AddDbContext<ApplicationDbContext>(options =>
+//                options.UseNpgsql(
+//                    this.configuration.GetConnectionString("PostgreSQL")));
+
+            
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     this.configuration.GetConnectionString("Development")));
-
 
 
             services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
@@ -64,35 +67,6 @@ namespace NewsSystem.App
 
 
             services.AddAuthorization();
-
-            //ImageMiddleware
-//            services.AddImageSharpCore()
-//                .SetRequestParser<QueryCollectionRequestParser>()
-//                .Configure<PhysicalFileSystemCacheOptions>(options =>
-//                {
-//                    options.CacheFolder = "is-cache";
-//                })
-//                .SetCache(provider =>
-//                {
-//                    return new PhysicalFileSystemCache(
-//                        provider.GetRequiredService<IOptions<PhysicalFileSystemCacheOptions>>(),
-//                        provider.GetRequiredService<IHostingEnvironment>(),
-//                        provider.GetRequiredService<IOptions<ImageSharpMiddlewareOptions>>(),
-//                        provider.GetRequiredService<FormatUtilities>());
-//                })
-//                .SetCacheHash<CacheHash>()
-//                .AddProvider<PhysicalFileSystemProvider>()
-//                .AddProcessor<ResizeWebProcessor>()
-//                .AddProcessor<FormatWebProcessor>()
-//                .AddProcessor<BackgroundColorWebProcessor>();
-
-            services.Configure<CookiePolicyOptions>(options =>
-            {
-                // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-                options.CheckConsentNeeded = context => true;
-                options.MinimumSameSitePolicy = SameSiteMode.None;
-            });
-
             
             services
                 .Configure<CookiePolicyOptions>(options =>
@@ -100,7 +74,7 @@ namespace NewsSystem.App
                     // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                     options.CheckConsentNeeded = context => true;
                     options.MinimumSameSitePolicy = SameSiteMode.Lax;
-                    options.ConsentCookie.Name = ".AspNetCore.ConsentCookie";
+                    options.ConsentCookie.Name = "0722.ConsentCookie";
                 });
 
             services
@@ -136,9 +110,15 @@ namespace NewsSystem.App
             services.AddTransient<ICloudinaryService, CloudinaryService>();
             services.AddTransient<IFacebookPage, FacebookPage>();
 
+            services.AddResponseCompression();
 
-            
-            services.AddMvc()
+
+            services.AddMvc(options =>
+                    {
+                        options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+                    }
+                
+                )
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddRazorPagesOptions(options =>
                 {
@@ -149,7 +129,7 @@ namespace NewsSystem.App
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IConfiguration configuration)
         {
 
             //AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
@@ -171,16 +151,17 @@ namespace NewsSystem.App
            
                 ApplicationDbContextSeeder.Seed(dbContext, serviceScope.ServiceProvider);
 
+                var adminUserName = this.configuration["Admin:username"];
 
-                if (!dbContext.Users.Any(u => u.UserName == "eognianov"))
+                if (!dbContext.Users.Any(u => u.UserName == adminUserName))
                 {
                     var adminUser = new ApplicationUser
                     {
-                        UserName = "eognianov",
-                        Email = "emilian_89@abv.bg"
+                        UserName = adminUserName,
+                        Email = this.configuration["Admin:email"]
                     };
 
-                    var result = userMgr.CreateAsync(adminUser, "password").GetAwaiter().GetResult();
+                    var result = userMgr.CreateAsync(adminUser, this.configuration["Admin:password"]).GetAwaiter().GetResult();
                     userMgr.AddToRoleAsync(adminUser, GlobalConstants.AdministratorRoleName).GetAwaiter().GetResult();
                 }
             }
@@ -197,7 +178,7 @@ namespace NewsSystem.App
             }
 
             app.UseHttpsRedirection();
-//            app.UseImageSharp();
+            app.UseResponseCompression();
             app.UseStaticFiles();
             app.UseCookiePolicy();
             app.UseAuthentication();

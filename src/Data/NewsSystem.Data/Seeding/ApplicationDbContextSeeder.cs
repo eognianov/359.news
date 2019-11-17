@@ -28,7 +28,7 @@ namespace NewsSystem.Data.Seeding
                 new RolesSeeder(),
                 new SourcesSeeder(),
                 new MainNewsSourcesSeeder(),
-//                new WorkerTasksSeeder(),
+                new WorkerTasksSeeder(),
             };
 
             foreach (var seeder in seeders)

@@ -1,15 +1,25 @@
-﻿@using NewsSystem.Data.Models
+﻿@using System.Globalization
 @using NewsSystem.ViewModels
 @model DashboardIndexViewModel
+@using Microsoft.AspNetCore.Identity
+@using NewsSystem.Common
+@using NewsSystem.Data.Models
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
 
 @{
-    ViewData["Title"] = "OFFICE | Home";
+    ViewData["Title"] = "OFFICE";
     Layout = "_DashboardLayout";
 }
 
-
-
+<style>
+    .pokaji {
+        border: 1px solid #000;
+    }
+</style>
 <div class="row">
+
+
     <!--stats-->
     <div class="col-md-3">
         <!--WIDJETS-->
@@ -101,155 +111,129 @@
         </div>
         <div class="row">
             <div class="col-lg-12">
-                <!-- Widget: user widget style 1 -->
-                <div class="box box-widget widget-user-2 ">
-                    <!-- Add the bg color to the header using any of the bg-* classes -->
-                    <div class="widget-user-header bg-gray">
-                        <div class="widget-user-image">
-                            <img class="img-circle" src="~/dashboard/img/avatars/iconfinder_User_Generic_1_1218733.png" alt="User Avatar">
-                        </div>
-                        <!-- /.widget-user-image -->
-                        <h3 class="widget-user-username">Nadia Carmichael</h3>
-                        <h5 class="widget-user-desc">Lead Developer</h5>
+                <div class="info-box">
+                    <!-- Apply any bg-* class to to the icon to color it -->
+                    <span class="info-box-icon bg-secondary"><i class="fa fa-user"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Users</span>
+                        <span class="info-box-number">@Model.Authors.Count()</span>
                     </div>
-                    <div class="box-footer no-padding">
-                        <ul class="nav nav-stacked">
-                            <li><a href="#">Всички <span class="pull-right badge bg-blue">31</span></a></li>
-                            <li><a href="#">Публикувани <span class="pull-right badge bg-green">5</span></a></li>
-                            <li><a href="#">Не публикувани <span class="pull-right badge bg-yellow">12</span></a></li>
-                            <li><a href="#">Изтрити <span class="pull-right badge bg-red">842</span></a></li>
-                        </ul>
-                    </div>
+                    <!-- /.info-box-content -->
                 </div>
-                <!-- /.widget-user -->
+                <!-- /.info-box -->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="info-box">
+                    <!-- Apply any bg-* class to to the icon to color it -->
+                    <span class="info-box-icon bg-info"><i class="fa fa-cloud"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Sources</span>
+                        <span class="info-box-number">@Model.Sources.Count()</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+        </div>
+        @foreach (var user in Model.Authors)
+        {
+            <div class="row">
+                <div class="col-lg-12">
+                    <!-- Widget: user widget style 1 -->
+                    <div class="box box-widget widget-user-2 ">
+                        <!-- Add the bg color to the header using any of the bg-* classes -->
+                        <div class="widget-user-header bg-gray">
+                            <div class="widget-user-image">
+                                <img class="img-circle" src="~/dashboard/img/avatars/iconfinder_User_Generic_1_1218733.png" alt="User Avatar">
+                            </div>
+                            <!-- /.widget-user-image -->
+                            <h3 class="widget-user-username">@user.FirstName @user.LastName</h3>
+
+                            @{ var roles = await UserManager.GetRolesAsync(user); }
+                            @foreach (var role in roles)
+                            {
+                                <h5 class="widget-user-desc">
+                                    @role
+                                </h5>
+
+                            }
+
+                        </div>
+                        <div class="box-footer no-padding">
+                            <ul class="nav nav-stacked">
+                                <li><a href="#">Всички <span class="pull-right badge bg-blue">@user.News.Count()</span></a></li>
+                                <li><a href="#">Публикувани <span class="pull-right badge bg-green">@user.News.Where(n=>n.isPublished && n.IsDeleted==false).Count()</span></a></li>
+                                <li><a href="#">Не публикувани <span class="pull-right badge bg-yellow">@user.News.Where(n => n.isPublished==false && n.IsDeleted == false).Count()</span></a></li>
+                                <li><a href="#">Изтрити <span class="pull-right badge bg-red">@user.News.Where(n => n.IsDeleted == true).Count()</span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- /.widget-user -->
+                </div>
+            </div>
+        }
+    </div>
+
+    <div class="col-md-4">
+        <!--Last posts  -->
+        <div class="card rounded-0">
+            <h3 class="card-header h5 rounded-0">
+                Брой новини по ден от седмицата
+            </h3>
+            <div class="card-block">
+                <ul class="list-group">
+                    @foreach (var item in this.Model.Stats.NewsByDayOfWeek.OrderBy(x => ((int)x.Group + 6) % 7))
+                    {
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            @(new CultureInfo("bg-BG").DateTimeFormat.GetDayName(item.Group))
+                            <span class="badge badge-secondary badge-pill g-font-size-14">@item.Count</span>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+        <div class="card rounded-0">
+            <h3 class="card-header h5 rounded-0">
+                Брой новини по месец
+            </h3>
+            <div class="card-block">
+                <ul class="list-group">
+                    @foreach (var item in this.Model.Stats.NewsByMonth.OrderBy(x => x.Group))
+                    {
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            @(new CultureInfo("bg-BG").DateTimeFormat.GetMonthName(item.Group))
+                            <span class="badge badge-secondary badge-pill g-font-size-14">@item.Count</span>
+                        </li>
+                    }
+                </ul>
             </div>
         </div>
     </div>
-
-    <!--report-->
-    <div class="col-md-9">
-        <!--Mounth Report-->
-        <div class="box">
-            <!--box header-->
-            <div class="box-header with-border">
-                <h3 class="box-title">Mesechen otchet</h3>
-                <div class="box-tools pull-right">
-                    <button type="button" class="btn btn-box-tool" data-widget="collapse">
-                        <i class="fa fa-minus"></i>
-                    </button>
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown">
-                            <i class="fa fa-wrench"></i>
-                        </button>
-                        <ul class="dropdown-menu" role="menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#">Separated link</a></li>
-                        </ul>
+    <div class="col-md-5">
+        <div id="sources-list" class="u-accordion" role="tablist" aria-multiselectable="true">
+            @foreach (var source in this.Model.Sources)
+            {
+                <div class="card g-mb-5">
+                    <div id="source-heading-@source.Id" class="u-accordion__header" role="tab">
+                        <h5 class="mb-0">
+                            <a class="collapsed d-flex u-link-v5 g-color-main g-color-primary--hover g-font-size-16" href="#source-body-@source.Id" data-toggle="collapse" data-parent="#sources-list" aria-expanded="false" aria-controls="#source-body-@source.Id">
+                                @source.ShortName - (@source.NewsCount новини)
+                            </a>
+                        </h5>
                     </div>
-                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                </div>
-            </div>
-            <!--box body-->
-            <div class="box-body">
-                <div class="row">
-                    <!--Mountly grapich-->
-                    <div class="col-lg-8">
-                        <p class="text-center"><strong>Sales: 1 Jan, 2014 - 30 Jul, 2014</strong></p>
-                        <div class="chart">
-                            <!-- Sales Chart Canvas -->
-                            <canvas id="areaChart"></canvas>
-                        </div>
-                    </div>
-
-                    <!--adition stas-->
-                    <div class="col-lg-4">
-                        <p class="text-center">
-                            <strong>Goal Completion</strong>
-                        </p>
-
-                        <div class="progress-group">
-                            <span class="progress-text">Add Products to Cart</span>
-                            <span class="progress-number"><b>160</b>/200</span>
-
-                            <div class="progress sm">
-                                <div class="progress-bar progress-bar-aqua" style="width: 80%"></div>
+                    <div id="source-body-@source.Id" class="collapse" role="tabpanel" aria-labelledby="accordion-06-heading-01" data-parent="#sources-list">
+                        <div class="u-accordion__body g-color-gray-dark-v5 g-pa-0-20-20 text-justify">
+                            @source.Description
+                            <div class="float-right">
+                                <a href="@source.Url" target="_blank">Към сайта...</a>
                             </div>
                         </div>
-                        <!-- /.progress-group -->
-                        <div class="progress-group">
-                            <span class="progress-text">Complete Purchase</span>
-                            <span class="progress-number"><b>310</b>/400</span>
-
-                            <div class="progress sm">
-                                <div class="progress-bar progress-bar-red" style="width: 80%"></div>
-                            </div>
-                        </div>
-                        <!-- /.progress-group -->
-                        <div class="progress-group">
-                            <span class="progress-text">Visit Premium Page</span>
-                            <span class="progress-number"><b>480</b>/800</span>
-
-                            <div class="progress sm">
-                                <div class="progress-bar progress-bar-green" style="width: 80%"></div>
-                            </div>
-                        </div>
-                        <!-- /.progress-group -->
-                        <div class="progress-group">
-                            <span class="progress-text">Send Inquiries</span>
-                            <span class="progress-number"><b>250</b>/500</span>
-
-                            <div class="progress sm">
-                                <div class="progress-bar progress-bar-yellow" style="width: 80%"></div>
-                            </div>
-                        </div>
-                        <!-- /.progress-group -->
                     </div>
                 </div>
-            </div>
-            <!--box footer-->
-            <div class="box-footer">
-                <div class="row">
-                    <div class="col-sm-3 col-xs-6">
-                        <div class="description-block border-right">
-                            <span class="description-percentage text-green"><i class="fa fa-caret-up"></i> 17%</span>
-                            <h5 class="description-header">$35,210.43</h5>
-                            <span class="description-text">TOTAL REVENUE</span>
-                        </div>
-                        <!-- /.description-block -->
-                    </div>
-                    <!-- /.col -->
-                    <div class="col-sm-3 col-xs-6">
-                        <div class="description-block border-right">
-                            <span class="description-percentage text-yellow"><i class="fa fa-caret-left"></i> 0%</span>
-                            <h5 class="description-header">$10,390.90</h5>
-                            <span class="description-text">TOTAL COST</span>
-                        </div>
-                        <!-- /.description-block -->
-                    </div>
-                    <!-- /.col -->
-                    <div class="col-sm-3 col-xs-6">
-                        <div class="description-block border-right">
-                            <span class="description-percentage text-green"><i class="fa fa-caret-up"></i> 20%</span>
-                            <h5 class="description-header">$24,813.53</h5>
-                            <span class="description-text">TOTAL PROFIT</span>
-                        </div>
-                        <!-- /.description-block -->
-                    </div>
-                    <!-- /.col -->
-                    <div class="col-sm-3 col-xs-6">
-                        <div class="description-block">
-                            <span class="description-percentage text-red"><i class="fa fa-caret-down"></i> 18%</span>
-                            <h5 class="description-header">1200</h5>
-                            <span class="description-text">GOAL COMPLETIONS</span>
-                        </div>
-                        <!-- /.description-block -->
-                    </div>
-                </div>
-                <!-- /.row -->
-            </div>
+            }
         </div>
     </div>
+
 </div>

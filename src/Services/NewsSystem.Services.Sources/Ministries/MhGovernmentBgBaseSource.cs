@@ -39,7 +39,7 @@ namespace NewsSystem.Services.Sources.Ministries
             var title = document.QuerySelector("h1").TextContent.Trim();
 
             var imageElement = document.QuerySelector(".carousel-inner .active img");
-            var imageUrl = imageElement?.GetAttribute("src") ?? "/images/sources/mh.government.bg.jpg";
+            var imageUrl = imageElement?.GetAttribute("src") ?? "https://res.cloudinary.com/news0722/image/upload/v1563245104/Photos/default/institucii/mh.government.bg.jpg";
 
             var contentElement = document.QuerySelector(".single_news");
             this.NormalizeUrlsRecursively(contentElement);
