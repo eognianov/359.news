@@ -11,6 +11,9 @@ namespace NewsSystem.Data.Common.Repositories
 
         IQueryable<TEntity> AllAsNoTracking();
 
+        Task<TEntity> GetByIdAsync(params object[] id);
+
+
         Task AddAsync(TEntity entity);
 
         void Update(TEntity entity);

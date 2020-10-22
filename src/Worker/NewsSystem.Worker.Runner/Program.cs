@@ -27,7 +27,6 @@
     using NewsSystem.Services.Data;
     using NewsSystem.Worker.Common;
     using NewsSystem.Worker.Tasks;
-    using Microsoft.Extensions.Logging.AzureAppServices;
 
     public static class Program
     {
@@ -78,13 +77,8 @@
                 options => options.UseSqlServer(configuration.GetConnectionString("Development"))
                     .UseLoggerFactory(loggerFactory));
 
-            services.AddIdentity<ApplicationUser, ApplicationRole>(IdentityOptionsProvider.GetIdentityOptions)
-                .AddEntityFrameworkStores<ApplicationDbContext>().AddUserStore<ApplicationUserStore>()
-                .AddRoleStore<ApplicationRoleStore>().AddDefaultTokenProviders();
-
-            // Identity stores
-            services.AddTransient<IUserStore<ApplicationUser>, ApplicationUserStore>();
-            services.AddTransient<IRoleStore<ApplicationRole>, ApplicationRoleStore>();
+            services.AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
+                .AddRoles<ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>();
 
             // Seed data on application startup
             using (var serviceScope = services.BuildServiceProvider().CreateScope())

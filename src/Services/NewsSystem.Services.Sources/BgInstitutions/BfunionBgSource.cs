@@ -16,7 +16,8 @@ namespace NewsSystem.Services.Sources.BgInstitutions
             this.GetPublications(
                 $"archive/{DateTime.UtcNow.Year}/{DateTime.UtcNow.Month}/0/0",
                 ".newsItem .entry-title a",
-                count: 5);
+                count: 5,
+                throwOnEmpty: false);
 
         public override IEnumerable<RemoteNews> GetAllPublications()
         {

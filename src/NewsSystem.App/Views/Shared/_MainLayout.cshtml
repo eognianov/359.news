@@ -44,7 +44,7 @@
 
             @RenderBody()
         </div>
-        @if (this.ViewData["bodyClass"] == "single")
+        @if (this.ViewData["bodyClass"].ToString() == "single")
         {
             <partial name="_NewsAdition" />
         }

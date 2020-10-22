@@ -8,6 +8,7 @@ using NewsSystem.ViewModels;
 
 namespace NewsSystem.App.Components
 {
+    [ViewComponent(Name = "TopNews")]
     public class TopNewsViewComponent : ViewComponent
     {
         private readonly IDeletableEntityRepository<TopNews> topNewsRepository;
@@ -17,16 +18,16 @@ namespace NewsSystem.App.Components
             this.topNewsRepository = topNewsRepository;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync()
+        public IViewComponentResult Invoke()
         {
-            var news =await this.topNewsRepository.All().OrderByDescending(n=>n.Id).Select(tp=>new NewsViewModel
+            var news =this.topNewsRepository.All().OrderByDescending(n=>n.Id).Select(tp=>new NewsViewModel
             {
                 Id = tp.News.Id,
                 ImageUrl = tp.News.ImageUrl,
                 Title = tp.News.Title,
                 Content = tp.News.Content,
                 ContentLenght = 485
-            }).ToListAsync();
+            }).ToList();
 
             var model = new NewsListViewModel
             {

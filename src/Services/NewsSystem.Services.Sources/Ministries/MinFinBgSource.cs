@@ -57,6 +57,7 @@ namespace NewsSystem.Services.Sources.Ministries
             contentElement.RemoveRecursively(timeElement);
             contentElement.RemoveRecursively(imageElement);
             contentElement.RemoveRecursively(document.QuerySelector("#content .news_images")); // All images
+            contentElement.RemoveRecursively(contentElement?.QuerySelector("script")); // All scripts
             this.NormalizeUrlsRecursively(contentElement);
             var content = contentElement?.InnerHtml;
             if (string.IsNullOrWhiteSpace(content) || content == "<p></p>")

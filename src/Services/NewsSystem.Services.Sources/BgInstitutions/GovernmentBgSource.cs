@@ -32,16 +32,14 @@ namespace NewsSystem.Services.Sources.BgInstitutions
             var titleElement = document.QuerySelector(".view h1");
             var title = titleElement.TextContent.Trim();
 
-            var timeElement = document.QuerySelector(".view p");
-            var timeAsString = timeElement.TextContent;
-            var time = DateTime.ParseExact(timeAsString, "dd.MM.yyyy", CultureInfo.InvariantCulture);
+            var time = DateTime.Now;
 
             var imageElement = document.QuerySelector(".view .gallery img");
             var imageUrl = imageElement?.GetAttribute("src") ?? "https://res.cloudinary.com/news0722/image/upload/v1563245104/Photos/default/institucii/government.bg.png";
 
             var contentElement = document.QuerySelector(".view");
             contentElement.RemoveRecursively(titleElement);
-            contentElement.RemoveRecursively(timeElement);
+            ////contentElement.RemoveRecursively(timeElement);
             contentElement.RemoveRecursively(document.QuerySelector(".view .gallery"));
             this.NormalizeUrlsRecursively(contentElement);
             var content = contentElement.InnerHtml.Trim();

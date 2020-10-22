@@ -13,18 +13,22 @@ namespace NewsSystem.App.Components
     public class MainNewsViewComponent:ViewComponent
     {
         private readonly IDeletableEntityRepository<MainNews> mainNewsRepository;
+        private readonly IDeletableEntityRepository<MainNewsSource> mainNewsSourcesRepository;
 
-        public MainNewsViewComponent(IDeletableEntityRepository<MainNews> mainNewsRepository)
+
+        public MainNewsViewComponent(IDeletableEntityRepository<MainNews> mainNewsRepository,
+            IDeletableEntityRepository<MainNewsSource> mainNewsSourcesRepository)
         {
             this.mainNewsRepository = mainNewsRepository;
+            this.mainNewsSourcesRepository = mainNewsSourcesRepository;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync()
+        public IViewComponentResult Invoke()
         {
-            var news = await this.mainNewsRepository.All().Where(x => !x.Source.IsDeleted).GroupBy(
-                    x => x.SourceId,
-                    (key, g) => g.OrderByDescending(e => e.Id).FirstOrDefault()).OrderByDescending(x => x.CreatedOn)
-                .To<MainNewsViewModel>().ToListAsync();
+            var news = this.mainNewsSourcesRepository.All()
+                .Select(x => x.MainNews.OrderByDescending(x => x.Id).FirstOrDefault())
+                .OrderByDescending(x => x.CreatedOn).To<MainNewsViewModel>().ToList();
+
             var viewModel = new MainNewsComponentViewModel { MainNews = news };
             return  this.View(viewModel);
         }

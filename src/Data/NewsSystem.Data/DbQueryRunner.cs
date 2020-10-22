@@ -16,12 +16,21 @@ namespace NewsSystem.Data
 
         public Task RunQueryAsync(string query, params object[] parameters)
         {
-            return this.Context.Database.ExecuteSqlCommandAsync(query, parameters);
+            return this.Context.Database.ExecuteSqlRawAsync(query, parameters);
         }
 
         public void Dispose()
         {
-            this.Context?.Dispose();
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                this.Context?.Dispose();
+            }
         }
     }
 }

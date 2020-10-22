@@ -12,8 +12,11 @@ namespace NewsSystem.Services.Sources.BgInstitutions
     {
         public override string BaseUrl { get; } = "https://www.parliament.bg/";
 
+        protected override bool UseProxy => true;
+
+
         public override IEnumerable<RemoteNews> GetLatestPublications() =>
-            this.GetPublications("bg/news", ".frontList li.padding1 a", count: 5);
+            this.GetPublications("bg/news", ".frontList li.padding1 a", count: 3);
 
         public override IEnumerable<RemoteNews> GetAllPublications()
         {

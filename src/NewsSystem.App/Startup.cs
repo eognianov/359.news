@@ -1,30 +1,30 @@
-﻿using System.Linq;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using NewsSystem.Data;
-using NewsSystem.Data.Models;
-using NewsSystem.Data.Common.Repositories;
-using NewsSystem.Data.Repositories;
-using NewsSystem.Data.Common;
-using NewsSystem.Data.Seeding;
-using NewsSystem.Mappings;
-using System.Reflection;
-using NewsSystem.Common;
-using NewsSystem.Services.Contracts;
-using NewsSystem.Services;
-using NewsSystem.Services.Data;
-using NewsSystem.ViewModels;
-using NewsSystem.Services.Clodinary;
-using Microsoft.AspNetCore.Identity.UI;
-
-namespace NewsSystem.App
+﻿namespace NewsSystem.App
 {
+    using System.Linq;
+    using System.Reflection;
+
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Hosting;
+    using NewsSystem.Common;
+    using NewsSystem.Data;
+    using NewsSystem.Data.Common;
+    using NewsSystem.Data.Common.Repositories;
+    using NewsSystem.Data.Models;
+    using NewsSystem.Data.Repositories;
+    using NewsSystem.Data.Seeding;
+    using NewsSystem.Mappings;
+    using NewsSystem.Services;
+    using NewsSystem.Services.Clodinary;
+    using NewsSystem.Services.Contracts;
+    using NewsSystem.Services.Data;
+    using NewsSystem.ViewModels;
+
     public class Startup
     {
         private readonly IConfiguration configuration;
@@ -51,20 +51,19 @@ namespace NewsSystem.App
                     this.configuration.GetConnectionString("Development")));
 
 
-            services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
-                {
-                    options.Password.RequireDigit = false;
-                    options.Password.RequireLowercase = false;
-                    options.Password.RequireUppercase = false;
-                    options.Password.RequireNonAlphanumeric = false;
-                    options.Password.RequiredLength = 6;
-                })
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddUserStore<ApplicationUserStore>()
-                .AddRoleStore<ApplicationRoleStore>()
-                .AddDefaultTokenProviders()
-                .AddDefaultUI(UIFramework.Bootstrap4);
+            services.AddDefaultIdentity<ApplicationUser>(options =>
+            {
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequiredLength = 6;
+            }).AddRoles<ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>();
 
+            services.AddResponseCompression();
+
+            services.AddControllersWithViews();
+            services.AddRazorPages();
 
             services.AddAuthorization();
             
@@ -89,8 +88,6 @@ namespace NewsSystem.App
             services.AddSingleton(this.configuration);
 
             // Identity stores
-            services.AddTransient<IUserStore<ApplicationUser>, ApplicationUserStore>();
-            services.AddTransient<IRoleStore<ApplicationRole>, ApplicationRoleStore>();
             services.AddTransient<UserManager<ApplicationUser>>();
 
             // Data repositories
@@ -110,26 +107,11 @@ namespace NewsSystem.App
             services.AddTransient<ICloudinaryService, CloudinaryService>();
             services.AddTransient<IFacebookPage, FacebookPage>();
 
-            services.AddResponseCompression();
-
-
-            services.AddMvc(options =>
-                    {
-                        options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
-                    }
-                
-                )
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
-                .AddRazorPagesOptions(options =>
-                {
-                    options.AllowAreas = true;
-                    options.Conventions.AuthorizeAreaFolder("Identity", "/Account/Manage");
-                    options.Conventions.AuthorizeAreaPage("Identity", "/Account/Logout");
-                });
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IConfiguration configuration)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
 
             //AutoMapperConfig.RegisterMappings(typeof(ErrorViewModel).GetTypeInfo().Assembly);
@@ -140,15 +122,15 @@ namespace NewsSystem.App
                 var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
                 var userMgr = serviceScope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
                 var roleMgr = serviceScope.ServiceProvider.GetRequiredService<RoleManager<ApplicationRole>>();
-                
-
-                //                if (env.IsDevelopment())
-                //                {
-                //                    dbContext.Database.Migrate();
-                //                }
 
 
-           
+                //if (env.IsDevelopment())
+                //{
+                //    dbContext.Database.Migrate();
+                //}
+
+
+
                 ApplicationDbContextSeeder.Seed(dbContext, serviceScope.ServiceProvider);
 
                 var adminUserName = this.configuration["Admin:username"];
@@ -166,7 +148,7 @@ namespace NewsSystem.App
                 }
             }
 
-            if (env.IsDevelopment())
+           if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseDatabaseErrorPage();
@@ -180,19 +162,19 @@ namespace NewsSystem.App
             app.UseHttpsRedirection();
             app.UseResponseCompression();
             app.UseStaticFiles();
+
+            app.UseRouting();
             app.UseCookiePolicy();
             app.UseAuthentication();
+            app.UseAuthorization();
 
-            app.UseMvc(routes =>
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
-                routes.MapRoute("default", "{controller=Home}/{action=Index}/{id?}");
-                routes.MapRoute("news",
-                    "News/{id:int:min(1)}/{slug:required}",
-                    new { controller = "News", action = "ById", });
-                routes.MapRoute("news",
-                    "News/{id:int:min(1)}",
-                    new { controller = "News", action = "ById", });
+                endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute("news", "News/{id:int:min(1)}/{slug:required}", new { controller = "News", action = "ById", });
+                endpoints.MapControllerRoute("news", "News/{id:int:min(1)}", new { controller = "News", action = "ById", });
+                endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }

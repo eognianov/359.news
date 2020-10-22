@@ -19,106 +19,106 @@ namespace Sandbox
     class Program
     {
         public static void Main(string[] args)
-        
+
         {
-            
-            var configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .Build();
 
-            var mssqlOptBuild = new DbContextOptionsBuilder<ApplicationDbContext>();
-            mssqlOptBuild.UseSqlServer(configuration.GetConnectionString("Development"));
+            //var configuration = new ConfigurationBuilder()
+            //    .SetBasePath(Directory.GetCurrentDirectory())
+            //    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+            //    .Build();
 
-            var mssqlContetx = new ApplicationDbContext(mssqlOptBuild.Options);
+            //var mssqlOptBuild = new DbContextOptionsBuilder<ApplicationDbContext>();
+            //mssqlOptBuild.UseSqlServer(configuration.GetConnectionString("Development"));
 
-            var pgSqlBidl = new DbContextOptionsBuilder<ApplicationDbContext>();
-            pgSqlBidl.UseNpgsql(configuration.GetConnectionString("PostgreSQL"));
-            
-            var postgresContext = new ApplicationDbContext(pgSqlBidl.Options);
+            //var mssqlContetx = new ApplicationDbContext(mssqlOptBuild.Options);
 
-            var mssqlNews = mssqlContetx.News.ToList();
+            //var pgSqlBidl = new DbContextOptionsBuilder<ApplicationDbContext>();
+            //pgSqlBidl.UseNpgsql(configuration.GetConnectionString("PostgreSQL"));
 
-            var news = postgresContext.News.ToList();
+            //var postgresContext = new ApplicationDbContext(pgSqlBidl.Options);
 
-            int count = 1;
+            //var mssqlNews = mssqlContetx.News.ToList();
 
-            //skip 1128 -----------
+            //var news = postgresContext.News.ToList();
 
-            foreach (var n in mssqlNews)
-            {
-                Console.WriteLine("Obratova novina nomer  " + count);
+            //int count = 1;
 
-                var newNews = new News
-                {
-                    Title = n.Title,
-                    Category = NewsCategory.България,
-                    Content = n.Content,
-                    ModifiedOn = n.ModifiedOn,
-                    ImageUrl = ResolveImageUrl(n.ImageUrl),
-                    OriginalUrl = n.OriginalUrl,
-                    Photos = new List<Photo>(),
-                    RemoteId = n.RemoteId,
-                    isPublished = true,
-                    PublishedOn = n.CreatedOn,
-                    SearchText = n.SearchText,
-                    SourceId = n.SourceId,
-                    Tags = new List<NewsTag>(),
-                    Videos = new List<Video>()
-                };
+            ////skip 1128 -----------
 
-                Console.WriteLine(newNews.ImageUrl);
-                postgresContext.Add(newNews);
+            //foreach (var n in mssqlNews)
+            //{
+            //    Console.WriteLine("Obratova novina nomer  " + count);
 
-                count++;
-                if (count==25)
-                {
-                    postgresContext.SaveChanges();
-                    count = 1;
-                }
+            //    var newNews = new News
+            //    {
+            //        Title = n.Title,
+            //        Category = NewsCategory.България,
+            //        Content = n.Content,
+            //        ModifiedOn = n.ModifiedOn,
+            //        ImageUrl = ResolveImageUrl(n.ImageUrl),
+            //        OriginalUrl = n.OriginalUrl,
+            //        Photos = new List<Photo>(),
+            //        RemoteId = n.RemoteId,
+            //        isPublished = true,
+            //        PublishedOn = n.CreatedOn,
+            //        SearchText = n.SearchText,
+            //        SourceId = n.SourceId,
+            //        Tags = new List<NewsTag>(),
+            //        Videos = new List<Video>()
+            //    };
 
-            }
+            //    Console.WriteLine(newNews.ImageUrl);
+            //    postgresContext.Add(newNews);
+
+            //    count++;
+            //    if (count == 25)
+            //    {
+            //        postgresContext.SaveChanges();
+            //        count = 1;
+            //    }
+
+            //}
 
         }
 
-        private static string ResolveImageUrl(string newsImageUrl)
-        {
-            if (newsImageUrl.StartsWith("/images"))
-            {
-                return newsImageUrl;
-            }
+        //private static string ResolveImageUrl(string newsImageUrl)
+        //{
+        //    if (newsImageUrl.StartsWith("/images"))
+        //    {
+        //        return newsImageUrl;
+        //    }
 
-            var uploadParams = new ImageUploadParams
-            {
-                File = new FileDescription(newsImageUrl),
-                EagerTransforms = new List<Transformation>
-                {
-                    new Transformation().Width(931).Height(378).Gravity("auto").Crop("fill"),
-                    new Transformation().Width(846).Height(343).Gravity("auto").Crop("fill"),
-                    new Transformation().Width(1086).Height(440).Gravity("auto").Crop("fill"),
-                    new Transformation().Width(884).Height(358).Gravity("auto").Crop("fill"),
-                    new Transformation().Width(688).Height(278).Gravity("auto").Crop("fill"),
-                    new Transformation().Width(480).Height(195).Gravity("auto").Crop("fill"),
-                    new Transformation().Width(1308).Height(567).Gravity("auto").Crop("fill"),
-                    new Transformation().Width(1246).Height(505).Gravity("auto").Crop("fill"),
+        //    var uploadParams = new ImageUploadParams
+        //    {
+        //        File = new FileDescription(newsImageUrl),
+        //        EagerTransforms = new List<Transformation>
+        //        {
+        //            new Transformation().Width(931).Height(378).Gravity("auto").Crop("fill"),
+        //            new Transformation().Width(846).Height(343).Gravity("auto").Crop("fill"),
+        //            new Transformation().Width(1086).Height(440).Gravity("auto").Crop("fill"),
+        //            new Transformation().Width(884).Height(358).Gravity("auto").Crop("fill"),
+        //            new Transformation().Width(688).Height(278).Gravity("auto").Crop("fill"),
+        //            new Transformation().Width(480).Height(195).Gravity("auto").Crop("fill"),
+        //            new Transformation().Width(1308).Height(567).Gravity("auto").Crop("fill"),
+        //            new Transformation().Width(1246).Height(505).Gravity("auto").Crop("fill"),
 
-                },
-                Folder = "photos/news/",
-                UniqueFilename = true,
-                AccessMode = "public",
-            };
+        //        },
+        //        Folder = "photos/news/",
+        //        UniqueFilename = true,
+        //        AccessMode = "public",
+        //    };
 
-            var cloudinaryService = new CloudinaryService();
+        //    var cloudinaryService = new CloudinaryService();
 
-            var result = cloudinaryService.Upload(uploadParams);
+        //    var result = cloudinaryService.Upload(uploadParams);
 
-            if (result.StatusCode == HttpStatusCode.OK)
-            {
-                return result.SecureUri.ToString();
-            }
+        //    if (result.StatusCode == HttpStatusCode.OK)
+        //    {
+        //        return result.SecureUri.ToString();
+        //    }
 
-            return newsImageUrl;
-        }
-        
+        //    return newsImageUrl;
+        //}
+
     }
 }

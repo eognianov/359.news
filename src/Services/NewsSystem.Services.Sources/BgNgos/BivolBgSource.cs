@@ -46,7 +46,7 @@ namespace NewsSystem.Services.Sources.BgNgos
 
         protected override RemoteNews ParseDocument(IDocument document, string url)
         {
-            var titleElement = document.QuerySelectorAll("h1.post-title").LastOrDefault();
+            var titleElement = document.QuerySelectorAll(".header-standard h1.post-title").LastOrDefault();
             var title = titleElement?.TextContent;
             if (string.IsNullOrWhiteSpace(title))
             {
@@ -54,15 +54,23 @@ namespace NewsSystem.Services.Sources.BgNgos
             }
 
             var timeAsString = document.QuerySelector(".post-box-meta-single time.entry-date")?.Attributes["datetime"]?.Value;
+            if (timeAsString == null)
+            {
+                return null;
+            }
+
             var time = DateTime.Parse(timeAsString, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal).AddHours(2); // TODO: Remove .AddHours when move to UTC
 
             var imageElement = document.QuerySelector(".post-image a");
             var imageUrl = imageElement?.GetAttribute("href") ?? "https://res.cloudinary.com/news0722/image/upload/v1563245104/Photos/default/institucii/bivol.bg.jpg";
 
             var contentElement = document.QuerySelector("div[itemprop=articleBody]");
+            contentElement.RemoveRecursively(document.QuerySelector("div[itemprop=articleBody] div[role=tabpanel]"));
+            contentElement.RemoveRecursively(document.QuerySelector("div[itemprop=articleBody] div.abh_box_business"));
             contentElement.RemoveRecursively(document.QuerySelector("div[itemprop=articleBody] .dkpdf-button-container"));
             contentElement.RemoveRecursively(document.QuerySelector("div[itemprop=articleBody] div:has(figure.wp-block-pullquote)"));
             contentElement.RemoveRecursively(document.QuerySelector("div[itemprop=articleBody] div:has(figure.wp-block-pullquote)"));
+            contentElement.RemoveRecursively(document.QuerySelector("div[itemprop=articleBody] div:has(div.simpay-form-wrap)"));
             contentElement.RemoveRecursively(document.QuerySelector("div[itemprop=articleBody] figure.wp-block-pullquote"));
             contentElement.RemoveRecursively(document.QuerySelector("div[itemprop=articleBody] figure.wp-block-pullquote"));
             contentElement.RemoveRecursively(document.QuerySelector("div[itemprop=articleBody] div:has(script)"));

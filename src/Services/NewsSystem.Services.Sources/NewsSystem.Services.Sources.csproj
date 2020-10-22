@@ -1,24 +1,21 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
 
   <ItemGroup>
-    <PackageReference Include="AngleSharp" Version="0.13.0" />
-    <PackageReference Include="AngleSharp.Xml" Version="0.12.1" />
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
+    <PackageReference Include="AngleSharp" Version="0.14.0" />
+    <PackageReference Include="AngleSharp.Xml" Version="0.14.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
 
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="4.5.1" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="4.7.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Common\NewsSystem.Common\NewsSystem.Common.csproj" />
     <ProjectReference Include="..\NewsSystem.Services\NewsSystem.Services.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="MainNews\" />
   </ItemGroup>
 
 </Project>

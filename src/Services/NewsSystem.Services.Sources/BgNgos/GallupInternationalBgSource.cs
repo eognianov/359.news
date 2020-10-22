@@ -18,7 +18,7 @@ namespace NewsSystem.Services.Sources.BgNgos
         internal override string ExtractIdFromUrl(string url)
         {
             var uri = new Uri(url.Trim().Trim('/'));
-            return uri.Segments[uri.Segments.Length - 2].Trim('/');
+            return uri.Segments[^2].Trim('/');
         }
 
         protected override RemoteNews ParseDocument(IDocument document, string url)
