@@ -344,9 +344,5 @@ appsettings.json
 /src/NewsSystem.App/wwwroot/lib/kinvey/kinvey.js
 /src/NewsSystem.App/wwwroot/FrontEnd/assets/js/kinvey.js
 /src/DelBinObj.bat
-/src/NewsSystem.App/wwwroot/media/photos/news/uploads/ug2019.jpg
-/src/NewsSystem.App/wwwroot/media/photos/news/uploads/Slivnica9.jpg
-/src/NewsSystem.App/wwwroot/media/photos/news/uploads/lokorilski6.jpg
-/src/NewsSystem.App/wwwroot/media/photos/news/uploads/beseda.jpg
-/src/NewsSystem.App/wwwroot/media/photos/news/uploads/10610665_1586934764913590_698419562264648293_n.jpg
+/src/NewsSystem.App/wwwroot/media/photos/news/uploads/
 /src/Data/NewsSystem.Data/MSSQLMigrations.7z
