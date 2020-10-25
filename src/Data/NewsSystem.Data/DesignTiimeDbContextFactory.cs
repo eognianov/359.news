@@ -17,9 +17,9 @@ namespace NewsSystem.Data
 
             var builder = new DbContextOptionsBuilder<ApplicationDbContext>();
 
-            var connectionString = configuration.GetConnectionString("Development");
+            var connectionString = configuration.GetConnectionString("PostgreSQL-linode");
 
-            builder.UseSqlServer(connectionString);
+            builder.UseNpgsql(connectionString);
 
             return new ApplicationDbContext(builder.Options);
         }

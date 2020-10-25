@@ -30,7 +30,7 @@
 
     public static class Program
     {
-          public static async Task Main(string[] args)
+        public static async Task Main(string[] args)
         {
             var isService = !(Debugger.IsAttached || args.Contains("--console"));
 #if DEBUG
@@ -73,9 +73,13 @@
 
             var loggerFactory = new LoggerFactory();
 
-            services.AddDbContext<ApplicationDbContext>(
-                options => options.UseSqlServer(configuration.GetConnectionString("Development"))
-                    .UseLoggerFactory(loggerFactory));
+            services.AddEntityFrameworkNpgsql().AddDbContext<ApplicationDbContext>(options =>
+                options.UseNpgsql(
+                    configuration.GetConnectionString("PostgreSQL-linode")), ServiceLifetime.Transient);
+
+            //services.AddDbContext<ApplicationDbContext>(
+            //    options => options.UseSqlServer(configuration.GetConnectionString("Development"))
+            //        .UseLoggerFactory(loggerFactory));
 
             services.AddDefaultIdentity<ApplicationUser>(IdentityOptionsProvider.GetIdentityOptions)
                 .AddRoles<ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>();
@@ -84,7 +88,7 @@
             using (var serviceScope = services.BuildServiceProvider().CreateScope())
             {
                 var dbContext = serviceScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                
+
                 ApplicationDbContextSeeder.Seed(dbContext, serviceScope.ServiceProvider);
             }
 

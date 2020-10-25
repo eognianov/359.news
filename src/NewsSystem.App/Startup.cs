@@ -39,16 +39,16 @@
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
 
-//            services.AddEntityFrameworkNpgsql().AddDbContext<ApplicationDbContext>(options =>
-//                options.UseNpgsql(
-//                    this.configuration.GetConnectionString("PostgreSQL")));
 
-            
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    this.configuration.GetConnectionString("Development")));
+            services.AddEntityFrameworkNpgsql().AddDbContext<ApplicationDbContext>(options =>
+                options.UseNpgsql(
+                    this.configuration.GetConnectionString("PostgreSQL-linode")), ServiceLifetime.Transient);
+
+
+            //services.AddDbContext<ApplicationDbContext>(options =>
+            //    options.UseSqlServer(
+            //        this.configuration.GetConnectionString("Development")));
 
 
             services.AddDefaultIdentity<ApplicationUser>(options =>
@@ -73,7 +73,7 @@
                     // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                     options.CheckConsentNeeded = context => true;
                     options.MinimumSameSitePolicy = SameSiteMode.Lax;
-                    options.ConsentCookie.Name = "0722.ConsentCookie";
+                    options.ConsentCookie.Name = "078.ConsentCookie";
                 });
 
             services
@@ -82,7 +82,7 @@
                     options.LoginPath = "/login";
                     options.LogoutPath = "/Logout";
                     options.AccessDeniedPath = "/Identity/Account/AccessDenied";
-                    options.Cookie.Name = "0722.newsAuth";
+                    options.Cookie.Name = "078.newsAuth";
                 });
 
             services.AddSingleton(this.configuration);
