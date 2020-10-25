@@ -37,7 +37,7 @@
                 </a>
             </div>
         </header>
-        <a href="@news.Url" class="image featured">@Html.Raw(cloudinary.imageTag(news.ImageUrl))</a>
+        <a href="@news.Url" class="image featured"><img src="@news.ImageUrl" /></a>
         <p> @news.ShortContent</p>
 
         <footer>
