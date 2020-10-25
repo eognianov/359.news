@@ -4,13 +4,13 @@ namespace NewsSystem.Common
 {
     public static class GlobalConstants
     {
-        public const string SystemName = "| 0722 . NEWS |";
-        public const string SystemBaseUrl = "https://0722.news/";
-        public const string TempUrl = "https://0722news.azurewebsites.net";
+        public const string SystemName = "| 078 . NEWS |";
+        public const string SystemBaseUrl = "https://078.news/";
+        public const string TempUrl = "https://078news.azurewebsites.net";
 
         public const string TitleAfter = SystemName + " " + SystemBaseUrl;
 
-        public const string SystemSlogan = "Истината за Самоков и региона!";
+        public const string SystemSlogan = "Новините от Кюстендилска област.";
 
         public const string AdministratorRoleName = "Administrator";
         public const string EditorRoleName = "Editor";

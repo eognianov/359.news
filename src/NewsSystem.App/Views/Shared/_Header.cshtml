@@ -1,13 +1,14 @@
 ﻿<!-- Header -->
 <header id="header">
-    <h1><a asp-controller="Home" asp-action="Index" style="padding: auto;"><img src="~/img/0722logo.png" height="95%"></a></h1>
+    <h1><a asp-controller="Home" asp-action="Index" style="padding: auto;"><img src="~/img/logo.svg" height="95%"></a></h1>
     <nav class="links">
         <ul>
             <li><a asp-controller="Home" asp-action="Index">Начало</a></li>
-            <li><a asp-controller="News" asp-action="Samokov">Самоков</a></li>
-            <li><a asp-controller="News" asp-action="Sport">Спорт</a></li>
+            <li><a asp-controller="News" asp-action="Kyustendil">Кюстендил</a></li>
+            <li><a asp-controller="News" asp-action="Dupnica">Дупница</a></li>
+            <li><a asp-controller="News" asp-action="Region">Областта</a></li>
             <li><a asp-controller="News" asp-action="Bulgaria">България</a></li>
-            <li><a asp-controller="News" asp-action="Elections2019"><i class="far fa-check-square"></i>Избори 2019</a></li>
+            <li><a asp-controller="News" asp-action="Elections2020"><i class="far fa-check-square"></i>Избори 2020</a></li>
         </ul>
     </nav>
     <nav class="main">
@@ -38,31 +39,12 @@
     <!-- Links -->
     <section>
         <ul class="links">
-            <li>
-                <a asp-controller="Home" asp-action="Index">
-                    <h3>Начало</h3>
-                </a>
-            </li>
-            <li>
-                <a asp-controller="News" asp-action="Samokov">
-                    <h3>Самоков</h3>
-                </a>
-            </li>
-            <li>
-                <a asp-controller="News" asp-action="Sport">
-                    <h3>Спорт</h3>
-                </a>
-            </li>
-            <li>
-                <a asp-controller="News" asp-action="Bulgaria">
-                    <h3>България</h3>
-                </a>
-            </li>
-            <li>
-                <a asp-controller="News" asp-action="Elections2019">
-                    <h3><i class="far fa-check-square"></i>Избори 2019</h3>
-                </a>
-            </li>
+            <li><a asp-controller="Home" asp-action="Index"><h3>Начало</h3></a></li>
+            <li><a asp-controller="News" asp-action="Kyustendil"><h3>Кюстендил</h3></a></li>
+            <li><a asp-controller="News" asp-action="Dupnica"><h3>Дупница</h3></a></li>
+            <li><a asp-controller="News" asp-action="Region"><h3>Областта</h3></a></li>
+            <li><a asp-controller="News" asp-action="Bulgaria"><h3>България</h3></a></li>
+            <li><a asp-controller="News" asp-action="Elections2020"><h3><i class="far fa-check-square"></i>Избори 2020</h3></a></li>
             <partial name="_LoginPartial" />
 
         </ul>

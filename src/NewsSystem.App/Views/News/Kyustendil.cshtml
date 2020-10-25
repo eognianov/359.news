@@ -11,7 +11,7 @@
 
     if (this.Model.CurrentPage != 1)
     {
-        this.ViewData["Title"] = "Спорт, страница " + this.Model.CurrentPage;
+        this.ViewData["Title"] = "Кюстендил, страница " + this.Model.CurrentPage;
     }
     else
     {
@@ -119,7 +119,7 @@
     @if (this.Model.CurrentPage > 1)
     {
         <li>
-            <a class="button large previous" asp-controller="News" asp-action="Sport" asp-route-id="@this.Model.PreviousPage" asp-route-search="@this.Model.Search">
+            <a class="button large previous" asp-controller="News" asp-action="Kyustendil" asp-route-id="@this.Model.PreviousPage" asp-route-search="@this.Model.Search">
                 Предищна стр.
             </a>
         </li>
@@ -130,7 +130,7 @@
     @if (this.Model.CurrentPage < this.Model.PagesCount)
     {
         <li class="page-item">
-            <a class="button large next" asp-controller="News" asp-action="Sport" asp-route-id="@this.Model.NextPage" asp-route-search="@this.Model.Search" aria-label="Следваща">
+            <a class="button large next" asp-controller="News" asp-action="Kyustendil" asp-route-id="@this.Model.NextPage" asp-route-search="@this.Model.Search" aria-label="Следваща">
                 Следваща стр.
             </a>
         </li>
