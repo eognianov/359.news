@@ -34,6 +34,7 @@
     <PackageReference Include="Hangfire.AspNetCore" Version="1.7.11" />
     <PackageReference Include="Hangfire.Console" Version="1.4.2" />
     <PackageReference Include="Hangfire.SqlServer" Version="1.7.11" />
+    <PackageReference Include="Hangfire.PostgreSql" Version="1.7.1" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.3" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.3" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.3" />
@@ -53,6 +54,7 @@
     <ProjectReference Include="..\Data\NewsSystem.Data\NewsSystem.Data.csproj" />
     <ProjectReference Include="..\Services\NewsSystem.Mappings\NewsSystem.Mappings.csproj" />
     <ProjectReference Include="..\Services\NewsSystem.Services.Clodinary\NewsSystem.Services.Clodinary.csproj" />
+    <ProjectReference Include="..\Services\NewsSystem.Services.CronJobs\NewsSystem.Services.CronJobs.csproj" />
     <ProjectReference Include="..\Services\NewsSystem.Services.Data\NewsSystem.Services.Data.csproj" />
     <ProjectReference Include="..\Services\NewsSystem.Services\NewsSystem.Services.csproj" />
     <ProjectReference Include="..\ViewModels\NewsSystem.ViewModels.Common\NewsSystem.ViewModels.Common.csproj" />

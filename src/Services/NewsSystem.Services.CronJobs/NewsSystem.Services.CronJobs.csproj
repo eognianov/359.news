@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <LangVersion>latest</LangVersion>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\NewsSystem.Common\NewsSystem.Common.csproj" />
+    <ProjectReference Include="..\..\Data\NewsSystem.Data.Common\NewsSystem.Data.Common.csproj" />
+    <ProjectReference Include="..\..\Data\NewsSystem.Data.Models\NewsSystem.Data.Models.csproj" />
+    <ProjectReference Include="..\NewsSystem.Services.Data\NewsSystem.Services.Data.csproj" />
+    <ProjectReference Include="..\NewsSystem.Services.Sources\NewsSystem.Services.Sources.csproj" />
+    <ProjectReference Include="..\NewsSystem.Services\NewsSystem.Services.csproj" />
+  </ItemGroup>
+
+</Project>
