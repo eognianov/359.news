@@ -1,4 +1,6 @@
 ﻿using Hangfire;
+using Hangfire.Console;
+using Hangfire.Server;
 
 using NewsSystem.Common;
 using NewsSystem.Data.Common.Repositories;
@@ -27,7 +29,7 @@ namespace NewsSystem.Services.CronJobs
         }
 
         [AutomaticRetry(Attempts = 3)]
-        public async Task Work(string typeName)
+        public async Task Work(string typeName, PerformContext context)
         {
             var source = this.sourcesRepository.AllWithDeleted().FirstOrDefault(x => x.TypeName == typeName);
             if (source == null)
@@ -40,7 +42,10 @@ namespace NewsSystem.Services.CronJobs
 
             foreach (var remoteNews in publications)
             {
-                await this.newsService.AddAsync(remoteNews, source.Id);
+                if (await this.newsService.AddAsync(remoteNews, source.Id))
+                {
+                    context.WriteLine($"NEW: {remoteNews?.Title}");
+                }
             };
         }
     }

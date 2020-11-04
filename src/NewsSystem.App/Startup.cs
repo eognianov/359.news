@@ -32,6 +32,7 @@
     using Hangfire;
     using Hangfire.Dashboard;
     using Hangfire.PostgreSql;
+    using Hangfire.Console;
 
     using IConfiguration = Microsoft.Extensions.Configuration.IConfiguration;
 
@@ -51,7 +52,7 @@
         {
             services.AddHangfire(config=>config.SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
                 .UseSimpleAssemblyNameTypeSerializer().UseRecommendedSerializerSettings().UsePostgreSqlStorage(
-                    this.configuration.GetConnectionString("PostgreSQL-linode")));
+                    this.configuration.GetConnectionString("PostgreSQL-linode")).UseConsole());
 
             services.AddEntityFrameworkNpgsql().AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(
@@ -199,13 +200,13 @@
         private void SeedHangfireJobs(IRecurringJobManager recurringJobManager, ApplicationDbContext dbContext)
         {
             recurringJobManager.AddOrUpdate<DbCleanupJob>("DbCleanupJob", x => x.Work(), Cron.Weekly);
-            recurringJobManager.AddOrUpdate<MainNewsGetterJob>("MainNewsGetterJob", x => x.Work(), "*/2 * * * *");
+            recurringJobManager.AddOrUpdate<MainNewsGetterJob>("MainNewsGetterJob", x => x.Work(null), "*/2 * * * *");
             var sources = dbContext.Sources.Where(x => !x.IsDeleted).ToList();
             foreach (var source in sources)
             {
                 recurringJobManager.AddOrUpdate<GetLatestPublicationsJob>(
                     $"GetLatestPublicationsJob_{source.Id}_{source.ShortName}",
-                    x => x.Work(source.TypeName),
+                    x => x.Work(source.TypeName, null),
                     "*/5 * * * *");
             }
         }

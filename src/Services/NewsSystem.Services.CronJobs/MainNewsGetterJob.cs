@@ -1,4 +1,7 @@
-﻿using NewsSystem.Common;
+﻿using Hangfire.Console;
+using Hangfire.Server;
+
+using NewsSystem.Common;
 using NewsSystem.Data.Common.Repositories;
 using NewsSystem.Data.Models;
 using NewsSystem.Services.Sources.MainNews;
@@ -23,7 +26,7 @@ namespace NewsSystem.Services.CronJobs
             this.mainNewsRepository = mainNewsRepository;
         }
 
-        public async Task Work()
+        public async Task Work(PerformContext context)
         {
             string errors = null;
             foreach (var source in this.mainNewsSourcesRepository.All().ToList())
@@ -34,6 +37,7 @@ namespace NewsSystem.Services.CronJobs
                         .FirstOrDefault();
                 var instance = ReflectionHelpers.GetInstance<BaseMainNewsProvider>(source.TypeName);
 
+                context.WriteLine(source.TypeName);
                 RemoteMainNews news;
                 try
                 {
