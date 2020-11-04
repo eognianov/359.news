@@ -41,9 +41,6 @@ namespace NewsSystem.Data
         public DbSet<Photo> Photos { get; set; }
         public DbSet<Video> Videos { get; set; }
 
-        public DbSet<WorkerTask> WorkerTasks { get; set; }
-
-
 
         public override int SaveChanges() => this.SaveChanges(true);
 
