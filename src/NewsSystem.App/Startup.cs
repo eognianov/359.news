@@ -52,7 +52,6 @@
             services.AddHangfire(config=>config.SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
                 .UseSimpleAssemblyNameTypeSerializer().UseRecommendedSerializerSettings().UsePostgreSqlStorage(
                     this.configuration.GetConnectionString("PostgreSQL-linode")));
-            services.AddHangfireServer();
 
             services.AddEntityFrameworkNpgsql().AddDbContext<ApplicationDbContext>(options =>
                 options.UseNpgsql(
@@ -182,7 +181,7 @@
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseHangfireServer(new BackgroundJobServerOptions { WorkerCount = 5 });
+            app.UseHangfireServer(new BackgroundJobServerOptions { WorkerCount = 2 });
             app.UseHangfireDashboard(
                 "/hangfire",
                 new DashboardOptions { Authorization = new[] { new HangfireAuthorizationFilter() } });

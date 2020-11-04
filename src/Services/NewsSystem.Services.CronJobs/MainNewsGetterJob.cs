@@ -25,7 +25,6 @@ namespace NewsSystem.Services.CronJobs
 
         public async Task Work()
         {
-            var updated = 0;
             string errors = null;
             foreach (var source in this.mainNewsSourcesRepository.All().ToList())
             {
@@ -35,7 +34,7 @@ namespace NewsSystem.Services.CronJobs
                         .FirstOrDefault();
                 var instance = ReflectionHelpers.GetInstance<BaseMainNewsProvider>(source.TypeName);
 
-                RemoteMainNews news = null;
+                RemoteMainNews news;
                 try
                 {
                     news = instance.GetMainNews();
@@ -43,6 +42,7 @@ namespace NewsSystem.Services.CronJobs
                 catch (Exception e)
                 {
                     errors += $"Error in {source.TypeName}: {e.Message}; ";
+                    continue;
                 }
 
                 if (news == null)
@@ -57,7 +57,6 @@ namespace NewsSystem.Services.CronJobs
                     continue;
                 }
 
-                updated++;
                 await this.mainNewsRepository.AddAsync(
                     new MainNews
                     {
@@ -68,9 +67,11 @@ namespace NewsSystem.Services.CronJobs
                     });
             }
 
-            Console.WriteLine(updated);
-            Console.WriteLine(errors);
             await this.mainNewsRepository.SaveChangesAsync();
+            if (!string.IsNullOrWhiteSpace(errors))
+            {
+                throw new Exception(errors);
+            }
         }
     }
 }
