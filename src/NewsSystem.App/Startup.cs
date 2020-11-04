@@ -210,7 +210,7 @@
             }
         }
 
-        public class HangfireAuthorizationFilter : IDashboardAuthorizationFilter
+        private class HangfireAuthorizationFilter : IDashboardAuthorizationFilter
         {
             public bool Authorize(DashboardContext context)
             {

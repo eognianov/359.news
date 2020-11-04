@@ -1,4 +1,6 @@
-﻿using NewsSystem.Common;
+﻿using Hangfire;
+
+using NewsSystem.Common;
 using NewsSystem.Data.Common.Repositories;
 using NewsSystem.Data.Models;
 using NewsSystem.Services.Data;
@@ -24,6 +26,7 @@ namespace NewsSystem.Services.CronJobs
             this.newsService = newsService;
         }
 
+        [AutomaticRetry(Attempts = 3)]
         public async Task Work(string typeName)
         {
             var source = this.sourcesRepository.AllWithDeleted().FirstOrDefault(x => x.TypeName == typeName);
